@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
-const logger = require('./middleware/logger');
 const aRouter = require('./routes/a.router');
+var { logger, expressLogger } = require('./middleware/logger');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -11,7 +11,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 // Middleware
-app.use(logger);
+app.use(expressLogger);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -24,5 +24,5 @@ app.use((req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+    logger.debug(`Server running on http://localhost:${PORT}`);
 });
