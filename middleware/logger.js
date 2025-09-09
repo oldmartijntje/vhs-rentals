@@ -1,24 +1,63 @@
+
 import winston from 'winston';
 import fs from 'fs';
 import path from 'path';
+
+// Read settings.json directly to avoid circular dependency
+let settings = { logToFile: false };
+try {
+    settings = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'settings.json'), 'utf8'));
+} catch (e) { }
 
 const { combine, timestamp, printf, colorize, align } = winston.format;
 
 const LOG_ROOT = path.join(process.cwd(), 'logging');
 
 
+// Helper to get the current log file path for file transport
+function getCurrentLogFileTransport() {
+    const logFile = getLogFilePath();
+    // No colorize for file logs
+    return new winston.transports.File({
+        filename: logFile,
+        level: process.env.LOG_LEVEL || "debug",
+        format: combine(
+            timestamp(),
+            align(),
+            printf((info) => `${info.timestamp} | ${info.level.toLowerCase()}: ${info.message}`)
+        )
+    });
+}
+
+// Create logger with both console and file transports
+const transports = [
+    new winston.transports.Console({
+        format: combine(
+            colorize({ all: true }),
+            timestamp(),
+            align(),
+            printf((info) => `${info.timestamp} | ${info.level}: ${info.message}`)
+        )
+    })
+];
+if (settings && settings.logToFile) {
+    transports.push(getCurrentLogFileTransport());
+}
+
 const logger = winston.createLogger({
     level: process.env.LOG_LEVEL || "debug",
-    format: combine(
-        colorize({ all: true }),
-        timestamp({
-            format: "YYYY-MM-DD hh:mm:ss A"
-        }),
-        align(),
-        printf((info) => `[${info.timestamp}] ${info.level}: ${info.message}`)
-    ),
-    transports: [new winston.transports.Console()]
+    transports
 });
+
+// Update file transport to new file each day
+function updateFileTransportIfNeeded() {
+    const logFile = getLogFilePath();
+    const fileTransport = logger.transports.find(t => t instanceof winston.transports.File);
+    if (fileTransport && fileTransport.filename !== logFile) {
+        logger.remove(fileTransport);
+        logger.add(getCurrentLogFileTransport());
+    }
+}
 
 function pad(n) {
     return n < 10 ? '0' + n : n;
