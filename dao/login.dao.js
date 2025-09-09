@@ -45,7 +45,7 @@ async function checkUser(email, password, query) {
 }
 
 /**
- * A DB method to create an session token, and to delete expired refresh tokens
+ * A DB method to create an session token, and to delete ALL expired refresh tokens
  * @param {*} userId 
  * @param {*} expirationMinutes 
  * @returns `{ sessionToken: null, refreshToken: null }`
@@ -56,8 +56,8 @@ export async function createSession(userId, expirationMinutes) {
     logger.debug(`createSessionAndOverwrite(${userId})`);
     try {
         await pool.query(
-            'DELETE FROM sakila.session_verification WHERE user_id = ? AND timestamp < (NOW() - INTERVAL ? MINUTE)',
-            [userId, expirationMinutes]
+            'DELETE FROM sakila.session_verification WHERE timestamp < (NOW() - INTERVAL ? MINUTE)',
+            [expirationMinutes]
         );
 
         await pool.query(
