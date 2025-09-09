@@ -1,0 +1,67 @@
+{
+	"info": {
+		"_postman_id": "71531e46-109d-4a0f-bab7-f8bdd5fa6385",
+		"name": "Avans 2.1.1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26011015",
+		"_collection_link": "https://oldma5.postman.co/workspace/Avans-2.1.1~7be81209-5547-43e8-af18-529e19847b51/collection/26011015-71531e46-109d-4a0f-bab7-f8bdd5fa6385?action=share&source=collection_link&creator=26011015"
+	},
+	"item": [
+		{
+			"name": "login staff",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"Jon.Stephens@sakilastaff.com\",\n    \"password\": \"12345\",\n    \"role\": \"staff\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/login/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "refresh token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": 3195,\n    \"refreshToken\": \"6a937316646dc097dbe63d99855276f328aab577f6d993604aad1da68aa8aeca68aecd672021414da690222c6aad722c2d97983a9b9c6d0f3b3716de887862b4\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/login/tokenRefresh",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"login",
+						"tokenRefresh"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
