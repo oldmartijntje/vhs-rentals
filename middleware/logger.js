@@ -44,15 +44,30 @@ function logRequest(req) {
     return `${now} | ${req.method} ${req.originalUrl} | IP: ${ip} | Cookies: ${cookies} | Headers: ${headers}\n`;
 }
 
-function requestLogger(req, res, next) {
-    const logLine = logRequest(req);
-    const logFile = getLogFilePath();
-    logger.debug(`${req.method} ${req.url}`);
-    fs.appendFile(logFile, logLine, err => {
-        if (err) {
-            console.error('Failed to write log:', err);
+
+function getSettings() {
+    // Try to get settings from the main server module
+    try {
+        const server = require.main.exports;
+        if (server && server.settings) {
+            return server.settings;
         }
-    });
+    } catch (e) { }
+    return { logToFile: false };
+}
+
+function requestLogger(req, res, next) {
+    const settings = getSettings();
+    if (settings.logToFile) {
+        const logLine = logRequest(req);
+        const logFile = getLogFilePath();
+        fs.appendFile(logFile, logLine, err => {
+            if (err) {
+                console.error('Failed to write log:', err);
+            }
+        });
+    }
+    logger.debug(`${req.method} ${req.url}`);
     next();
 }
 

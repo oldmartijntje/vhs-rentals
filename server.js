@@ -1,6 +1,15 @@
+
 const express = require('express');
 const path = require('path');
+const fs = require('fs');
 const aRouter = require('./routes/a.router');
+
+let settings = { logToFile: false };
+try {
+    settings = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'settings.json'), 'utf8'));
+} catch (e) {
+}
+
 var { logger, requestLogger } = require('./middleware/logger');
 
 const app = express();
@@ -26,3 +35,5 @@ app.use((req, res) => {
 app.listen(PORT, () => {
     logger.debug(`Server running on http://localhost:${PORT}`);
 });
+
+module.exports.settings = settings;
