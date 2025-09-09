@@ -1,4 +1,4 @@
-import { bodyItemMissing, quickResponse } from '../helper/routes.helper.js';
+import { bodyItemMissing, quickResponse } from '../helper/response.helper.js';
 import { loginViaCredentials } from '../services/login.service.js';
 
 const loginRequest = async (req, res) => {
