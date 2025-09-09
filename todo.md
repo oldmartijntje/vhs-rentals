@@ -69,5 +69,7 @@
 
 * [ ] 1. as an user I want to be able to stay logged in so that I don't need so send my login over the internet at every request
 	* [ ] session tokens
+        - a session token should only be usable in combination with an userID or username to avoid random "guessing" of session tokens
 * [ ] 2. as an user I want to bew able to return to the website the next day without having to login again, so that using the website is an easier process for me.
 	* [ ] refresh tokens for refreshing session tokens
+        - a refresh token should only be usable in combination with an username or userID to avoid random "guessing" of refresh tokens
