@@ -1,10 +1,10 @@
-import { checkUser } from "../dao/login.dao.js";
+import { checkCustomer } from "../dao/login.dao.js";
 import { logger } from "../middleware/logger.js";
 
 export async function loginViaCredentials(email, password, role) {
     if (role == "customer") {
         try {
-            let customer_id = await checkUser(email, password);
+            let customer_id = await checkCustomer(email, password);
             if (customer_id != null) {
                 return await generateSessionToken(customer_id);
             }
