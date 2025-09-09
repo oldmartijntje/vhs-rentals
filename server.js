@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const aRouter = require('./routes/a.router');
-var { logger, expressLogger } = require('./middleware/logger');
+var { logger, requestLogger } = require('./middleware/logger');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -11,7 +11,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 // Middleware
-app.use(expressLogger);
+app.use(requestLogger);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
