@@ -1,3 +1,4 @@
 {
-    "logToFile": true
+    "logToFile": true,
+    "maxTokenTime": 1440
 }

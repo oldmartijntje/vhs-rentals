@@ -41,9 +41,29 @@ async function main() {
                 validate: input => !isNaN(parseInt(input, 10)) && parseInt(input, 10) > 0 ? true : 'Please enter a valid port number',
                 default: DEFAULTS.DB_PORT
             },
-            { type: 'confirm', name: 'LOG_TO_FILE', message: 'Save logfiles to disk?', default: DEFAULTS.LOG_TO_FILE }
+            { type: 'confirm', name: 'LOG_TO_FILE', message: 'Save logfiles to disk?', default: DEFAULTS.LOG_TO_FILE },
+            {
+                type: 'list',
+                name: 'MAX_TOKEN_TIME_CHOICE',
+                message: 'SessionToken Expiration time:',
+                choices: [
+                    { name: '1 hour', value: 60 },
+                    { name: '1 day', value: 60 * 24 },
+                    { name: '1 week', value: 60 * 24 * 7 },
+                    { name: 'Custom (input in minutes)', value: 'custom' }
+                ],
+                default: 0
+            },
+            {
+                type: 'input',
+                name: 'MAX_TOKEN_TIME',
+                message: 'Enter custom expiration time in minutes:',
+                when: (answers) => answers.MAX_TOKEN_TIME_CHOICE === 'custom',
+                validate: input => !isNaN(parseInt(input, 10)) && parseInt(input, 10) > 0 ? true : 'Please enter a valid number of minutes',
+            }
         ]);
         const finalPort = answers.DB_PORT_CHOICE === 'custom' ? answers.DB_PORT : answers.DB_PORT_CHOICE;
+        const finalTokenTime = answers.MAX_TOKEN_TIME_CHOICE === 'custom' ? parseInt(answers.MAX_TOKEN_TIME, 10) : answers.MAX_TOKEN_TIME_CHOICE;
 
         // Write .env
         const envContent = `DB_HOST=${answers.DB_HOST}\nDB_USER=${answers.DB_USER}\nDB_PASSWORD=${answers.DB_PASSWORD}\nDB_DATABASE=${answers.DB_DATABASE}\nDB_PORT=${finalPort}\n`;
@@ -51,9 +71,12 @@ async function main() {
         console.log('.env file created');
 
         // Write settings.json
-        const settings = { logToFile: answers.LOG_TO_FILE };
+        const settings = { logToFile: answers.LOG_TO_FILE, maxTokenTime: finalTokenTime };
         fs.writeFileSync(path.resolve(process.cwd(), 'settings.json'), JSON.stringify(settings, null, 2));
         console.log('settings.json file created');
+        if (answers.MAX_TOKEN_TIME_CHOICE === 'custom') {
+            console.log('Custom expiration time set. Please input the value in minutes.');
+        }
     } catch (err) {
         console.error('Error during setup:', err);
         process.exit(1);
