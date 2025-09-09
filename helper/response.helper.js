@@ -1,18 +1,41 @@
 import { logger } from "../middleware/logger.js";
 
+/**
+ * Send a response to a client, and also log that response with the logger.
+ * @param {*} res 
+ * @param {*} code 
+ * @param {*} message 
+ */
 export function quickResponse(res, code, message) {
     logger.debug(`Responding ${code} to client with message: "${message}"`)
     res.status(code).send(message);
 }
 
+/**
+ * A method to easily send an 400 response
+ * @param {*} res 
+ * @param {*} bodyItem 
+ */
 export function bodyItemMissingResponse(res, bodyItem) {
     quickResponse(res, 400, `Missing required field on body: '${bodyItem}'`);
 }
 
+/**
+ * A method to easily send an 200 response
+ * @param {*} res 
+ * @param {*} bodyItem 
+ */
 export function okResponse(res, bodyItem) {
     quickResponse(res, 200, bodyItem);
 }
 
+/**
+ * A method to easily send an 500 response in case of a top level try-catch escape.
+ * 
+ * It will not send the actual error message to the client, that will be silently logged.
+ * @param {*} res 
+ * @param {*} error 
+ */
 export function tryCatchResponse(res, error) {
     logger.error(`Uncaught Excepion: "${error}"`)
     quickResponse(res, 500, "._.");

@@ -3,14 +3,32 @@ import pool from '../database/pool.js';
 import bcrypt from 'bcrypt';
 import { logger } from '../middleware/logger.js';
 
+/**
+ * DB query for checking the email + password login of a customer
+ * @param {*} email 
+ * @param {*} password 
+ * @returns `null | user_id`
+ */
 export async function checkCustomer(email, password) {
     return checkUser(email, password, 'SELECT user_id, password FROM customer WHERE email = ?');
 };
 
+/**
+ * DB query for checking the email + password login of a staff member
+ * @param {*} email 
+ * @param {*} password 
+ * @returns `null | user_id`
+ */
 export async function checkStaff(email, password) {
     return checkUser(email, password, 'SELECT user_id, password FROM staff WHERE email = ?');
 };
 
+/**
+ * DB query for checking the email + password login of an user
+ * @param {*} email 
+ * @param {*} password 
+ * @returns `null | user_id`
+ */
 async function checkUser(email, password, query) {
     try {
         const [results] = await pool.query(query, [email]);
@@ -26,8 +44,13 @@ async function checkUser(email, password, query) {
     }
 }
 
-
-export async function createSessionAndOverwrite(userId, expirationMinutes) {
+/**
+ * A DB method to create an session token, and to delete expired refresh tokens
+ * @param {*} userId 
+ * @param {*} expirationMinutes 
+ * @returns `{ sessionToken: null, refreshToken: null }`
+ */
+export async function createSession(userId, expirationMinutes) {
     const sessionToken = crypto.randomBytes(32).toString('hex');
     const refreshToken = crypto.randomBytes(64).toString('hex');
     logger.debug(`createSessionAndOverwrite(${userId})`);
@@ -50,6 +73,11 @@ export async function createSessionAndOverwrite(userId, expirationMinutes) {
     }
 }
 
+/**
+ * DB query method to Delete an refresh token
+ * @param {*} refreshToken 
+ * @returns 
+ */
 export async function deleteRefreshToken(refreshToken) {
     await pool.query(
         'DELETE FROM sakila.session_verification WHERE refresh_token = ?',
@@ -58,6 +86,13 @@ export async function deleteRefreshToken(refreshToken) {
     return;
 }
 
+/**
+ * DB query method to vrify a refresh token
+ * @param {*} userId 
+ * @param {*} refreshToken 
+ * @param {*} expirationMinutes 
+ * @returns `boolean`
+ */
 export async function verifyRefreshToken(userId, refreshToken, expirationMinutes) {
     const [rows] = await pool.query(
         `SELECT timestamp FROM sakila.session_verification WHERE refresh_token = ? AND user_id = ?`,

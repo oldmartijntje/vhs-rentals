@@ -1,6 +1,12 @@
 import { bodyItemMissingResponse, quickResponse, okResponse, tryCatchResponse } from '../helper/response.helper.js';
 import { loginViaCredentials, refreshSessionToken } from '../services/login.service.js';
 
+/**
+ * The code that happens when you request /login
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
 export async function loginRequest(req, res) {
     try {
         const { email, password, role } = req.body;
@@ -20,6 +26,12 @@ export async function loginRequest(req, res) {
     }
 }
 
+/**
+ * The code that happens when you request /login/tokenRefresh
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
 export async function tokenRefreshRequest(req, res) {
     try {
         const { userId, refreshToken } = req.body;
