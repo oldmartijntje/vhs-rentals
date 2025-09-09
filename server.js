@@ -2,7 +2,8 @@
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
-const aRouter = require('./routes/a.router');
+const loginRouter = require('./routes/login.routes');
+var { logger, requestLogger } = require('./middleware/logger');
 
 let settings = { logToFile: false };
 try {
@@ -10,7 +11,6 @@ try {
 } catch (e) {
 }
 
-var { logger, requestLogger } = require('./middleware/logger');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -25,7 +25,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Routes
-app.use('/', aRouter);
+app.use('/api/login', loginRouter);
 
 // 404 handler
 app.use((req, res) => {
