@@ -1,7 +1,7 @@
 import { bodyItemMissing, quickResponse } from '../helper/response.helper.js';
 import { loginViaCredentials } from '../services/login.service.js';
 
-const loginRequest = async (req, res) => {
+export async function loginRequest(req, res) {
     try {
         console.log(req.body);
 
@@ -22,6 +22,3 @@ const loginRequest = async (req, res) => {
         return;
     }
 }
-
-
-export { loginRequest };
