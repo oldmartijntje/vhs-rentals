@@ -3,9 +3,17 @@ import pool from '../database/pool.js';
 import bcrypt from 'bcrypt';
 import { logger } from '../middleware/logger.js';
 
-export const checkCustomer = async (email, password) => {
+export async function checkCustomer(email, password) {
+    return checkUser(email, password, 'SELECT user_id, password FROM customer WHERE email = ?');
+};
+
+export async function checkStaff(email, password) {
+    return checkUser(email, password, 'SELECT user_id, password FROM staff WHERE email = ?');
+};
+
+async function checkUser(email, password, query) {
     try {
-        const [results] = await pool.query('SELECT user_id, password FROM customer WHERE email = ?', [email]);
+        const [results] = await pool.query(query, [email]);
         if (!results[0]) {
             return null;
         }
@@ -13,9 +21,10 @@ export const checkCustomer = async (email, password) => {
         const isValid = await bcrypt.compare(password, hash);
         return isValid ? user_id : null;
     } catch (err) {
-        throw err;
+        logger.error(`error at 'checkUser' method: ${err}`)
+        return null;
     }
-};
+}
 
 
 export async function createSessionAndOverwrite(userId, expirationMinutes) {
