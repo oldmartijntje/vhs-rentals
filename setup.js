@@ -71,7 +71,7 @@ async function main() {
         console.log('.env file created');
 
         // Write settings.json
-        const settings = { logToFile: answers.LOG_TO_FILE, maxTokenTime: finalTokenTime };
+        const settings = { logToFile: answers.LOG_TO_FILE, maxTokenTime: finalTokenTime, maxRefreshTokenTime: finalTokenTime * 2 };
         fs.writeFileSync(path.resolve(process.cwd(), 'settings.json'), JSON.stringify(settings, null, 2));
         console.log('settings.json file created');
         if (answers.MAX_TOKEN_TIME_CHOICE === 'custom') {

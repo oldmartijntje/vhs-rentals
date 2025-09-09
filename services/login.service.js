@@ -26,7 +26,7 @@ export async function loginViaCredentials(email, password, role) {
 }
 
 async function generateSessionToken(customer_id) {
-    const { sessionToken, refreshToken } = await createSessionAndOverwrite(customer_id);
+    const { sessionToken, refreshToken } = await createSessionAndOverwrite(customer_id, settings.maxRefreshTokenTime);
     if (sessionToken == null || refreshToken == null) {
         return null;
     }

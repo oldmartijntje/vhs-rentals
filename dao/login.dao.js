@@ -18,25 +18,28 @@ export const checkCustomer = async (email, password) => {
 };
 
 
-export async function createSessionAndOverwrite(userId) {
+export async function createSessionAndOverwrite(userId, expirationMinutes) {
     const sessionToken = crypto.randomBytes(32).toString('hex');
     const refreshToken = crypto.randomBytes(64).toString('hex');
-    logger.debug(`createSessionAndOverwrite(${userId})`)
+    logger.debug(`createSessionAndOverwrite(${userId})`);
     try {
-        // Delete old sessions
+        // Delete only expired sessions
         await pool.query(
-            'DELETE FROM sakila.session_verification WHERE user_id = ?',
-            [userId]
+            'DELETE FROM sakila.session_verification WHERE user_id = ? AND timestamp < (NOW() - INTERVAL ? MINUTE)',
+            [userId, expirationMinutes]
         );
 
+        // Insert the new session
         await pool.query(
             `INSERT INTO sakila.session_verification (session_token, refresh_token, user_id, timestamp)
-       VALUES (?, ?, ?, NOW())`,
+             VALUES (?, ?, ?, NOW())`,
             [sessionToken, refreshToken, userId]
         );
+
         return { sessionToken, refreshToken };
     } catch (err) {
         console.error('Error creating session:', err);
         return { sessionToken: null, refreshToken: null };
     }
 }
+
