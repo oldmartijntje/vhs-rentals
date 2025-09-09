@@ -1,6 +1,6 @@
-const pool = require('../database/pool');
+import pool from '../database/pool.js';
 
-exports.fetchA = () => {
+export const fetchA = () => {
     return new Promise((resolve, reject) => {
         pool.query('SELECT title FROM film LIMIT 1', (err, results) => {
             if (err) return reject(err);
@@ -9,7 +9,7 @@ exports.fetchA = () => {
     });
 };
 
-exports.fetchB = () => {
+export const fetchB = () => {
     return new Promise((resolve, reject) => {
         pool.query("SELECT CONCAT(first_name, ' ', last_name) AS name FROM actor LIMIT 1", (err, results) => {
             if (err) return reject(err);

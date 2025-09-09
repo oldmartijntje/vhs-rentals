@@ -1,9 +1,9 @@
 
 
 
-const fs = require('fs');
-const path = require('path');
-const inquirer = require('inquirer');
+import fs from 'fs';
+import path from 'path';
+import inquirer from 'inquirer';
 const prompt = (inquirer.prompt ? inquirer.prompt : inquirer.default.prompt);
 
 const DEFAULTS = {

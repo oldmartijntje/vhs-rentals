@@ -1,8 +1,9 @@
-const loginViaCredentials = async (email, password, onError, onLogin) => {
+
+export const loginViaCredentials = async (email, password, onError, onLogin) => {
 
 }
 
-const refreshSessionToken = async () => {
+export const refreshSessionToken = async () => {
 
 }
 

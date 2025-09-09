@@ -1,6 +1,6 @@
-var winston = require('winston');
-const fs = require('fs');
-const path = require('path');
+import winston from 'winston';
+import fs from 'fs';
+import path from 'path';
 
 const { combine, timestamp, printf, colorize, align } = winston.format;
 
@@ -45,19 +45,20 @@ function logRequest(req) {
 }
 
 
-function getSettings() {
-    // Try to get settings from the main server module
+// Async function to get settings from server.js
+async function getSettings() {
     try {
-        const server = require.main.exports;
-        if (server && server.settings) {
-            return server.settings;
+        const { settings } = await import('../server.js');
+        if (settings) {
+            return settings;
         }
     } catch (e) { }
     return { logToFile: false };
 }
 
-function requestLogger(req, res, next) {
-    const settings = getSettings();
+
+async function requestLogger(req, res, next) {
+    const settings = await getSettings();
     if (settings.logToFile) {
         const logLine = logRequest(req);
         const logFile = getLogFilePath();
@@ -72,7 +73,4 @@ function requestLogger(req, res, next) {
 }
 
 
-module.exports = {
-    logger: logger,
-    requestLogger: requestLogger
-};
+export { logger, requestLogger };

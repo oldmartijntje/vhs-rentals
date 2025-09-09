@@ -1,6 +1,6 @@
-const aService = require('../services/a.service');
+import * as aService from '../services/a.service.js';
 
-exports.getA = async (req, res) => {
+export const getA = async (req, res) => {
     try {
         const data = await aService.getAData();
         res.render('a', { data });
@@ -9,7 +9,7 @@ exports.getA = async (req, res) => {
     }
 };
 
-exports.getB = async (req, res) => {
+export const getB = async (req, res) => {
     try {
         const data = await aService.getBData();
         res.render('b', { data });

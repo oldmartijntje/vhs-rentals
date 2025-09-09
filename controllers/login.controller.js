@@ -1,4 +1,4 @@
-const { bodyItemMissing } = require('../helper/routes.helper')
+import { bodyItemMissing } from '../helper/routes.helper.js';
 
 const loginRequest = async (req, res) => {
     try {
@@ -20,6 +20,4 @@ const loginRequest = async (req, res) => {
 }
 
 
-module.exports = {
-    loginRequest
-}
+export { loginRequest };

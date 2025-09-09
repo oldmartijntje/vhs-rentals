@@ -1,11 +1,11 @@
-const aDao = require('../dao/a.dao');
+import * as aDao from '../dao/a.dao.js';
 
-exports.getAData = async () => {
+export const getAData = async () => {
     // Business logic could go here
     return await aDao.fetchA();
 };
 
-exports.getBData = async () => {
+export const getBData = async () => {
     // Business logic could go here
     return await aDao.fetchB();
 };

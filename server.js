@@ -1,15 +1,14 @@
 
-const express = require('express');
-const path = require('path');
-const fs = require('fs');
-const loginRouter = require('./routes/login.routes');
-var { logger, requestLogger } = require('./middleware/logger');
+import express from 'express';
+import path from 'path';
+import fs from 'fs';
+import loginRouter from './routes/login.routes.js';
+import { logger, requestLogger } from './middleware/logger.js';
 
 let settings = { logToFile: false };
 try {
     settings = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'settings.json'), 'utf8'));
-} catch (e) {
-}
+} catch (e) { }
 
 
 const app = express();
@@ -17,7 +16,7 @@ const PORT = process.env.PORT || 3000;
 
 // Set EJS as templating engine
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(process.cwd(), 'views'));
 
 // Middleware
 app.use(requestLogger);
@@ -36,4 +35,4 @@ app.listen(PORT, () => {
     logger.debug(`Server running on http://localhost:${PORT}`);
 });
 
-module.exports.settings = settings;
+export { settings };
