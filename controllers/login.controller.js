@@ -1,4 +1,5 @@
-import { bodyItemMissing } from '../helper/routes.helper.js';
+import { bodyItemMissing, quickExit } from '../helper/routes.helper.js';
+import { loginViaCredentials } from '../services/login.service.js';
 
 const loginRequest = async (req, res) => {
     try {
@@ -9,7 +10,8 @@ const loginRequest = async (req, res) => {
         if (!email) return bodyItemMissing(res, "email");
         if (!password) return bodyItemMissing(res, "password");
         if (!role) return bodyItemMissing(res, "role");
-        // const responseObject = await loginViaCredentials()
+        if (role != "customer" && role != "staff") return quickExit(res, 400, "invalid \"role\"");
+        const responseObject = await loginViaCredentials(email, password, role)
 
         res.status(200).send("Login successful"); // Placeholder response
 
