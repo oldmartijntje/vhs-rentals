@@ -34,7 +34,7 @@ async function generateSessionToken(customer_id) {
         sessionToken,
         refreshToken,
         message: "success",
-        expiration: settings.maxTokenTime
+        expirationMinutes: settings.maxTokenTime
     }
 }
 

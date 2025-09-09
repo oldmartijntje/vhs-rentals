@@ -14,7 +14,8 @@ const loginRequest = async (req, res) => {
         const responseObject = await loginViaCredentials(email, password, role);
         if (responseObject == null) return quickResponse(res, 400, "invalid \"email\" and \"password\" combination");
 
-        res.status(200).send("Login successful"); // Placeholder response
+
+        res.status(200).send(responseObject); // Placeholder response
 
     } catch (e) {
         res.status(500).send("uncaught excepion: " + e);
