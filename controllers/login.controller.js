@@ -1,24 +1,39 @@
-import { bodyItemMissing, quickResponse } from '../helper/response.helper.js';
-import { loginViaCredentials } from '../services/login.service.js';
+import { bodyItemMissingResponse, quickResponse, okResponse, tryCatchResponse } from '../helper/response.helper.js';
+import { loginViaCredentials, refreshSessionToken } from '../services/login.service.js';
 
 export async function loginRequest(req, res) {
     try {
-        console.log(req.body);
-
         const { email, password, role } = req.body;
 
-        if (!email) return bodyItemMissing(res, "email");
-        if (!password) return bodyItemMissing(res, "password");
-        if (!role) return bodyItemMissing(res, "role");
+        if (!email) return bodyItemMissingResponse(res, "email");
+        if (!password) return bodyItemMissingResponse(res, "password");
+        if (!role) return bodyItemMissingResponse(res, "role");
         if (role != "customer" && role != "staff") return quickResponse(res, 400, "invalid \"role\"");
         const responseObject = await loginViaCredentials(email, password, role);
         if (responseObject == null) return quickResponse(res, 400, "invalid \"email\" and \"password\" combination");
 
-
-        res.status(200).send(responseObject); // Placeholder response
+        okResponse(res, responseObject);
 
     } catch (e) {
-        res.status(500).send("uncaught excepion: " + e);
+        tryCatchResponse(res, e);
+        return;
+    }
+}
+
+export async function tokenRefreshRequest(req, res) {
+    try {
+        const { userId, refreshToken } = req.body;
+
+        if (!userId) return bodyItemMissingResponse(res, "userId");
+        if (!refreshToken) return bodyItemMissingResponse(res, "refreshToken");
+        const responseObject = await refreshSessionToken(userId, refreshToken);
+        if (responseObject == null) return quickResponse(res, 400, "invalid \"userId\" and \"refreshToken\" combination, has your refreshToken expired?");
+
+        okResponse(res, responseObject);
+
+    } catch (e) {
+        tryCatchResponse(res, e);
+        tryCatchResponse
         return;
     }
 }

@@ -32,13 +32,11 @@ export async function createSessionAndOverwrite(userId, expirationMinutes) {
     const refreshToken = crypto.randomBytes(64).toString('hex');
     logger.debug(`createSessionAndOverwrite(${userId})`);
     try {
-        // Delete only expired sessions
         await pool.query(
             'DELETE FROM sakila.session_verification WHERE user_id = ? AND timestamp < (NOW() - INTERVAL ? MINUTE)',
             [userId, expirationMinutes]
         );
 
-        // Insert the new session
         await pool.query(
             `INSERT INTO sakila.session_verification (session_token, refresh_token, user_id, timestamp)
              VALUES (?, ?, ?, NOW())`,
@@ -50,5 +48,31 @@ export async function createSessionAndOverwrite(userId, expirationMinutes) {
         console.error('Error creating session:', err);
         return { sessionToken: null, refreshToken: null };
     }
+}
+
+export async function deleteRefreshToken(refreshToken) {
+    await pool.query(
+        'DELETE FROM sakila.session_verification WHERE refresh_token = ?',
+        [refreshToken]
+    );
+    return;
+}
+
+export async function verifyRefreshToken(userId, refreshToken, expirationMinutes) {
+    const [rows] = await pool.query(
+        `SELECT timestamp FROM sakila.session_verification WHERE refresh_token = ? AND user_id = ?`,
+        [refreshToken, userId]
+    );
+    if (rows.length === 0) {
+        return false;
+    }
+    const { timestamp } = rows[0];
+    const now = new Date();
+    const tokenTime = new Date(timestamp);
+
+    const diffMinutes = (now - tokenTime) / (1000 * 60);
+
+    // Return true if token is still valid
+    return diffMinutes <= expirationMinutes;
 }
 

@@ -1,4 +1,7 @@
-import { checkCustomer, checkStaff, createSessionAndOverwrite } from "../dao/login.dao.js";
+import {
+    checkCustomer, checkStaff, createSessionAndOverwrite,
+    verifyRefreshToken, deleteRefreshToken
+} from "../dao/login.dao.js";
 import { logger } from "../middleware/logger.js";
 import { settings } from "../server.js"
 
@@ -40,7 +43,12 @@ async function generateSessionToken(customer_id) {
     }
 }
 
-export async function refreshSessionToken() {
-
+export async function refreshSessionToken(userId, refreshToken) {
+    const isValid = await verifyRefreshToken(userId, refreshToken, settings.maxRefreshTokenTime);
+    await deleteRefreshToken(refreshToken);
+    if (isValid) {
+        return generateSessionToken(userId);
+    }
+    return null;
 }
 
