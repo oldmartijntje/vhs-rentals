@@ -1,0 +1,153 @@
+<div class="container py-5">
+    <h1 class="mb-4 text-center">Over deze webapplicatie</h1>
+    <div class="row justify-content-center mb-5">
+        <div class="col-md-8">
+            <div class="card shadow-lg">
+                <div class="card-body">
+                    <h2 class="card-title">User Stories & Acceptatiecriteria</h2>
+                    <p class="card-text">Hieronder vind je de belangrijkste epics en user stories voor dit project.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="accordion mb-5" id="epicsAccordion">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                    aria-expanded="true" aria-controls="collapseOne">
+                    Epic: Verhuren & Retourneren
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                data-bs-parent="#epicsAccordion">
+                <div class="accordion-body">
+                    <strong>Voor klanten</strong>
+                    <ul>
+                        <li>Als klant wil ik een film kunnen huren zodat ik deze kan bekijken.</li>
+                        <li>Als klant wil ik een gehuurde film kunnen retourneren zodat ik niet eindeloos betaal.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    Epic: Filmaanbod beheren
+                </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                data-bs-parent="#epicsAccordion">
+                <div class="accordion-body">
+                    <strong>Voor medewerkers</strong>
+                    <ul>
+                        <li>Inzien van alle films in de winkel.</li>
+                        <li>Toevoegen van nieuwe films aan de collectie.</li>
+                        <li>Bewerken van bestaande films.</li>
+                        <li>Verwijderen van films uit de collectie.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    Epic: Bibliotheek doorzoeken
+                </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                data-bs-parent="#epicsAccordion">
+                <div class="accordion-body">
+                    <strong>Voor klanten & medewerkers</strong>
+                    <ul>
+                        <li>Bladeren door de volledige filmcollectie.</li>
+                        <li>Filteren op auteur, naam, beschrijving, taal, winkel, voorraad.</li>
+                        <li>Medewerkers kunnen zien welke films uitgeleend zijn.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingFour">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                    Epic: Verhuurgeschiedenis (klant)
+                </button>
+            </h2>
+            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
+                data-bs-parent="#epicsAccordion">
+                <div class="accordion-body">
+                    <strong>Voor klanten</strong>
+                    <ul>
+                        <li>Inzien van eigen verhuurgeschiedenis.</li>
+                        <li>Transactiegeschiedenis exporteren naar PDF.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingFive">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                    Epic: Verhuurgeschiedenis (medewerkers)
+                </button>
+            </h2>
+            <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive"
+                data-bs-parent="#epicsAccordion">
+                <div class="accordion-body">
+                    <strong>Voor medewerkers</strong>
+                    <ul>
+                        <li>Inzien van specifieke exemplaren van films.</li>
+                        <li>Inzien van verhuurgeschiedenis per exemplaar.</li>
+                        <li>Inzien van alle verhuurrecords van een klant.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingSix">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                    Epic: Login & Sessies
+                </button>
+            </h2>
+            <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix"
+                data-bs-parent="#epicsAccordion">
+                <div class="accordion-body">
+                    <strong>Voor alle gebruikers</strong>
+                    <ul>
+                        <li>Inloggen als gebruiker of medewerker.</li>
+                        <li>2FA verplicht kunnen stellen voor medewerkers (TOTP).</li>
+                        <li>Ingelogd blijven met sessie- en refresh tokens.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-8">
+            <div class="card bg-secondary text-white shadow">
+                <div class="card-body">
+                    <h5 class="card-title">Randvoorwaarden & Architectuur</h5>
+                    <ul>
+                        <li>Callbackfuncties (geen async/await of Promises)</li>
+                        <li>DRY, view/controller/service/DAO lagen</li>
+                        <li>Logging met Winston</li>
+                        <li>Gebruik van Nodemon</li>
+                    </ul>
+                    <a href="https://brightspace.avans.nl/d2l/le/lessons/251408/topics/1770191"
+                        class="btn btn-outline-light btn-sm" target="_blank">Randvoorwaarden</a>
+                    <a href="https://brightspace.avans.nl/d2l/le/lessons/251408/topics/1773535"
+                        class="btn btn-outline-light btn-sm" target="_blank">Architectuur</a>
+                    <a href="https://brightspace.avans.nl/d2l/le/lessons/251408/topics/1731970"
+                        class="btn btn-outline-light btn-sm" target="_blank">Non-functionals</a>
+                    <a href="https://brightspace.avans.nl/d2l/le/lessons/251408/topics/1758763"
+                        class="btn btn-outline-light btn-sm" target="_blank">Functionals</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

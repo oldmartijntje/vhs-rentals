@@ -7,3 +7,6 @@ viewRouter.get('/', (req, res) => {
 viewRouter.get('/login', (req, res) => {
     res.render('login', { title: 'Login' });
 });
+viewRouter.get('/About', (req, res) => {
+    res.render('about', { title: 'About' });
+});
