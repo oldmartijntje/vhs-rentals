@@ -1,6 +1,6 @@
 {{#if (eq peagtype "customer")}}
 <section class="customer-login-container">
-    <form method="POST" action="/login" class="customer-login-form">
+    <form class="customer-login-form">
         <h2 class="customer-login-title">Customer Login</h2>
         {{#if error}}
         <div class="error-message">{{error}}</div>
@@ -25,7 +25,7 @@
 
 {{#if (eq peagtype "staff")}}
 <section class="staff-login-container">
-    <form method="POST" action="/login" class="staff-login-form">
+    <form class="staff-login-form">
         <h2 class="staff-login-title">Staff Login</h2>
         {{#if error}}
         <div class="error-message">{{error}}</div>
