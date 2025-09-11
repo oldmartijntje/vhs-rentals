@@ -1,11 +1,21 @@
 import * as aDao from '../dao/a.dao.js';
 
-export const getAData = async () => {
-    // Business logic could go here
-    return await aDao.fetchA();
-};
+/**
+ * Service to get A data
+ * @param {function} callback (err, data) => void
+ */
+aDao.fetchA((err, data) => {
+    if (err) return callback(err);
+    callback(null, data);
+});
 
-export const getBData = async () => {
-    // Business logic could go here
-    return await aDao.fetchB();
-};
+
+/**
+ * Service to get B data
+ * @param {function} callback (err, data) => void
+ */
+aDao.fetchB((err, data) => {
+    if (err) return callback(err);
+    callback(null, data);
+});
+

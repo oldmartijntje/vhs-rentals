@@ -7,7 +7,7 @@ import { loginViaCredentials, refreshSessionToken } from '../services/login.serv
  * @param {*} res 
  * @returns 
  */
-export async function loginRequest(req, res) {
+export function loginRequest(req, res) {
     try {
         const { email, password, role } = req.body;
 
@@ -15,11 +15,11 @@ export async function loginRequest(req, res) {
         if (!password) return bodyItemMissingResponse(res, "password");
         if (!role) return bodyItemMissingResponse(res, "role");
         if (role != "customer" && role != "staff") return quickResponse(res, 400, "invalid \"role\"");
-        const responseObject = await loginViaCredentials(email, password, role);
-        if (responseObject == null) return quickResponse(res, 400, "invalid \"email\" and \"password\" combination");
 
-        okResponse(res, responseObject);
-
+        loginViaCredentials(email, password, role, (responseObject) => {
+            if (responseObject == null) return quickResponse(res, 400, "invalid \"email\" and \"password\" combination");
+            okResponse(res, responseObject);
+        });
     } catch (e) {
         tryCatchResponse(res, e);
         return;
@@ -32,20 +32,19 @@ export async function loginRequest(req, res) {
  * @param {*} res 
  * @returns 
  */
-export async function tokenRefreshRequest(req, res) {
+export function tokenRefreshRequest(req, res) {
     try {
         const { userId, refreshToken } = req.body;
 
         if (!userId) return bodyItemMissingResponse(res, "userId");
         if (!refreshToken) return bodyItemMissingResponse(res, "refreshToken");
-        const responseObject = await refreshSessionToken(userId, refreshToken);
-        if (responseObject == null) return quickResponse(res, 400, "invalid \"userId\" and \"refreshToken\" combination, has your refreshToken expired?");
 
-        okResponse(res, responseObject);
-
+        refreshSessionToken(userId, refreshToken, (responseObject) => {
+            if (responseObject == null) return quickResponse(res, 400, "invalid \"userId\" and \"refreshToken\" combination, has your refreshToken expired?");
+            okResponse(res, responseObject);
+        });
     } catch (e) {
         tryCatchResponse(res, e);
-        tryCatchResponse
         return;
     }
 }

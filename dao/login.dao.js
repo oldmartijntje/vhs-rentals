@@ -7,107 +7,119 @@ import { logger } from '../middleware/logger.js';
  * DB query for checking the email + password login of a customer
  * @param {*} email 
  * @param {*} password 
- * @returns `null | user_id`
+ * @param {function} callback (user_id|null) => void
  */
-export async function checkCustomer(email, password) {
-    return checkUser(email, password, 'SELECT user_id, password FROM customer WHERE email = ?');
-};
+export function checkCustomer(email, password, callback) {
+    checkUser(email, password, 'SELECT user_id, password FROM customer WHERE email = ?', callback);
+}
 
 /**
  * DB query for checking the email + password login of a staff member
  * @param {*} email 
  * @param {*} password 
- * @returns `null | user_id`
+ * @param {function} callback (user_id|null) => void
  */
-export async function checkStaff(email, password) {
-    return checkUser(email, password, 'SELECT user_id, password FROM staff WHERE email = ?');
-};
-
-/**
- * DB query for checking the email + password login of an user
- * @param {*} email 
- * @param {*} password 
- * @returns `null | user_id`
- */
-async function checkUser(email, password, query) {
-    try {
-        const [results] = await pool.query(query, [email]);
-        if (!results[0]) {
-            return null;
-        }
-        const { user_id, password: hash } = results[0];
-        const isValid = await bcrypt.compare(password, hash);
-        return isValid ? user_id : null;
-    } catch (err) {
-        logger.error(`error at 'checkUser' method: ${err}`)
-        return null;
-    }
+export function checkStaff(email, password, callback) {
+    checkUser(email, password, 'SELECT user_id, password FROM staff WHERE email = ?', callback);
 }
 
 /**
- * A DB method to create an session token, and to delete ALL expired refresh tokens
+ * DB query for checking the email + password login of a user
+ * @param {*} email 
+ * @param {*} password 
+ * @param {*} query 
+ * @param {function} callback (user_id|null) => void
+ */
+function checkUser(email, password, query, callback) {
+    pool.query(query, [email], (err, results) => {
+        if (err) {
+            logger.error(`error at 'checkUser' method: ${err}`);
+            return callback(null);
+        }
+        if (!results[0]) {
+            return callback(null);
+        }
+        const { user_id, password: hash } = results[0];
+        bcrypt.compare(password, hash, (err, isValid) => {
+            if (err) {
+                logger.error(`bcrypt error: ${err}`);
+                return callback(null);
+            }
+            return callback(isValid ? user_id : null);
+        });
+    });
+}
+
+/**
+ * A DB method to create a session token, and to delete ALL expired refresh tokens
  * @param {*} userId 
  * @param {*} expirationMinutes 
- * @returns `{ sessionToken: null, refreshToken: null }`
+ * @param {function} callback ({sessionToken, refreshToken}) => void
  */
-export async function createSession(userId, expirationMinutes) {
+export function createSession(userId, expirationMinutes, callback) {
     const sessionToken = crypto.randomBytes(32).toString('hex');
     const refreshToken = crypto.randomBytes(64).toString('hex');
     logger.debug(`createSessionAndOverwrite(${userId})`);
-    try {
-        await pool.query(
-            'DELETE FROM sakila.session_verification WHERE timestamp < (NOW() - INTERVAL ? MINUTE)',
-            [expirationMinutes]
-        );
-
-        await pool.query(
-            `INSERT INTO sakila.session_verification (session_token, refresh_token, user_id, timestamp)
-             VALUES (?, ?, ?, NOW())`,
-            [sessionToken, refreshToken, userId]
-        );
-
-        return { sessionToken, refreshToken };
-    } catch (err) {
-        console.error('Error creating session:', err);
-        return { sessionToken: null, refreshToken: null };
-    }
-}
-
-/**
- * DB query method to Delete an refresh token
- * @param {*} refreshToken 
- * @returns 
- */
-export async function deleteRefreshToken(refreshToken) {
-    await pool.query(
-        'DELETE FROM sakila.session_verification WHERE refresh_token = ?',
-        [refreshToken]
+    pool.query(
+        'DELETE FROM sakila.session_verification WHERE timestamp < (NOW() - INTERVAL ? MINUTE)',
+        [expirationMinutes],
+        (err) => {
+            if (err) {
+                console.error('Error deleting expired sessions:', err);
+                return callback({ sessionToken: null, refreshToken: null });
+            }
+            pool.query(
+                `INSERT INTO sakila.session_verification (session_token, refresh_token, user_id, timestamp)
+                 VALUES (?, ?, ?, NOW())`,
+                [sessionToken, refreshToken, userId],
+                (err) => {
+                    if (err) {
+                        console.error('Error creating session:', err);
+                        return callback({ sessionToken: null, refreshToken: null });
+                    }
+                    return callback({ sessionToken, refreshToken });
+                }
+            );
+        }
     );
-    return;
 }
 
 /**
- * DB query method to vrify a refresh token
+ * DB query method to Delete a refresh token
+ * @param {*} refreshToken 
+ * @param {function} callback () => void
+ */
+export function deleteRefreshToken(refreshToken, callback) {
+    pool.query(
+        'DELETE FROM sakila.session_verification WHERE refresh_token = ?',
+        [refreshToken],
+        (err) => {
+            if (callback) callback();
+        }
+    );
+}
+
+/**
+ * DB query method to verify a refresh token
  * @param {*} userId 
  * @param {*} refreshToken 
  * @param {*} expirationMinutes 
- * @returns `boolean`
+ * @param {function} callback (boolean) => void
  */
-export async function verifyRefreshToken(userId, refreshToken, expirationMinutes) {
-    const [rows] = await pool.query(
+export function verifyRefreshToken(userId, refreshToken, expirationMinutes, callback) {
+    pool.query(
         `SELECT timestamp FROM sakila.session_verification WHERE refresh_token = ? AND user_id = ?`,
-        [refreshToken, userId]
+        [refreshToken, userId],
+        (err, rows) => {
+            if (err || !rows || rows.length === 0) {
+                return callback(false);
+            }
+            const { timestamp } = rows[0];
+            const now = new Date();
+            const tokenTime = new Date(timestamp);
+            const diffMinutes = (now - tokenTime) / (1000 * 60);
+            return callback(diffMinutes <= expirationMinutes);
+        }
     );
-    if (rows.length === 0) {
-        return false;
-    }
-    const { timestamp } = rows[0];
-    const now = new Date();
-    const tokenTime = new Date(timestamp);
-
-    const diffMinutes = (now - tokenTime) / (1000 * 60);
-
-    // Return true if token is still valid
-    return diffMinutes <= expirationMinutes;
 }
 

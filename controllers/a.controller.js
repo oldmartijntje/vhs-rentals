@@ -1,19 +1,24 @@
-import * as aService from '../services/a.service.js';
-
-export const getA = async (req, res) => {
-    try {
-        const data = await aService.getAData();
-        res.render('a', { data });
-    } catch (err) {
-        res.status(500).send('Error loading View A');
+/**
+ * Controller for rendering View A
+ * @param {*} req 
+ * @param {*} res 
+ */
+aService.getAData((err, data) => {
+    if (err) {
+        return res.status(500).send('Error loading View A');
     }
-};
+    res.render('a', { data });
+});
 
-export const getB = async (req, res) => {
-    try {
-        const data = await aService.getBData();
-        res.render('b', { data });
-    } catch (err) {
-        res.status(500).send('Error loading View B');
+
+/**
+ * Controller for rendering View B
+ * @param {*} req 
+ * @param {*} res 
+ */
+aService.getBData((err, data) => {
+    if (err) {
+        return res.status(500).send('Error loading View B');
     }
-};
+    res.render('b', { data });
+});
