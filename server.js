@@ -6,28 +6,21 @@ import loginRouter from './routes/login.routes.js';
 import { logger, requestLogger } from './middleware/logger.js';
 import { viewRouter } from './routes/view.routes.js'
 import filmRouter from './routes/film.routes.js';
+import { hbsHelpers } from './helper/handlebars.helper.js';
 
 let settings = { logToFile: false };
 try {
     settings = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'settings.json'), 'utf8'));
 } catch (e) { }
 
-
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Set Handlebars as templating engine
-// move to controller / routes
 app.engine('handlebars', engine({
     defaultLayout: 'main',
     layoutsDir: path.join(process.cwd(), 'views/layouts'),
     partialsDir: path.join(process.cwd(), 'views/partials'),
-    helpers: {
-        eq: (a, b) => a === b,
-        array: function () {
-            return Array.prototype.slice.call(arguments, 0, -1);
-        }
-    }
+    helpers: hbsHelpers
 }));
 app.set('view engine', 'handlebars');
 app.set('views', path.join(process.cwd(), 'views'));
