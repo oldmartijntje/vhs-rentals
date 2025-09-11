@@ -82,7 +82,8 @@ function setHeaderText() {
     }
 }
 
-function submitLogin() {
+function submitLogin(version) {
+    console.log(version) // 1 = customer; 2 = staff
     if (passwordField != null && passwordField != null) {
         if (usernameField.value && passwordField.value) {
             fetch('/api/login', {
