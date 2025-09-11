@@ -1,27 +1,49 @@
-<section style="height: 100%;" class="d-flex flex-column justify-content-around align-items-center p-2 bg-dark-3 gap-2">
-    <form method="POST" action="/login" class="bg-dark text-light p-5 p-md-5 rounded shadow-sm" style="max-width: 600px; min-width: 320px; margin: 3rem auto;">
-        <h2 class="mb-4 text-center">Login</h2>
-        <div class="mb-3">
-            <label for="email" class="form-label">Email address</label>
-            <input type="email" class="form-control bg-dark text-light border-secondary" id="email" name="email" placeholder="Enter email" required>
+{{#if (eq peagtype "customer")}}
+<section class="customer-login-container">
+    <form method="POST" action="/login" class="customer-login-form">
+        <h2 class="customer-login-title">Customer Login</h2>
+        {{#if error}}
+        <div class="error-message">{{error}}</div>
+        {{/if}}
+        <label for="email">Email address</label>
+        <input type="text" id="email" name="email" placeholder="Enter email" required>
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Password" required>
+        <div class="remember-me-row">
+            <input type="checkbox" id="rememberMe" name="rememberMe">
+            <label for="rememberMe" style="margin-left: 0.5em; margin-bottom: 0; display: inline-block; vertical-align: middle;">Remember me</label>
         </div>
-        <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control bg-dark text-light border-secondary" id="password" name="password" placeholder="Password" required>
-        </div>
-        <div class="mb-3 form-check">
-            <input type="checkbox" class="form-check-input" id="rememberMe" name="rememberMe">
-            <label class="form-check-label" for="rememberMe">Remember me</label>
-        </div>
-        <button type="submit" class="btn btn-primary w-100 mb-3">Login</button>
-        <div class="d-flex justify-content-between">
-            <a href="#" class="link-secondary">Forgot password?</a>
-            {{#if (eq peagtype "customer")}}
-                <a href="/Staff/Login" class="link-secondary">I work here</a>
-            {{/if}}
-            {{#if (eq peagtype "staff")}}
-                <a href="/Login" class="link-secondary">I am a Customer</a>
-            {{/if}}
+        <button type="submit">Login</button>
+        <div class="login-links-row">
+            <a href="#">Forgot password?</a>
+            <a href="/Staff/Login">I work here</a>
         </div>
     </form>
 </section>
+<link rel="stylesheet" href="/static/styles/customer-login.css">
+{{/if}}
+
+{{#if (eq peagtype "staff")}}
+<section class="staff-login-container">
+    <form method="POST" action="/login" class="staff-login-form">
+        <h2 class="staff-login-title">Staff Login</h2>
+        {{#if error}}
+        <div class="error-message">{{error}}</div>
+        {{/if}}
+        <label for="email">Staff Email</label>
+        <input type="text" id="email" name="email" placeholder="Enter staff email" required>
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Password" required>
+        <div class="remember-me-row">
+            <input type="checkbox" id="rememberMe" name="rememberMe">
+            <label for="rememberMe" style="margin-left: 0.5em; margin-bottom: 0; display: inline-block; vertical-align: middle;">Remember me</label>
+        </div>
+        <button type="submit">Login</button>
+        <div class="login-links-row">
+            <a href="#">Forgot password?</a>
+            <a href="/Login">I am a Customer</a>
+        </div>
+    </form>
+</section>
+<link rel="stylesheet" href="/static/styles/staff-login.css">
+{{/if}}

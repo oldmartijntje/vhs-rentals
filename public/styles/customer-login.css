@@ -1,0 +1,97 @@
+/* customer-login.css - Dark mode customer login styles */
+body,
+.customer-login-container {
+    background: #181a1b;
+    color: #f3f3f3;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.customer-login-container {
+    max-width: 520px;
+    margin: 60px auto;
+    padding: 2.5rem 2.5rem 2rem 2.5rem;
+    background: #23272a;
+    border-radius: 18px;
+    box-shadow: 0 4px 32px 0 #000a;
+    border: 1px solid #222;
+}
+
+.remember-me-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.2rem;
+}
+
+.login-links-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 2.5rem;
+    margin-top: 1rem;
+}
+
+.login-links-row a {
+    color: #7ed957;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.login-links-row a:hover {
+    color: #b6ffb6;
+    text-decoration: underline;
+}
+
+.customer-login-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: #7ed957;
+}
+
+.customer-login-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #b0b0b0;
+}
+
+.customer-login-form input[type="text"],
+.customer-login-form input[type="password"] {
+    width: 100%;
+    padding: 0.7rem;
+    margin-bottom: 1.2rem;
+    border: none;
+    border-radius: 8px;
+    background: #222426;
+    color: #f3f3f3;
+    font-size: 1rem;
+    box-shadow: 0 1px 2px #0002;
+}
+
+.customer-login-form input[type="text"]:focus,
+.customer-login-form input[type="password"]:focus {
+    outline: 2px solid #7ed957;
+}
+
+.customer-login-form button {
+    width: 100%;
+    padding: 0.8rem;
+    background: linear-gradient(90deg, #7ed957 60%, #4e9a51 100%);
+    color: #181a1b;
+    font-weight: 700;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.customer-login-form button:hover {
+    background: linear-gradient(90deg, #4e9a51 60%, #7ed957 100%);
+}
+
+.customer-login-form .error-message {
+    color: #ff6b6b;
+    margin-bottom: 1rem;
+    text-align: center;
+}

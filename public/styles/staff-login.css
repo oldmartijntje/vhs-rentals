@@ -1,0 +1,100 @@
+/* staff-login.css - Dark mode staff login styles */
+body,
+.staff-login-container {
+    background: #181a1b;
+    color: #e0e6f0;
+    font-family: 'Fira Mono', 'Consolas', monospace;
+}
+
+.staff-login-container {
+    max-width: 540px;
+    margin: 60px auto;
+    padding: 2.5rem 2.5rem 2rem 2.5rem;
+    background: #1a1d22;
+    border-radius: 18px;
+    box-shadow: 0 4px 32px 0 #000a;
+    border: 1px solid #2a2d33;
+}
+
+.remember-me-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.2rem;
+}
+
+.login-links-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 2.5rem;
+    margin-top: 1rem;
+}
+
+.login-links-row a {
+    color: #5ecbfa;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.login-links-row a:hover {
+    color: #b6eaff;
+    text-decoration: underline;
+}
+
+.staff-login-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: #5ecbfa;
+    letter-spacing: 1px;
+}
+
+.staff-login-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #a0a8b8;
+    font-weight: 500;
+}
+
+.staff-login-form input[type="text"],
+.staff-login-form input[type="password"] {
+    width: 100%;
+    padding: 0.7rem;
+    margin-bottom: 1.2rem;
+    border: 1px solid #2a2d33;
+    border-radius: 8px;
+    background: #23272e;
+    color: #e0e6f0;
+    font-size: 1rem;
+    font-family: 'Fira Mono', 'Consolas', monospace;
+}
+
+.staff-login-form input[type="text"]:focus,
+.staff-login-form input[type="password"]:focus {
+    outline: 2px solid #5ecbfa;
+}
+
+.staff-login-form button {
+    width: 100%;
+    padding: 0.8rem;
+    background: linear-gradient(90deg, #5ecbfa 60%, #1e90c6 100%);
+    color: #181a1b;
+    font-weight: 700;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    letter-spacing: 1px;
+}
+
+.staff-login-form button:hover {
+    background: linear-gradient(90deg, #1e90c6 60%, #5ecbfa 100%);
+}
+
+.staff-login-form .error-message {
+    color: #ff6b6b;
+    margin-bottom: 1rem;
+    text-align: center;
+}
