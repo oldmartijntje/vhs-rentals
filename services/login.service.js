@@ -1,4 +1,4 @@
-import { checkCustomer, checkStaff, createSession, verifyRefreshToken, deleteRefreshToken } from "../dao/login.dao.js";
+import { checkCustomer, checkStaff, createSession, verifyRefreshToken, deleteRefreshToken, verifySessionToken } from "../dao/login.dao.js";
 import { logger } from "../middleware/logger.js";
 import { settings } from "../server.js";
 
@@ -19,6 +19,16 @@ export function loginViaCredentials(email, password, role, callback) {
             callback(null);
         }
     });
+}
+
+/**
+ * The code that validates whether an session token is linked to an user
+ * @param {*} sessionToken 
+ * @param {*} userId 
+ * @param {function} callback (result|null) => void
+ */
+export function loginViaSesion(sessionToken, userId, callback) {
+    verifySessionToken(userId, sessionToken, settings.maxTokenTime, callback);
 }
 
 /**

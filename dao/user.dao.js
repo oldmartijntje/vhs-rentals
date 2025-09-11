@@ -2,36 +2,35 @@ import crypto from 'crypto';
 import pool from '../database/pool.js';
 import bcrypt from 'bcrypt';
 import { logger } from '../middleware/logger.js';
+import { invalidNumber } from '../helper/validation.helper.js';
 
 /**
- * DB query for checking the email + password login of a customer
- * @param {*} email 
- * @param {*} password 
+ * DB query for getting user data
+ * @param {*} userId ALREADY SANITIZED BEFOREHAND
  * @param {function} callback (user_id|null) => void
  */
-export function checkCustomer(email, password, callback) {
-    checkUser(email, password, 'SELECT user_id, password FROM customer WHERE email = ?', callback);
-}
-
-/**
- * DB query for checking the email + password login of a staff member
- * @param {*} email 
- * @param {*} password 
- * @param {function} callback (user_id|null) => void
- */
-export function checkStaff(email, password, callback) {
-    checkUser(email, password, 'SELECT user_id, password FROM staff WHERE email = ?', callback);
-}
-
-/**
- * DB query for checking the email + password login of a user
- * @param {*} email 
- * @param {*} password 
- * @param {*} query 
- * @param {function} callback (user_id|null) => void
- */
-function checkUser(email, password, query, callback) {
-    pool.query(query, [email], (err, results) => {
+export function checkUser(userId, callback) {
+    if (invalidNumber(userId, 0, 0, true)) throw new Error(`Number: "${userId}"\nDid you not sanitize your inputs??`);
+    pool.query(`SELECT 
+    u.user_id,
+    u.user_type,
+    COALESCE(c.store_id, s.store_id) AS store_id,
+    COALESCE(c.first_name, s.first_name) AS first_name,
+    COALESCE(c.last_name, s.last_name) AS last_name,
+    COALESCE(c.email, s.email) AS email,
+    COALESCE(c.address_id, s.address_id) AS address_id,
+    COALESCE(c.active, s.active) AS active,
+    COALESCE(c.last_update, s.last_update) AS last_update,
+    COALESCE(c.password, s.password) AS password,
+    c.create_date,
+    c.customer_id,
+    s.staff_id,
+    s.username,
+    s.picture
+FROM \`user\` u
+LEFT JOIN customer c ON u.user_id = c.user_id AND u.user_type = 'customer'
+LEFT JOIN staff s ON u.user_id = s.user_id AND u.user_type = 'staff'
+WHERE u.user_id IN (${userId});`, (err, results) => {
         if (err) {
             logger.error(`error at 'checkUser' method: ${err}`);
             return callback(null);
@@ -39,14 +38,7 @@ function checkUser(email, password, query, callback) {
         if (!results[0]) {
             return callback(null);
         }
-        const { user_id, password: hash } = results[0];
-        bcrypt.compare(password, hash, (err, isValid) => {
-            if (err) {
-                logger.error(`bcrypt error: ${err}`);
-                return callback(null);
-            }
-            return callback(isValid ? user_id : null);
-        });
+        return callback(results);
     });
 }
 
@@ -59,6 +51,7 @@ function checkUser(email, password, query, callback) {
 export function createSession(userId, expirationMinutes, callback) {
     const sessionToken = crypto.randomBytes(32).toString('hex');
     const refreshToken = crypto.randomBytes(64).toString('hex');
+    logger.debug(`createSessionAndOverwrite(${userId})`);
     pool.query(
         'DELETE FROM sakila.session_verification WHERE timestamp < (NOW() - INTERVAL ? MINUTE)',
         [expirationMinutes],

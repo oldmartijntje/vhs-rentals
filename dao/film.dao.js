@@ -9,7 +9,7 @@ import { logger } from '../middleware/logger.js';
  */
 export function getRecentFilmsFromDatabase(amount, callback) {
     // amount must be already sanitized at this point
-    if (invalidNumber(amount, 1, 100)) throw new Error("Did you not sanitize your inputs??");
+    if (invalidNumber(amount, 1, 100)) throw new Error(`Number: "${amount}"\nDid you not sanitize your inputs??`);
     pool.query(`SELECT * FROM film ORDER BY film.film_id DESC LIMIT ${amount}`, (err, results) => {
         if (err) {
             logger.error(`error at 'getRecentFilms' method: ${err}`);

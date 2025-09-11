@@ -1,4 +1,6 @@
 import { bodyItemMissingResponse, quickResponse, okResponse, tryCatchResponse } from '../helper/response.helper.js';
+import { Auth } from '../middleware/auth.js';
+import { logger } from '../middleware/logger.js';
 import { loginViaCredentials, refreshSessionToken } from '../services/login.service.js';
 
 /**
@@ -43,6 +45,34 @@ export function tokenRefreshRequest(req, res) {
             if (responseObject == null) return quickResponse(res, 400, "invalid \"userId\" and \"refreshToken\" combination, has your refreshToken expired?");
             okResponse(res, responseObject);
         });
+    } catch (e) {
+        tryCatchResponse(res, e);
+        return;
+    }
+}
+
+/**
+ * The code that happens when you request /login/validateToken
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
+export function validateTokenRequest(req, res) {
+    try {
+        const { userId, sessionToken } = req.body;
+
+        if (!userId) return bodyItemMissingResponse(res, "userId");
+        if (!sessionToken) return bodyItemMissingResponse(res, "sessionToken");
+        const auth = new Auth(userId, sessionToken);
+        auth.validate((isValidated) => {
+            logger.debug(`isValidated: ${isValidated}`)
+            if (isValidated) {
+                logger.debug(JSON.stringify(auth.getUser()))
+                okResponse(res, true)
+            } else {
+                quickResponse(res, 400, false)
+            }
+        })
     } catch (e) {
         tryCatchResponse(res, e);
         return;
