@@ -5,7 +5,7 @@
 
 ## Requirements
 
-- [ ] an express app with either `ejs` or `pug`
+- [ ] an express app with either `ejs` or `pug` or `handlebars`
 - [ ] DRY
 - [ ] A `view` layer
 - [ ] A `Controller` layer
