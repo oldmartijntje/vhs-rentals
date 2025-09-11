@@ -21,6 +21,40 @@ export function bodyItemMissingResponse(res, bodyItem) {
 }
 
 /**
+ * A method to easily send an 400 response
+ * @param {*} res 
+ * @param {*} bodyItem 
+ */
+export function queryParamMissingResponse(res, bodyItem) {
+    quickResponse(res, 400, `Missing required queryparam: '${bodyItem}'`);
+}
+
+/**
+ * A method to easily send an 400 invalid number response
+ * @param {*} res 
+ * @param {*} amount 
+ * @param {*} bodyItem 
+ * @param {*} min 
+ * @param {*} max 
+ * @returns `boolean` if it is outside of the scope or an invalid number
+ */
+export function invalidNumberResponse(res, amount, bodyItem, min, max) {
+    if (!(!isNaN(amount) && !isNaN(parseFloat(amount)))) {
+        quickResponse(res, 400, `Invalid Number given to '${bodyItem}'`);
+        return true
+    }
+    if (amount > max) {
+        quickResponse(res, 400, `'${bodyItem}' exceeds the maximum, ${amount} is more than ${max}`);
+        return true
+    }
+    if (amount < min) {
+        quickResponse(res, 400, `'${bodyItem}' is below the minimum, ${amount} is less than ${min}`);
+        return true;
+    }
+    return false;
+}
+
+/**
  * A method to easily send an 200 response
  * @param {*} res 
  * @param {*} bodyItem 
