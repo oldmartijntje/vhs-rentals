@@ -5,7 +5,7 @@
 
 ## Requirements
 
-- [ ] an express app with either `ejs` or `pug` or `handlebars`
+- [x] an express app with either `ejs` or `pug` or `handlebars`
 - [ ] DRY
 - [ ] A `view` layer
 - [ ] A `Controller` layer
@@ -15,6 +15,11 @@
 - [ ] user stories for each epic
 - [ ] logging with the winston package
 - [ ] using nodemon
+
+- [randvoorwaarden](https://brightspace.avans.nl/d2l/le/lessons/251408/topics/1770191)
+- [architectuur](https://brightspace.avans.nl/d2l/le/lessons/251408/topics/1773535)
+- [non functionals](https://brightspace.avans.nl/d2l/le/lessons/251408/topics/1731970)
+- [functionals](https://brightspace.avans.nl/d2l/le/lessons/251408/topics/1758763)
 
 ## My Epics
 

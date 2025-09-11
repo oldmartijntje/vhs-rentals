@@ -15,6 +15,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Set Handlebars as templating engine
+// move to controller / routes
 app.engine('handlebars', engine({
     defaultLayout: 'main',
     layoutsDir: path.join(process.cwd(), 'views/layouts'),
