@@ -5,6 +5,7 @@ import { engine } from 'express-handlebars';
 import loginRouter from './routes/login.routes.js';
 import { logger, requestLogger } from './middleware/logger.js';
 import { viewRouter } from './routes/view.routes.js'
+import filmRouter from './routes/film.routes.js';
 
 let settings = { logToFile: false };
 try {
@@ -37,6 +38,7 @@ app.use('/static', express.static(path.join(process.cwd(), 'public')));
 
 // include .routes.js
 app.use('/api/login', loginRouter);
+app.use('/api/film', filmRouter);
 app.use('/', viewRouter);
 
 // 404 handler

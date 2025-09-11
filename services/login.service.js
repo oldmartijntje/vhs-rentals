@@ -10,7 +10,6 @@ import { settings } from "../server.js";
  * @param {function} callback (result|null) => void
  */
 export function loginViaCredentials(email, password, role, callback) {
-    logger.debug(`loginViaCredentials(${email}, ${password}, ${role})`);
     let checkFn = role === "customer" ? checkCustomer : checkStaff;
     checkFn(email, password, (customer_id) => {
         if (customer_id != null) {

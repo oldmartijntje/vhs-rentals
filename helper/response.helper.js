@@ -1,4 +1,5 @@
 import { logger } from "../middleware/logger.js";
+import { invalidNumber } from "./validation.helper.js";
 
 /**
  * Send a response to a client, and also log that response with the logger.
@@ -39,19 +40,11 @@ export function queryParamMissingResponse(res, bodyItem) {
  * @returns `boolean` if it is outside of the scope or an invalid number
  */
 export function invalidNumberResponse(res, amount, bodyItem, min, max) {
-    if (!(!isNaN(amount) && !isNaN(parseFloat(amount)))) {
-        quickResponse(res, 400, `Invalid Number given to '${bodyItem}'`);
-        return true
+    if (!invalidNumber(amount, min, max)) {
+        return false;
     }
-    if (amount > max) {
-        quickResponse(res, 400, `'${bodyItem}' exceeds the maximum, ${amount} is more than ${max}`);
-        return true
-    }
-    if (amount < min) {
-        quickResponse(res, 400, `'${bodyItem}' is below the minimum, ${amount} is less than ${min}`);
-        return true;
-    }
-    return false;
+    quickResponse(res, 400, `the value of '${bodyItem}' is not a valid number between ${min} and ${max}, provided was: '${amount}'`);
+    return true
 }
 
 /**
