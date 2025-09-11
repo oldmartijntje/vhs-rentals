@@ -1,4 +1,3 @@
-
 import winston from 'winston';
 import fs from 'fs';
 import path from 'path';
@@ -22,19 +21,18 @@ function getCurrentLogFileTransport() {
         filename: logFile,
         level: process.env.LOG_LEVEL || "debug",
         format: combine(
-            timestamp(),
+            timestamp(), // ISO is it by default
             align(),
             printf((info) => `${info.timestamp} | ${info.level.toLowerCase()}: ${info.message}`)
         )
     });
 }
 
-// Create logger with both console and file transports
 const transports = [
     new winston.transports.Console({
         format: combine(
             colorize({ all: true }),
-            timestamp(),
+            timestamp({ format: () => new Date().toLocaleString() }), // local timestamp
             align(),
             printf((info) => `${info.timestamp} | ${info.level}: ${info.message}`)
         )
