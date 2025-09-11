@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "setup": "node setup.js",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js -e js,mjs,cjs,json,handlebars"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
