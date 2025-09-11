@@ -1,0 +1,13 @@
+<form class="login-form {{formClass}}" action="{{action}}" method="POST">
+    <label for="username">Username:</label>
+    <input type="text" name="username" id="username" required>
+
+    <label for="password">Password:</label>
+    <input type="password" name="password" id="password" required>
+
+    {{#if extraContent}}
+        <div class="extra-content">{{{extraContent}}}</div>
+    {{/if}}
+
+    <button type="submit">Login</button>
+</form>
