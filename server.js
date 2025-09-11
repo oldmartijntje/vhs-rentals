@@ -20,7 +20,10 @@ const PORT = process.env.PORT || 3000;
 app.engine('handlebars', engine({
     defaultLayout: 'main',
     layoutsDir: path.join(process.cwd(), 'views/layouts'),
-    partialsDir: path.join(process.cwd(), 'views/partials')
+    partialsDir: path.join(process.cwd(), 'views/partials'),
+    helpers: {
+        eq: (a, b) => a === b
+    }
 }));
 app.set('view engine', 'handlebars');
 app.set('views', path.join(process.cwd(), 'views'));

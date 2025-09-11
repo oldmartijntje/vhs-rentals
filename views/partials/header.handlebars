@@ -10,13 +10,13 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    <a class="nav-link{{#if (eq title "Home")}} active text-primary fw-bold" aria-current="page{{/if}}" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/About">About</a>
+                    <a class="nav-link{{#if (eq title "About")}} active text-primary fw-bold" aria-current="page{{/if}}" href="/About">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/Login">Login</a>
+                    <a class="nav-link{{#if (eq title "Login")}} active text-primary fw-bold" aria-current="page{{/if}}" href="/Login">Login</a>
                 </li>
             </ul>
         </div>
