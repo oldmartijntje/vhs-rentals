@@ -17,6 +17,7 @@
 - [ ] using nodemon
 
 - [randvoorwaarden](https://brightspace.avans.nl/d2l/le/lessons/251408/topics/1770191)
+    - I hate this: `Het systeem maakt alleen gebruik van callbackfuncties. We gebruiken nog geen async/await of Promises.`. The other things I am fine with, but this sucks.
 - [architectuur](https://brightspace.avans.nl/d2l/le/lessons/251408/topics/1773535)
 - [non functionals](https://brightspace.avans.nl/d2l/le/lessons/251408/topics/1731970)
 - [functionals](https://brightspace.avans.nl/d2l/le/lessons/251408/topics/1758763)
