@@ -23,7 +23,10 @@ app.engine('handlebars', engine({
     layoutsDir: path.join(process.cwd(), 'views/layouts'),
     partialsDir: path.join(process.cwd(), 'views/partials'),
     helpers: {
-        eq: (a, b) => a === b
+        eq: (a, b) => a === b,
+        array: function () {
+            return Array.prototype.slice.call(arguments, 0, -1);
+        }
     }
 }));
 app.set('view engine', 'handlebars');
