@@ -4,6 +4,7 @@ import fs from 'fs';
 import { engine } from 'express-handlebars';
 import loginRouter from './routes/login.routes.js';
 import { logger, requestLogger } from './middleware/logger.js';
+import { viewRouter } from './routes/view.routes.js'
 
 let settings = { logToFile: false };
 try {
@@ -31,15 +32,9 @@ app.use(express.json());
 
 app.use('/static', express.static(path.join(process.cwd(), 'public')));
 
-
-// Routes
-app.get('/', (req, res) => {
-    res.render('home', { title: 'Home' });
-});
-app.get('/login', (req, res) => {
-    res.render('login', { title: 'Login' });
-});
+// include .routes.js
 app.use('/api/login', loginRouter);
+app.use('/', viewRouter);
 
 // 404 handler
 app.use((req, res) => {
