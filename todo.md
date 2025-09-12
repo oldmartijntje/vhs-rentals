@@ -79,3 +79,16 @@
 * [ ] 2. as an user I want to bew able to return to the website the next day without having to login again, so that using the website is an easier process for me.
 	* [ ] refresh tokens for refreshing session tokens
         - a refresh token should only be usable in combination with an username or userID to avoid random "guessing" of refresh tokens
+
+## Concrete
+
+Here I will list the pages that I need to work on that are already referenced:
+
+- [ ] http://localhost:3000/Film?v=1000 for viewing a specific film
+- [ ] http://localhost:3000/Catalogue for viewing the full catalog
+- [ ] http://localhost:3000/Account the customer dashboard
+- [ ] http://localhost:3000/Staff/Dashboard the staff dashboard
+
+The ones that are not referenced yet, but I know I have to make them
+
+- [ ] http://localhost:3000/Stores?v=1 for the viewing of a specific location
