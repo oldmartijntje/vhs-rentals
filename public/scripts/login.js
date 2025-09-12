@@ -42,10 +42,14 @@ function submitLogin(version) {
 
                         }
                         authenticatedUser = true;
-                        // setHeaderText();
-                        // TODO:
-                        // edit the header to be logged in
-                        // redirected to staff panel or account page
+                        if (version == 1) {
+                            window.location.href = "/Account";
+                        } else if (version == 2) {
+                            window.location.href = "/Staff/Dashboard";
+                        } else {
+                            window.location.href = "/";
+                            // really trying to make life difficult for ppl that tinker with localstorage.
+                        }
                     } else {
                         try {
                             if (errorLoginText) {
