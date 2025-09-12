@@ -13,3 +13,8 @@ viewRouter.get('/staff/login', (req, res) => {
 viewRouter.get('/About', (req, res) => {
     res.render('pages/about', { title: 'About' });
 });
+
+// 404 handler
+viewRouter.use((req, res) => {
+    res.status(404).render('pages/404', { title: '404' });
+});

@@ -37,11 +37,6 @@ app.use('/api/login', loginRouter);
 app.use('/api/film', filmRouter);
 app.use('/', viewRouter);
 
-// 404 handler
-app.use((req, res) => {
-    res.status(404).send('404 Not Found');
-});
-
 app.listen(PORT, () => {
     logger.debug(`Server running on http://localhost:${PORT}`);
 });
