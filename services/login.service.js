@@ -47,6 +47,7 @@ function _generateSessionToken(customer_id, callback) {
             refreshToken,
             message: "success",
             expirationMinutes: settings.maxTokenTime,
+            refreshExpirationMinutes: settings.maxRefreshTokenTime,
             userId: customer_id
         });
     });

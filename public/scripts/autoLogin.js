@@ -1,20 +1,19 @@
-let usernameField = document.getElementById('username')
-let passwordField = document.getElementById('password')
 let loginHeaderNav = document.getElementById('loginOrAccountNav')
-let errorLoginText = document.getElementById('errorLoginText')
-let rememberMe = document.getElementById('rememberMe')
 let data = localStorage.getItem("vhs_rental_user")
 let tryLogin = false;
-let username = null;
+let userId = null;
 let refreshToken = null;
 let token = null;
+let version = null;
 let authenticatedUser = false;
 if (data != null) {
     try {
-        let dataObject = JSON.parse(data);
-        if (dataObject.username != undefined && dataObject.token != undefined) {
-            username = dataObject.username;
+        let dataObject = JSON.parse(atob(data));
+        console.log(dataObject)
+        if (dataObject.userId != undefined && dataObject.token != undefined && dataObject.version != undefined) {
+            userId = dataObject.userId;
             token = dataObject.token;
+            version = dataObject.version
             tryLogin = true;
             if (dataObject.refreshToken != undefined) {
                 refreshToken = dataObject.refreshToken;
@@ -32,14 +31,12 @@ if (tryLogin) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ username: username, sessionToken: token })
+        body: JSON.stringify({ userId: userId, sessionToken: token })
     }).then(async function (res) {
         const content = await res.json();
-        writeLog(res, "/validateToken");
-        writeLog(content, "/validateToken");
         if (res.status == 200 && res.ok == true) {
             authenticatedUser = true;
-            setHeaderText();
+            setHeaderText(version);
         } else {
             if (refreshToken != null) {
                 fetch('/api/login/refreshToken', {
@@ -50,9 +47,7 @@ if (tryLogin) {
                     },
                     body: JSON.stringify({ username: username, refreshToken: refreshToken })
                 }).then(async function (res) {
-                    writeLog(res, "/refreshToken");
                     const content2 = await res.json();
-                    writeLog(content2, "/refreshToken");
                     if (res.status == 200 && res.ok == true && content2.sessionToken != undefined && content2.refreshToken != undefined) {
                         data = {
                             username: username,
@@ -61,7 +56,7 @@ if (tryLogin) {
                         };
                         localStorage.setItem("vhs_rental_user", JSON.stringify(data));
                         authenticatedUser = true;
-                        setHeaderText();
+                        setHeaderText(version);
                     } else {
                         localStorage.removeItem("vhs_rental_user");
                     }
@@ -73,61 +68,21 @@ if (tryLogin) {
     });
 }
 
-function setHeaderText() {
+function setHeaderText(version) {
     // set the header button
-    loginHeaderNav.children[0].innerHTML = "Dashboard"
-    loginHeaderNav.children[0].href = "/dashboard"
-    if (loginHeaderNav.children[0].classList.contains("active")) {
-        location.href = "/dashboard";
-    }
-}
-
-function submitLogin(version) {
-    console.log(version) // 1 = customer; 2 = staff
-    if (passwordField != null && passwordField != null) {
-        if (usernameField.value && passwordField.value) {
-            fetch('/api/login', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ username: usernameField.value, password: passwordField.value })
-            }).then(async function (res) {
-                const content = await res.json();
-                if (res.status == 200 && res.ok == true && content.sessionToken != undefined) {
-                    data = {
-                        username: usernameField.value,
-                        token: content.sessionToken
-                    }
-                    if (rememberMe.checked && content.refreshToken != undefined) {
-                        data.refreshToken = content.refreshToken;
-                    }
-                    localStorage.setItem("vhs_rental_user", JSON.stringify(data));
-                    try {
-                        if (errorLoginText) {
-                            errorLoginText.style.display = "none";
-                        }
-                    } catch (e) {
-
-                    }
-                    authenticatedUser = true;
-                    setHeaderText();
-                } else {
-                    try {
-                        if (errorLoginText) {
-                            errorLoginText.style.display = "block";
-                            errorLoginText.children[0].innerText = content.message;
-                        }
-                    } catch (e) {
-
-                    }
-                }
-                writeLog(res, "/login");
-                writeLog(content, "/login");
-            });
-
-
-        }
+    let loginLinks = document.querySelectorAll(".login-link");
+    loginLinks.forEach((el) => {
+        el.style.display = "none";
+    });
+    if (version == 1) {
+        let customerLinks = document.querySelectorAll(".customer-link");
+        customerLinks.forEach((el) => {
+            el.style.display = "block";
+        });
+    } else if (version == 2) {
+        let staffLinks = document.querySelectorAll(".staff-link");
+        staffLinks.forEach((el) => {
+            el.style.display = "block";
+        });
     }
 }
