@@ -39,22 +39,33 @@ if (tryLogin) {
             setHeaderText(version);
         } else {
             if (refreshToken != null) {
-                fetch('/api/login/refreshToken', {
+                fetch('/api/login/tokenRefresh', {
                     method: 'POST',
                     headers: {
                         'Accept': 'application/json',
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ username: username, refreshToken: refreshToken })
+                    body: JSON.stringify({ userId: userId, refreshToken: refreshToken })
                 }).then(async function (res) {
+                    if (res.status != 200 || res.ok != true) {
+                        localStorage.removeItem("vhs_rental_user");
+                        return;
+                    }
                     const content2 = await res.json();
                     if (res.status == 200 && res.ok == true && content2.sessionToken != undefined && content2.refreshToken != undefined) {
                         data = {
-                            username: username,
+                            userId: content2.userId,
                             token: content2.sessionToken,
+                            version: version, // for checking whether a user is staff / customer client sided
+                            // it doesn't matter if it is tampered with, because GETting data won't work if tempered
+                            // it will only show you what the staff pages look like without content.
+                            expirationMinutes: content2.expirationMinutes,
+                            gathering: new Date(),
+                            refreshExpirationMinutes: content2.refreshExpirationMinutes,
                             refreshToken: content2.refreshToken
-                        };
-                        localStorage.setItem("vhs_rental_user", JSON.stringify(data));
+
+                        }
+                        localStorage.setItem("vhs_rental_user", btoa(JSON.stringify(data)));
                         authenticatedUser = true;
                         setHeaderText(version);
                     } else {
