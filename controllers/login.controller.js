@@ -65,9 +65,10 @@ export function validateTokenRequest(req, res) {
         if (!sessionToken) return bodyItemMissingResponse(res, "sessionToken");
         const auth = new Auth(userId, sessionToken);
         auth.validate((isValidated) => {
-            logger.debug(`isValidated: ${isValidated}`)
             if (isValidated) {
-                logger.debug(JSON.stringify(auth.getUser()))
+                let userData = auth.getUser()
+                userData.picture = null;
+                logger.debug(`User validated with this data: ${JSON.stringify(userData)}`)
                 okResponse(res, true)
             } else {
                 quickResponse(res, 400, false)

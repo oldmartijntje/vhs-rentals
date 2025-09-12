@@ -50,6 +50,7 @@ export class Auth {
 
     getUser() {
         if (!this.isValidated) throw new Error("You can't get user data for a user that is not validated.")
+        logger.info(`A PROCESS JUST ACCESSED ALL USER DATA FROM USER ${this.userId}`)
         return this.userData;
     }
 }
