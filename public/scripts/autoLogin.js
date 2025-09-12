@@ -79,11 +79,11 @@ function setHeaderText(version) {
             el.style.display = "none";
         });
         userLinks.forEach((el) => {
-            el.style.display = "block";
+            el.style.display = "";
         });
     } else {
         loginLinks.forEach((el) => {
-            el.style.display = "block";
+            el.style.display = "";
         });
         userLinks.forEach((el) => {
             el.style.display = "none";
@@ -91,11 +91,11 @@ function setHeaderText(version) {
     }
     if (version == 1) {
         customerLinks.forEach((el) => {
-            el.style.display = "block";
+            el.style.display = "";
         });
     } else if (version == 2) {
         staffLinks.forEach((el) => {
-            el.style.display = "block";
+            el.style.display = "";
         });
     } else {
         customerLinks.forEach((el) => {
