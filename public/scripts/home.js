@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             <h5 class="card-title">${film.title}</h5>
                             <p class="card-text flex-grow-1">${film.description}</p>
                             <span class="text-secondary mb-2">${film.release_year}</span>
-                            <a href="#" class="btn btn-info">Details</a>
+                            <a href="/Film?v=${film.film_id}" class="btn btn-info">Details</a>
                         </div>
                     `;
                     newestArrivalsContainer.appendChild(card);

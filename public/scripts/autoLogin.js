@@ -67,22 +67,42 @@ if (tryLogin) {
         }
     });
 }
+setHeaderText(0)
 
 function setHeaderText(version) {
-    // set the header button
     let loginLinks = document.querySelectorAll(".login-link");
-    loginLinks.forEach((el) => {
-        el.style.display = "none";
-    });
+    let userLinks = document.querySelectorAll(".loggedin-link");
+    let customerLinks = document.querySelectorAll(".customer-link");
+    let staffLinks = document.querySelectorAll(".staff-link");
+    if (version == 1 || version == 2) {
+        loginLinks.forEach((el) => {
+            el.style.display = "none";
+        });
+        userLinks.forEach((el) => {
+            el.style.display = "block";
+        });
+    } else {
+        loginLinks.forEach((el) => {
+            el.style.display = "block";
+        });
+        userLinks.forEach((el) => {
+            el.style.display = "none";
+        });
+    }
     if (version == 1) {
-        let customerLinks = document.querySelectorAll(".customer-link");
         customerLinks.forEach((el) => {
             el.style.display = "block";
         });
     } else if (version == 2) {
-        let staffLinks = document.querySelectorAll(".staff-link");
         staffLinks.forEach((el) => {
             el.style.display = "block";
+        });
+    } else {
+        customerLinks.forEach((el) => {
+            el.style.display = "none";
+        });
+        staffLinks.forEach((el) => {
+            el.style.display = "none";
         });
     }
 }

@@ -20,14 +20,32 @@
             <div class="card-body d-flex flex-column">
                 <h3 class="card-title">Catalogue</h3>
                 <p class="card-text flex-grow-1">Explore our library of VHS rentals and start watching tonight.</p>
-                <a href="#" class="btn btn-primary">View 1K+ Tapes</a>
+                <a href="#" class="btn btn-secondary staff-link">View 1K+ Tapes</a>
+                <a href="#" class="btn btn-primary login-link">View 1K+ Tapes</a>
+                <a href="#" class="btn btn-primary customer-link">View 1K+ Tapes</a>
+                {{!-- I could make this more DRY, but honestly don't care. It is just here for quality of life anyways --}}
+                {{!-- kinda as a joke that corperate wants staff to focus attention on the dashboard and not on the catalogue --}}
             </div>
         </div>
-        <div class="card" style="width: 18rem;">
+        <div class="card login-link" style="width: 18rem;">
             <div class="card-body d-flex flex-column">
                 <h3 class="card-title">Your Account</h3>
                 <p class="card-text flex-grow-1">An account is required to rent tapes. Please log in or sign up to continue.</p>
                 <a href="/Login" class="btn btn-secondary">Login</a>
+            </div>
+        </div>
+        <div class="card staff-link" style="width: 18rem;">
+            <div class="card-body d-flex flex-column">
+                <h3 class="card-title">Dashboard</h3>
+                <p class="card-text flex-grow-1">As staff member you can manage inventory, customers and more in the dashboard.</p>
+                <a href="/Staff/Dashboard" class="btn btn-primary">Visit the Dashboard</a>
+            </div>
+        </div>
+        <div class="card customer-link" style="width: 18rem;">
+            <div class="card-body d-flex flex-column">
+                <h3 class="card-title">Your Account</h3>
+                <p class="card-text flex-grow-1">As an user you can view your personal information and renting history in your account.</p>
+                <a href="/Account" class="btn btn-secondary">View Account</a>
             </div>
         </div>
     </div>

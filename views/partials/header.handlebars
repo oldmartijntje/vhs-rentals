@@ -8,23 +8,35 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav w-100">
                 <li class="nav-item">
                     <a class="nav-link{{#if (eq title "Home")}} active text-primary fw-bold" aria-current="page{{/if}}" href="/">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link{{#if (eq title "About")}} active text-primary fw-bold" aria-current="page{{/if}}" href="/About">About</a>
                 </li>
+                <li class="ms-auto"></li>
                 <li class="nav-item login-link">
                     <a class="nav-link{{#if (eq title "Login")}} active text-primary fw-bold" aria-current="page{{/if}}" href="/Login">Login</a>
                 </li>
                 <li class="nav-item staff-link" style="display:none">
-                    <a class="nav-link{{#if (eq title "Archive")}} active text-primary fw-bold" aria-current="page{{/if}}" href="/Staff/Archive">Archive</a>
+                    <a class="nav-link{{#if (eq title "Archive")}} active text-primary fw-bold" aria-current="page{{/if}}" href="/Staff/Dashboard">Dashboard</a>
                 </li>
                 <li class="nav-item customer-link" style="display:none">
                     <a class="nav-link{{#if (eq title "Account")}} active text-primary fw-bold" aria-current="page{{/if}}" href="/Account">Account</a>
+                </li>
+                <li class="nav-item loggedin-link" style="display:none">
+                    <a class="btn btn-danger" href="/" id="logout-link">Logout</a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
+<script>
+    const logoutLink = document.getElementById("logout-link");
+    logoutLink.addEventListener("click", (event) => {
+        event.preventDefault(); // overwrite default routing
+        localStorage.removeItem("vhs_rental_user");
+        window.location.href = "/";
+    });
+</script>
