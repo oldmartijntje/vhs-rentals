@@ -1,49 +1,44 @@
 <div class="vhs-container" style="font-size: {{font-size}}">
     <img src="/static/images/vhs2.png" alt="VHS Case" class="vhs-image" />
-    <div class="vhs-text" style="top:10%; left: 10%; max-width: 33%; color:grey">
-        <span>|</span><span style="color:black; font-weight: bold;">VHS</span><span>|</span><span style="font-weight: bold; color:orange"> HIGH QUALITY VIDEO</span>
+
+    <div class="vhs-text vhs-grey" style="top:10%; left: 10%; max-width: 33%;">
+        <span>|</span><span class="vhs-bold-black">VHS</span><span>|</span><span class="vhs-bold-orange"> HIGH QUALITY VIDEO</span>
     </div>
-    <div class="vhs-text" style="transform: rotate(90deg);color:black;
-        top:19em; left: 10em; font-weight: bold; display:flex; flex-direction:row; width: 36em">
-        <span style="font-weight: bold; font-size:2em;width:8em; text-align: center; margin-top:auto; margin-bottom:auto">{{title}}</span>
-        <span style="max-width:6em; text-align: center; margin-top:auto; margin-bottom:auto">VIDEO CASSETTE</span>
-        <span style="color:orange;max-width:6em; text-align: center; margin-top:auto; margin-bottom:auto;
-        margin-left: 3em">ULTRA HIGH QUALITY</span>
+
+    <div class="vhs-text vhs-black vhs-bold vhs-flex-row" style="transform: rotate(90deg); top:19em; left: 10em; width: 36em">
+        <span class="vhs-big-title">{{title}}</span>
+        <span class="vhs-center">VIDEO CASSETTE</span>
+        <span class="vhs-center vhs-orange" style="margin-left: 2em; margin-right: 3em">ULTRA HIGH QUALITY</span>
     </div>
-    <div class="vhs-text" style="transform: rotate(-30deg);font-size:2.5em;color:black; 
-        top:5em; left: 1.5em; font-weight: bold; width: 7em; text-align: center">{{title}}</div>
-    <div class="vhs-text" style="transform: rotate(-30deg);color:black; 
-        top:19em; left: 6em; font-weight: bold; width: 20em;">AN {{actor}} MOVIE</div>
+
+    <div class="vhs-text vhs-black vhs-bold vhs-center" style="transform: rotate(-30deg); font-size:2.5em; top:5em; left: 1.5em; width: 8em;">
+        {{title}}
+    </div>
+
+    <div class="vhs-text vhs-black vhs-bold" style="transform: rotate(-30deg); top:19em; left: 6em; width: 20em;">
+        AN {{actor}} MOVIE
+    </div>
         
     <div class="vhs-text" style="top:36em; left:5em; width:16em;">
-        <div style="font-size:0.4em;background-color:#1182b6;width:8em;
-            height:8em;border-radius:50%;display:flex;align-items:center;
-            justify-content:center; font-weight: bold;">
+        <div class="vhs-circle">
             {{category}}
         </div>
     </div>
 
     <div class="vhs-text" style="top:5em; left: 36em; width: 16em;">
-        <div style="text-align: center; font-size:2em;color:black; font-weight: bold;">
-            {{title}}
+        <div class="vhs-title">{{title}}</div>
+        <div class="vhs-box">
+            <span class="vhs-subtitle">VIDEO CASSETTE</span><br/>
+            <span class="vhs-bold-orange">ULTRA HIGH QUALITY</span>
         </div>
-        <div style="color:black; text-align: center; 
-        font-weight: bold; text-align: center;
-        border-top: 2px solid black; border-bottom: 2px solid black;">
-            <span style="font-size:1.5em; font-weight: bold;">VIDEO CASSETTE</span><br/>
-            <span style="color:orange; font-weight: bold;">ULTRA HIGH QUALITY</span>
-        </div>
-        <div style="text-align: center; font-size:0.7em;color:black;
-        margin-top: 1em">
+        <div class="vhs-description">
             {{description}}
         </div>
     </div>
 
-    <div class="vhs-text" style="top:38em; left: 42em; max-width: 33%; color:rgb(0, 0, 0)">
+    <div class="vhs-text vhs-black" style="top:38em; left: 42em; max-width: 33%;">
         {{year}} ©
     </div>
-
-    
 </div>
 
 <style>
@@ -61,8 +56,79 @@
 
     .vhs-text {
         position: absolute;
-        color: white;
         font-family: monospace;
-        {{!-- text-shadow: 0 0 5px black; --}}
+    }
+
+    .vhs-black {
+        color: black;
+    }
+    .vhs-grey {
+        color: grey;
+    }
+    .vhs-orange {
+        color: orange;
+    }
+    .vhs-bold {
+        font-weight: bold;
+    }
+    .vhs-bold-black {
+        font-weight: bold;
+        color: black;
+    }
+    .vhs-bold-orange {
+        font-weight: bold;
+        color: orange;
+    }
+    .vhs-center {
+        text-align: center;
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+    .vhs-flex-row {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .vhs-big-title {
+        font-weight: bold;
+        font-size: 2em;
+        width: 8em;
+        text-align: center;
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+    .vhs-circle {
+        font-size: 0.4em;
+        background-color: #1182b6;
+        width: 8em;
+        height: 8em;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+    }
+    .vhs-title {
+        text-align: center;
+        font-size: 2em;
+        color: black;
+        font-weight: bold;
+    }
+    .vhs-box {
+        color: black;
+        text-align: center;
+        font-weight: bold;
+        border-top: 2px solid black;
+        border-bottom: 2px solid black;
+    }
+    .vhs-subtitle {
+        font-size: 1.5em;
+        font-weight: bold;
+    }
+    .vhs-description {
+        text-align: center;
+        font-size: 0.7em;
+        color: black;
+        margin-top: 1em;
     }
 </style>
