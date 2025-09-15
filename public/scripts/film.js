@@ -24,17 +24,16 @@ if (data != null) {
 
     }
 }
-// fetch('/api/login/validateToken', {
-//     method: 'GET',
-//     headers: {
-//         'Accept': 'application/json',
-//         'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify({ autoLoginUserId: autoLoginUserId, sessionToken: autoLoginToken })
-// }).then(async function (res) {
-//     const content = await res.json();
-//     if (res.status == 200 && res.ok == true) {
-//         autoLoginAuthenticatedUser = true;
-//         setHeaderText(autoLoginVersion);
-//     }
-// })
+fetch(`/api/film?id=${film}`, {
+    method: 'GET',
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    }
+}).then(async function (res) {
+    const content = await res.json();
+    if (res.status == 200 && res.ok == true) {
+        autoLoginAuthenticatedUser = true;
+        setHeaderText(autoLoginVersion);
+    }
+})
