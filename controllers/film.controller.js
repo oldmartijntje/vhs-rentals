@@ -55,11 +55,11 @@ export function filmInfoRequest(req, res) {
                             notFoundResponse(res, "film");
                             return;
                         }
-                        okResponse(res, result);
+                        okResponse(res, result[0]);
                         return;
-                        // TODO:
                         // will give info on how many copies there are in each store
-                        // in the back even has Id's of each copy in each store.
+                        // and it has the store information
+                        // unless that request fails.
                     })
                 } else {
                     invalidAuthenticationAttemptResponse(res);
@@ -74,9 +74,8 @@ export function filmInfoRequest(req, res) {
                     notFoundResponse(res, "film");
                     return;
                 }
-                okResponse(res, result);
+                okResponse(res, result[0]);
                 return;
-                // TODO:
                 // will say, currently available or currently unavailable for rent.
             })
         }

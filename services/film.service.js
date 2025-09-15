@@ -1,7 +1,7 @@
 import { logger } from "../middleware/logger.js"
 import { getRecentFilmsFromDatabase, getFullFilmInfoById } from "../dao/film.dao.js"
 import { getInventoryStatusFromDatabase } from "../dao/inventory.dao.js";
-import { getStoreAddressFromDatabase } from "../dao/store.dao.js";
+import { getStoreAddressesFromDatabase } from "../dao/store.dao.js";
 
 /**
  * The code that gets X recent films. 
@@ -30,11 +30,13 @@ export function getFilmData(id, isAuthenticated, callback) {
         }
         getInventoryStatusFromDatabase(id, (result2) => {
             if (result2 == null) {
-                result[0].inventory = null
+                result[0].inventory = null;
+                result[0].informationId = 0;
                 callback(result);
                 return;
             } else if (result2 == 404) {
-                result[0].inventory = 404
+                result[0].inventory = 404;
+                result[0].informationId = 0;
                 callback(result);
                 return;
             } else if (!isAuthenticated) {
@@ -50,12 +52,30 @@ export function getFilmData(id, isAuthenticated, callback) {
                     { rented: 0, available: 0 }
                 );
                 result[0].inventory = (counts.available > 0 ? true : false)
+                result[0].informationId = 1;
                 callback(result);
                 return;
             }
+            const uniqueStoreIds = [...new Set(result2.map(item => item.store_id))];
+            result[0].inventory = result2;
             //  getStoreAddressFromDatabase
-
-
+            getStoreAddressesFromDatabase(uniqueStoreIds, (result3) => {
+                if (result2 == null) {
+                    result[0].inventory = null;
+                    result[0].informationId = 2;
+                    callback(result);
+                    return;
+                } else if (result2 == 404) {
+                    result[0].inventory = 404;
+                    result[0].informationId = 2;
+                    callback(result);
+                    return;
+                }
+                result[0].addresses = result3;
+                result[0].informationId = 3;
+                callback(result);
+                return;
+            });
         })
     })
 }
