@@ -1,0 +1,39 @@
+<div class="vhs-container" style="font-size: {{font-size}}">
+    <img src="/static/images/vhs2.png" alt="VHS Case" class="vhs-image" />
+    <div class="vhs-text" style="top:10%; left: 10%; max-width: 33%; color:grey">
+        <span>|</span><span style="color:black; font-weight: bold;">VHS</span><span>|</span><span style="font-weight: bold; color:orange"> HIGH QUALITY VIDEO</span>
+    </div>
+    <div class="vhs-text" style="transform: rotate(90deg);color:black;
+        top:19em; left: 10em; font-weight: bold; display:flex; flex-direction:row; width: 36em">
+        <span style="font-weight: bold; font-size:2em;width:8em; text-align: center; margin-top:auto; margin-bottom:auto">{{title}}</span>
+        <span style="max-width:6em; text-align: center; margin-top:auto; margin-bottom:auto">VIDEO CASSETTE</span>
+        <span style="color:orange;max-width:6em; text-align: center; margin-top:auto; margin-bottom:auto;
+        margin-left: 3em">ULTRA HIGH QUALITY</span>
+    </div>
+    {{!-- <div class="vhs-text" style="transform: rotate(90deg);font-size:2em;color:black;
+        top:23%; left: 38.5%; font-weight: bold;">{{title}}</div> --}}
+
+    <div class="vhs-text" style="transform: rotate(-30deg);font-size:2.5em;color:black; 
+        top:30%; left: 7%; font-weight: bold; width: 7em; text-align: center">{{title}}</div>
+</div>
+
+<style>
+    .vhs-container {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+    }
+
+    .vhs-image {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .vhs-text {
+        position: absolute;
+        color: white;
+        font-family: monospace;
+        {{!-- text-shadow: 0 0 5px black; --}}
+    }
+</style>

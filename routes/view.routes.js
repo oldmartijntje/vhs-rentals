@@ -13,6 +13,9 @@ viewRouter.get('/staff/login', (req, res) => {
 viewRouter.get('/About', (req, res) => {
     res.render('pages/about', { title: 'About' });
 });
+viewRouter.get('/Film', (req, res) => {
+    res.render('pages/film', { title: 'Film' });
+});
 
 // 404 handler
 viewRouter.use((req, res) => {
