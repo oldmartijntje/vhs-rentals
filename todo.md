@@ -96,6 +96,7 @@ Here I will list the pages that I need to work on that are already referenced:
 - [ ] http://localhost:3000/Customer/History?v=1000 for viewing your renting history of this item
 - [ ] http://localhost:3000/Staff/FilmHistory?v=1000 so that staff can see renting history
 - [ ] http://localhost:3000/Staff/Edit/Film?v=1000 so that staff can CRUD a film
+- [ ] http://localhost:3000/Staff/Edit/Inventory?v=1000 so that staff can CRUD the inventory of a film
 
 The ones that are not referenced yet, but I know I have to make them
 

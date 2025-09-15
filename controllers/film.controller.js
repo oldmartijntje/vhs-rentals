@@ -1,9 +1,11 @@
-import { queryParamMissingResponse, quickResponse, okResponse, tryCatchResponse, invalidNumberResponse } from '../helper/response.helper.js';
-import { getRecentFilms } from '../services/film.service.js';
+import { queryParamMissingResponse, quickResponse, notFoundResponse, okResponse, tryCatchResponse, invalidNumberResponse } from '../helper/response.helper.js';
+import { Auth } from '../middleware/auth.js';
+import { logger } from '../middleware/logger.js';
+import { getRecentFilms, getFilmData } from '../services/film.service.js';
 import { loginViaCredentials, refreshSessionToken } from '../services/login.service.js';
 
 /**
- * The code that happens when you request /api/film
+ * The code that happens when you request /api/film/newest
  * @param {*} req 
  * @param {*} res 
  * @returns 
@@ -23,6 +25,62 @@ export function newestFilmsRequest(req, res) {
             okResponse(res, result);
             return;
         })
+    } catch (e) {
+        tryCatchResponse(res, e);
+        return;
+    }
+}
+
+/**
+ * The code that happens when you request /api/film
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
+export function filmInfoRequest(req, res) {
+    try {
+        const { id, userId, sessionToken } = req.query;
+
+        if (!id) return queryParamMissingResponse(res, "id");
+        if (invalidNumberResponse(res, id, "id", 0, Infinity)) return;
+        if (userId != undefined && sessionToken != undefined) {
+            const auth = new Auth(userId, sessionToken);
+            auth.validate((isValidated) => {
+                if (isValidated) {
+                    getFilmData(id, true, (result) => {
+                        if (result == null) {
+                            quickResponse(res, 500, "unknown error")
+                            return;
+                        } else if (result == 404) {
+                            notFoundResponse(res, "film");
+                            return;
+                        }
+                        okResponse(res, result);
+                        return;
+                        // TODO:
+                        // will give info on how many copies there are in each store
+                        // in the back even has Id's of each copy in each store.
+                    })
+                } else {
+                    invalidAuthenticationAttemptResponse(res);
+                }
+            })
+        } else {
+            getFilmData(id, false, (result) => {
+                if (result == null) {
+                    quickResponse(res, 500, "unknown error")
+                    return;
+                } else if (result == 404) {
+                    notFoundResponse(res, "film");
+                    return;
+                }
+                okResponse(res, result);
+                return;
+                // TODO:
+                // will say, currently available or currently unavailable for rent.
+            })
+        }
+
     } catch (e) {
         tryCatchResponse(res, e);
         return;

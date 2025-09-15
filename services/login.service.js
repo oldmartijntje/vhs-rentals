@@ -17,6 +17,7 @@ export function loginViaCredentials(email, password, role, callback) {
         } else {
             logger.warn('Invalid credentials.');
             callback(null);
+            return;
         }
     });
 }
@@ -50,6 +51,7 @@ function _generateSessionToken(customer_id, callback) {
             refreshExpirationMinutes: settings.maxRefreshTokenTime,
             userId: customer_id
         });
+        return;
     });
 }
 
@@ -67,6 +69,7 @@ export function refreshSessionToken(userId, refreshToken, callback) {
                 _generateSessionToken(userId, callback);
             } else {
                 callback(null);
+                return;
             }
         });
     });

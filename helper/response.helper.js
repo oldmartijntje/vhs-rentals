@@ -31,6 +31,23 @@ export function queryParamMissingResponse(res, bodyItem) {
 }
 
 /**
+ * A method to easily send an 400 Invalid Authentication response
+ * @param {*} res 
+ */
+export function invalidAuthenticationAttemptResponse(res) {
+    quickResponse(res, 400, `Invalid Authentication Attempt`);
+}
+
+/**
+ * A method to easily send an 404 response
+ * @param {*} bodyItem 
+ * @param {*} res 
+ */
+export function notFoundResponse(res, bodyItem) {
+    quickResponse(res, 404, `The ${bodyItem} that you are looking for does not exits (in this context)`);
+}
+
+/**
  * A method to easily send an 400 invalid number response
  * @param {*} res 
  * @param {*} amount 
