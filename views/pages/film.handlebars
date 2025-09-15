@@ -7,10 +7,9 @@
                     <div id="carouselExample" class="carousel slide carousel-fade" data-bs-ride="carousel">
                         <div class="carousel-inner">
                             <div class="carousel-item active">
-                                <div style="width: 700px; height: 539px" class="card center bg-dark-1">
+                                <div class="card center bg-dark-1 vhs-content">
                                     {{> vhs-case
                                     title="ARACHNOPHOBIA ROLLERCOASTER"
-                                    font-size="12.5px"
                                     actor="MATTHEW JOHANSSON"
                                     category="Documentary"
                                     year="2010"
@@ -18,7 +17,7 @@
                                 </div>
                             </div>
                             <div class="carousel-item">
-                                <div style="width: 700px; height: 539px" class="card center bg-dark-1">
+                                <div class="card center bg-dark-1 vhs-content">
                                     <img src="/static/images/vhs.svg" class="d-block w-100" alt="...">
                                 </div>
                             </div>
@@ -55,5 +54,28 @@
         </div>
     </div>
 </div>
+<style>
+    .vhs-content {
+        font-size: 12.5px;
+        width: 700px; 
+        height: 539px
+    }
+
+    @media (max-width: 770px){
+        .vhs-content {
+            font-size: 8px;
+            width: 500px; 
+            height: 385px
+        }
+    }
+
+    @media (max-width: 450px){
+        .vhs-content {
+            font-size: 7px;
+            width: 400px; 
+            height: 309px
+        }
+    }
+</style>
 <script src="/static/scripts/film.js"></script>
 {{> shareButton}}
