@@ -92,7 +92,12 @@ Here I will list the pages that I need to work on that are already referenced:
 - [ ] http://localhost:3000/Catalogue for viewing the full catalog
 - [ ] http://localhost:3000/Account the customer dashboard
 - [ ] http://localhost:3000/Staff/Dashboard the staff dashboard
+- [ ] http://localhost:3000/Rent?v=1000 the page to rent a film
+- [ ] http://localhost:3000/Customer/History?v=1000 for viewing your renting history of this item
+- [ ] http://localhost:3000/Staff/FilmHistory?v=1000 so that staff can see renting history
+- [ ] http://localhost:3000/Staff/Edit/Film?v=1000 so that staff can CRUD a film
 
 The ones that are not referenced yet, but I know I have to make them
 
 - [ ] http://localhost:3000/Stores?v=1 for the viewing of a specific location
+- [ ] http://localhost:3000/Rented for viewing things you are currently renting
