@@ -10,6 +10,7 @@
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
     <style>
+        {{!-- might move these colors --}}
         .bg-dark-1 {
             background-color: #1d2024;
         }
@@ -43,6 +44,51 @@
     </style>
 </head>
 
+{{!-- These scripts define methods which any page can use --}}
+<script src="/static/scripts/helper/validation.helper.js"></script>
+
+{{!-- this is an important script to load inline, to make sure that the buttons which we'll remove do not stay whilst we wait for the js to be fetched. --}}
+<script>
+    function setHeaderText(autoLoginVersion) {
+        console.log(autoLoginVersion)
+    let loginLinks = document.querySelectorAll(".login-link");
+    let userLinks = document.querySelectorAll(".loggedin-link");
+    let customerLinks = document.querySelectorAll(".customer-link");
+    let staffLinks = document.querySelectorAll(".staff-link");
+    if (autoLoginVersion == 1 || autoLoginVersion == 2) {
+        loginLinks.forEach((el) => {
+            el.style.display = "none";
+        });
+        userLinks.forEach((el) => {
+            el.style.display = "";
+        });
+    } else {
+        loginLinks.forEach((el) => {
+            el.style.display = "";
+        });
+        userLinks.forEach((el) => {
+            el.style.display = "none";
+        });
+    }
+    if (autoLoginVersion == 1) {
+        customerLinks.forEach((el) => {
+            el.style.display = "";
+        });
+    } else if (autoLoginVersion == 2) {
+        staffLinks.forEach((el) => {
+            el.style.display = "";
+        });
+    } else {
+        customerLinks.forEach((el) => {
+            el.style.display = "none";
+        });
+        staffLinks.forEach((el) => {
+            el.style.display = "none";
+        });
+    }
+}
+</script>
+
 <body data-bs-theme="dark" style="height: 100svh;" class="d-flex flex-column">
     {{> header }}
     {{{body}}}
@@ -51,5 +97,8 @@
         crossorigin="anonymous"></script>
 </body>
 <script src="/static/scripts/autoLogin.js"></script>
+<script>
+    setHeaderText(0)
+</script>
 
 </html>
