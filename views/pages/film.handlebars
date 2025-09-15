@@ -1,38 +1,59 @@
-<div class="container p-3">
-  <div class="row">
-    <div class="col d-flex flex-column row-gap-3">
-        {{!-- Vertical column 1 --}}
-        <div class="card p-3 d-flex gap-3">
-            <div style="width: 700px" class="card">
-                {{> vhs-case
-                title="ARACHNOPHOBIA ROLLERCOASTER"
-                font-size="12.5px"
-                actor="MATTHEW JOHANSSON"
-                category="Documentary"
-                year="2010"
-                description="A Awe-Inspiring Yarn of a Hunter And a Feminist who must Challenge a Dentist in The Outback"  }}
+<div class="bg-dark-1 full">
+    <div class="container p-3">
+        <div class="row">
+            <div class="col d-flex flex-column row-gap-3">
+                {{!-- Vertical column 1 --}}
+                <div class="card p-3 d-flex gap-3">
+                    <div id="carouselExample" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div style="width: 700px; height: 539px" class="card center bg-dark-1">
+                                    {{> vhs-case
+                                    title="ARACHNOPHOBIA ROLLERCOASTER"
+                                    font-size="12.5px"
+                                    actor="MATTHEW JOHANSSON"
+                                    category="Documentary"
+                                    year="2010"
+                                    description="A Awe-Inspiring Yarn of a Hunter And a Feminist who must Challenge a Dentist in The Outback"  }}
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div style="width: 700px; height: 539px" class="card center bg-dark-1">
+                                    <img src="/static/images/vhs.svg" class="d-block w-100" alt="...">
+                                </div>
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                    <div>
+                        <h1>ARACHNOPHOBIA ROLLERCOASTER</h1>
+                        <span>A Awe-Inspiring Yarn of a Hunter And a Feminist who must Challenge a Dentist in The Outback</span>
+                    </div>
+                </div>
+                <div class="card p-3 flex-row gap-3">
+                    <a href="/Rent" class="btn btn-primary addQueryParam">Rent Film</a>
+                    <a href="/Customer/History" class="btn btn-secondary customer-link addQueryParam">Rental History</a>
+                    <a href="/Share" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#shareModal"> <i class="bi bi-share"></i> Share Film</a>
+                    <a href="/Staff/Edit/Film" class="btn btn-danger staff-link addQueryParam">Edit Film</a>
+                    <a href="/Staff/FilmHistory" class="btn btn-primary staff-link addQueryParam">Film Renting History</a>
+                </div>
+                
             </div>
-            <div>
-                <h1>ARACHNOPHOBIA ROLLERCOASTER</h1>
-                <span>A Awe-Inspiring Yarn of a Hunter And a Feminist who must Challenge a Dentist in The Outback</span>
+            <div class="col-md-auto">
+            </div>
+            <div class="col col-lg-3 card">
+                {{!-- Vertical column 1 --}}
+            
             </div>
         </div>
-        <div class="card p-3 flex-row gap-3">
-            <a href="/Staff/Rent" class="btn btn-primary addQueryParam">Rent Film</a>
-            <a href="/Staff/Customer/History" class="btn btn-primary customer-link addQueryParam">Rental History</a>
-            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#shareModal"> <i class="bi bi-share"></i> Share Film</a>
-            <a href="/Staff/" class="btn btn-primary staff-link addQueryParam">Edit Film</a>
-            <a href="/Staff/" class="btn btn-primary staff-link addQueryParam">Film Renting History</a>
-        </div>
-        
     </div>
-    <div class="col-md-auto">
-    </div>
-    <div class="col col-lg-3 card">
-        {{!-- Vertical column 1 --}}
-      
-    </div>
-  </div>
 </div>
 <script src="/static/scripts/film.js"></script>
 {{> shareButton}}
