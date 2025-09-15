@@ -1,0 +1,81 @@
+<div class="modal fade" id="shareModal" tabindex="-1" aria-labelledby="shareModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-dark border-secondary">
+            <div class="modal-header border-secondary">
+                <h5 class="modal-title text-light" id="shareModalLabel">
+                    <i class="bi bi-share me-2"></i>Share URL
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="urlInput" class="form-label text-light">URL to Share:</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control bg-dark text-light border-secondary" id="urlInput" readonly>
+                        <button class="btn btn-outline-success" type="button" id="copyButton" title="Copy to clipboard">
+                            <i class="bi bi-clipboard"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer border-secondary">
+                <button type="button" class="btn btn-outline-primary" id="emailShareButton">
+                    <i class="bi bi-envelope me-2"></i>Share via Email
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="copyToast" class="toast bg-success text-white" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-body">
+            <i class="bi bi-check-circle me-2"></i>URL copied to clipboard!
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const urlInput = document.getElementById('urlInput');
+        const copyButton = document.getElementById('copyButton');
+        const emailShareButton = document.getElementById('emailShareButton');
+        const copyToast = new bootstrap.Toast(document.getElementById('copyToast'));
+        urlInput.value = window.location.href;
+        
+        {{!-- Copy to clipboard functionality --}}
+        copyButton.addEventListener('click', async function() {
+            try {
+                await navigator.clipboard.writeText(urlInput.value);
+                
+                const icon = copyButton.querySelector('i');
+                const originalClass = icon.className;
+                icon.className = 'bi bi-check-lg';
+                copyButton.classList.remove('btn-outline-success');
+                copyButton.classList.add('btn-success');
+                
+                copyToast.show();
+                
+                setTimeout(() => {
+                    icon.className = originalClass;
+                    copyButton.classList.remove('btn-success');
+                    copyButton.classList.add('btn-outline-success');
+                }, 2000);
+                
+            } catch (err) {
+                {{!-- Fallback for older browsers --}}
+                urlInput.select();
+                document.execCommand('copy');
+                copyToast.show();
+            }
+        });
+        {{!-- for emails --}}
+        emailShareButton.addEventListener('click', function() {
+            const subject = encodeURIComponent('Check out this link');
+            const body = encodeURIComponent(`I thought you might be interested in this: ${urlInput.value}`);
+            const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
+            window.location.href = mailtoLink;
+        });
+    });
+</script>
