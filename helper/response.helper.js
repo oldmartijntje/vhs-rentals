@@ -7,9 +7,13 @@ import { invalidNumber } from "./validation.helper.js";
  * @param {*} code 
  * @param {*} message 
  */
-export function quickResponse(res, code, message) {
+export function quickResponse(res, code, message, alreadyIsJson = false) {
     logger.debug(`Responding ${code} to client with message: "${message}"`)
-    res.status(code).send(message);
+    if (alreadyIsJson) {
+        res.status(code).send(message);
+    } else {
+        res.status(code).send(JSON.stringify({ message: message }));
+    }
 }
 
 /**
@@ -78,7 +82,7 @@ export function invalidNumberResponse(res, amount, bodyItem, min, max) {
  * @param {*} bodyItem 
  */
 export function okResponse(res, bodyItem) {
-    quickResponse(res, 200, bodyItem);
+    quickResponse(res, 200, bodyItem, true);
 }
 
 /**

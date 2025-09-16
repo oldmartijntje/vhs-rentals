@@ -69,7 +69,7 @@ export function validateTokenRequest(req, res) {
                 let userData = auth.getUser()
                 userData.picture = null;
                 logger.debug(`User validated with this data: ${JSON.stringify(userData)}`)
-                okResponse(res, true)
+                okResponse(res, { "authentication": true }) // honestly doesn't matter, we don't look at this in the frontend.
             } else {
                 quickResponse(res, 400, false)
             }

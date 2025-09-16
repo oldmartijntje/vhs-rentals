@@ -14,8 +14,8 @@ function submitLogin(version) {
                 },
                 body: JSON.stringify({ email: usernameField.value, password: passwordField.value, role: (version == 1 ? "customer" : "staff") })
             }).then(async function (res) {
+                const content = await res.json();
                 if (res.status == 200 && res.ok == true) {
-                    const content = await res.json();
                     console.log(content)
                     if (content.sessionToken != undefined && content.userId != undefined) {
                         data = {
@@ -63,12 +63,10 @@ function submitLogin(version) {
                     }
                     return;
                 }
-                res.text().then(function (text) {
-                    if (errorLoginText) {
-                        errorLoginText.style.display = "block";
-                        errorLoginText.children[0].innerText = text;
-                    }
-                })
+                if (errorLoginText) {
+                    errorLoginText.style.display = "block";
+                    errorLoginText.children[0].innerText = content.message;
+                }
             });
         }
     }
