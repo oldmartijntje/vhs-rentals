@@ -39,6 +39,14 @@ export function invalidAuthenticationAttemptResponse(res) {
 }
 
 /**
+ * A method to easily send an 403 Forbidden response
+ * @param {*} res 
+ */
+export function forbiddenResponse(res) {
+    quickResponse(res, 403, `You are not allowed to access this.`);
+}
+
+/**
  * A method to easily send an 404 response
  * @param {*} bodyItem 
  * @param {*} res 

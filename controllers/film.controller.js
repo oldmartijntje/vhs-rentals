@@ -1,7 +1,9 @@
+import { UserType } from '../customTypes/user.enum.js';
 import {
     queryParamMissingResponse, quickResponse, notFoundResponse,
     okResponse, tryCatchResponse, invalidNumberResponse,
-    invalidAuthenticationAttemptResponse
+    invalidAuthenticationAttemptResponse,
+    forbiddenResponse
 } from '../helper/response.helper.js';
 import { Auth } from '../middleware/auth.js';
 import { logger } from '../middleware/logger.js';
@@ -109,6 +111,20 @@ export function postFilm(req, res) {
         if (!actors) return queryParamMissingResponse(res, "actors");
         if (!userId) return queryParamMissingResponse(res, "userId");
         if (!sessionToken) return queryParamMissingResponse(res, "sessionToken");
+
+        const auth = new Auth(userId, sessionToken);
+        auth.validate((isValidated) => {
+            if (!isValidated) {
+                invalidAuthenticationAttemptResponse(res);
+                return;
+            }
+            if (!auth.authorizationCheck([UserType.STAFF, UserType.STORE_OWNER])) {
+                forbiddenResponse(res);
+                return;
+            }
+            // TODO:
+            // the actual logic
+        });
 
     } catch (e) {
         tryCatchResponse(res, e);

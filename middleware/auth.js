@@ -1,3 +1,4 @@
+import { UserType } from "../customTypes/user.enum.js";
 import { loginViaSesion } from "../services/login.service.js";
 import { getDataByUserId } from "../services/user.service.js";
 import { logger } from "./logger.js";
@@ -33,6 +34,15 @@ export class Auth {
                         this.userData = result[0];
                         this.userData.password = null
                         this.isValidated = true;
+                        if (this.userData.user_type == "customer") {
+                            this.userData.userTypeEnum = UserType.CUSTOMER;
+                        } else if (this.userData.user_type == "staff") {
+                            this.userData.userTypeEnum = UserType.STAFF;
+                            // TODO: 
+                            // check for store owner
+                        } else {
+                            this.userData.userTypeEnum = UserType.UNIDENTIFIED;
+                        }
                         callback(true);
                     }
 
@@ -43,10 +53,17 @@ export class Auth {
         });
     }
 
-    // TODO:
-    // authorisationCheck(callback) {
-    //     if (!this.isValidated) throw new Error("You can't check authorisation for a user that is not validated.")
-    // }
+    authorizationCheck(userTypesAllowed) {
+        if (!this.isValidated) throw new Error("You can't check authorisation for a user that is not validated.")
+        let isFound = false;
+        userTypesAllowed.array.forEach(userType => {
+            if (userType === this.userData.userTypeEnum) {
+                isFound = true;
+            }
+        });
+        logger.info(`Just did an autorisation check for ${this.userId}, is authorised: ${isFound}`);
+        return isFound;
+    }
 
     getUser() {
         if (!this.isValidated) throw new Error("You can't get user data for a user that is not validated.")

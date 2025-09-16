@@ -107,5 +107,5 @@ The ones that are not referenced yet, but I know I have to make them
 Other things to do:
 
 - [ ] http://localhost:3000/, fix the "visit us" modal
-- [ ] authorisation in auth.js with enums
+- [x] authorisation in auth.js with enums
 - [ ] get info on staff, whether they are store owners
