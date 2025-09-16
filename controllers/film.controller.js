@@ -1,4 +1,8 @@
-import { queryParamMissingResponse, quickResponse, notFoundResponse, okResponse, tryCatchResponse, invalidNumberResponse } from '../helper/response.helper.js';
+import {
+    queryParamMissingResponse, quickResponse, notFoundResponse,
+    okResponse, tryCatchResponse, invalidNumberResponse,
+    invalidAuthenticationAttemptResponse
+} from '../helper/response.helper.js';
 import { Auth } from '../middleware/auth.js';
 import { logger } from '../middleware/logger.js';
 import { getRecentFilms, getFilmData } from '../services/film.service.js';
