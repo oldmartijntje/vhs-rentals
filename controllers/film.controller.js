@@ -48,6 +48,7 @@ export function filmInfoRequest(req, res) {
         const { id, userId, sessionToken } = req.query;
 
         if (!id) return queryParamMissingResponse(res, "id");
+        if (invalidNumberResponse(res, userId, "userId", 0, Infinity)) return;
         if (invalidNumberResponse(res, id, "id", 0, Infinity)) return;
         if (userId != undefined && sessionToken != undefined) {
             const auth = new Auth(userId, sessionToken);
@@ -101,7 +102,7 @@ export function filmInfoRequest(req, res) {
 export function postFilm(req, res) {
     try {
         const { title, description, category, price, length, rating, release_year, actors, userId, sessionToken } = req.body;
-        if (!title) return queryParamMissingResponse(res, "id");
+        if (!title) return queryParamMissingResponse(res, "title");
         if (!description) return queryParamMissingResponse(res, "description");
         if (!category) return queryParamMissingResponse(res, "category");
         if (!price) return queryParamMissingResponse(res, "price");
@@ -111,6 +112,10 @@ export function postFilm(req, res) {
         if (!actors) return queryParamMissingResponse(res, "actors");
         if (!userId) return queryParamMissingResponse(res, "userId");
         if (!sessionToken) return queryParamMissingResponse(res, "sessionToken");
+        if (invalidNumberResponse(res, price, "price", 0, Infinity)) return;
+        if (invalidNumberResponse(res, length, "length", 0, Infinity)) return;
+        if (invalidNumberResponse(res, userId, "userId", 0, Infinity)) return;
+        if (invalidNumberResponse(res, release_year, "release_year", 1800, Infinity)) return; // i am not going to limit people making movies in the year 1.797693134862315E+308
 
         const auth = new Auth(userId, sessionToken);
         auth.validate((isValidated) => {
@@ -152,6 +157,10 @@ export function putFilm(req, res) {
         if (!film_id) return queryParamMissingResponse(res, "film_id");
         if (!userId) return queryParamMissingResponse(res, "userId");
         if (!sessionToken) return queryParamMissingResponse(res, "sessionToken");
+        if (invalidNumberResponse(res, price, "price", 0, Infinity)) return;
+        if (invalidNumberResponse(res, length, "length", 0, Infinity)) return;
+        if (invalidNumberResponse(res, userId, "userId", 0, Infinity)) return;
+        if (invalidNumberResponse(res, release_year, "release_year", 1800, Infinity)) return; // i am not going to limit people making movies in the year 1.797693134862315E+308
 
     } catch (e) {
         tryCatchResponse(res, e);
@@ -172,6 +181,7 @@ export function deleteFilm(req, res) {
         if (!userId) return queryParamMissingResponse(res, "userId");
         if (!sessionToken) return queryParamMissingResponse(res, "sessionToken");
         if (invalidNumberResponse(res, id, "id", 0, Infinity)) return;
+        if (invalidNumberResponse(res, userId, "userId", 0, Infinity)) return;
 
 
     } catch (e) {

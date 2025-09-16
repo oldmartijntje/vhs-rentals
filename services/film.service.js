@@ -84,3 +84,30 @@ export function getFilmData(id, isAuthenticated, callback) {
         })
     })
 }
+
+/**
+ * 
+ * @param {*} id 
+ * @param {function} callback (result|null) => void
+ */
+export function addNewFilm(id, callback) {
+
+}
+
+/**
+ * 
+ * @param {*} id 
+ * @param {function} callback (result|null) => void
+ */
+export function updateFilm(id, callback) {
+
+}
+
+/**
+ * 
+ * @param {*} id 
+ * @param {function} callback (result|null) => void
+ */
+export function removeFilm(id, callback) {
+
+}

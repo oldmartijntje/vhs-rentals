@@ -56,7 +56,7 @@ export class Auth {
     authorizationCheck(userTypesAllowed) {
         if (!this.isValidated) throw new Error("You can't check authorisation for a user that is not validated.")
         let isFound = false;
-        userTypesAllowed.array.forEach(userType => {
+        userTypesAllowed.forEach(userType => {
             if (userType === this.userData.userTypeEnum) {
                 isFound = true;
             }
