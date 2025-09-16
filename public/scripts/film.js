@@ -65,8 +65,8 @@ fetch(url, {
         'Content-Type': 'application/json'
     }
 }).then(async function (res) {
-    const content = await res.json();
     if (res.status == 200 && res.ok == true) {
+        const content = await res.json();
         let titles = document.querySelectorAll(".filmTitleInnerHTML");
         let actors = document.querySelectorAll(".actorInnerHTML");
         let actorsDiv = document.querySelectorAll(".actorsInnerHTML");
@@ -133,5 +133,7 @@ fetch(url, {
             default:
 
         }
+    } else {
+        showErrorAndRedirect()
     }
 })
