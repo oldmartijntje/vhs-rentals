@@ -7,6 +7,11 @@ if (!isNewFilm && invalidNumber(film, 0, 0, true)) {
     window.location.href = `/.Staff/Edit/Film?v=${film}`;
 }
 
+const addQueryParamNavElements = document.querySelectorAll(".addQueryParam");
+addQueryParamNavElements.forEach((item) => {
+    item.href = item.href + `?v=${film}`
+});
+
 let data = localStorage.getItem("vhs_rental_user");
 let userId;
 let token;
@@ -73,9 +78,9 @@ if (authenticated) {
             })
                 .then(res => res.json())
                 .then(result => {
-                    if (result.filmId) {
+                    if (result.id) {
                         // Redirect to edit page for newly created film
-                        window.location.href = `/Staff/Edit/Film?v=${result.filmId}`;
+                        window.location.href = `/Staff/Edit/Film?v=${result.id}`;
                     } else {
                         alert('Failed to create film.');
                     }

@@ -1,7 +1,9 @@
 import { logger } from "../middleware/logger.js"
-import { getRecentFilmsFromDatabase, getFullFilmInfoById } from "../dao/film.dao.js"
+import { getRecentFilmsFromDatabase, getFullFilmInfoById, addNewFilmToDatabase } from "../dao/film.dao.js"
+import { addCategoryToDatabase, linkFilmCategory } from "../dao/category.dao.js"
 import { getInventoryStatusFromDatabase } from "../dao/inventory.dao.js";
 import { getStoreAddressesFromDatabase } from "../dao/store.dao.js";
+import { addActors, linkFilmActors } from "../dao/actor.dao.js";
 
 /**
  * The code that gets X recent films. 
@@ -86,20 +88,51 @@ export function getFilmData(id, isAuthenticated, callback) {
 }
 
 /**
- * 
- * @param {*} id 
- * @param {function} callback (result|null) => void
+ * Add a film to database (and actors / category if they are new)
+ * @param {*} title 
+ * @param {*} description 
+ * @param {*} category 
+ * @param {*} price 
+ * @param {*} length 
+ * @param {*} rating 
+ * @param {*} release_year 
+ * @param {*} actors 
+ * @param {*} callback 
  */
-export function addNewFilm(id, callback) {
+export function addNewFilm(title, description, category, price, length, rating, release_year, actors, callback) {
+    addNewFilmToDatabase(title.toUpperCase(), description, price, length, rating, release_year, (filmId) => {
+        if (!filmId) return callback(null);
 
+        addCategoryToDatabase(category.toUpperCase(), (categoryId) => {
+            if (!categoryId) return callback(null);
+
+            linkFilmCategory(filmId, categoryId, () => {
+                addActors(actors.toUpperCase(), (actorIds) => {
+                    if (!actorIds) return callback(null);
+
+                    linkFilmActors(filmId, actorIds, () => {
+                        logger.debug(`Film ${filmId} successfully added with category + actors`);
+                        callback(filmId);
+                    });
+                });
+            });
+        });
+    });
 }
 
 /**
  * 
- * @param {*} id 
- * @param {function} callback (result|null) => void
+ * @param {*} title 
+ * @param {*} description 
+ * @param {*} category 
+ * @param {*} price 
+ * @param {*} length 
+ * @param {*} rating 
+ * @param {*} release_year 
+ * @param {*} actors 
+ * @param {*} callback 
  */
-export function updateFilm(id, callback) {
+export function updateFilm(title, description, category, price, length, rating, release_year, actors, callback) {
 
 }
 

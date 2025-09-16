@@ -66,3 +66,18 @@ group by
         return callback(results);
     });
 }
+
+export function addNewFilmToDatabase(title, description, price, length, rating, release_year, callback) {
+    pool.query(
+        `INSERT INTO sakila.film (title, description, rental_rate, length, rating, release_year, language_id)
+         VALUES (?, ?, ?, ?, ?, ?, ?)`,
+        [title, description, price, length, rating, release_year, 1],
+        (err, results) => {
+            if (err) {
+                console.error(`Error at 'addNewFilmToDatabase' method:`, err);
+                return callback(null);
+            }
+            return callback(results.insertId);
+        }
+    );
+}

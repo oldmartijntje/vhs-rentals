@@ -7,7 +7,7 @@ import {
 } from '../helper/response.helper.js';
 import { Auth } from '../middleware/auth.js';
 import { logger } from '../middleware/logger.js';
-import { getRecentFilms, getFilmData } from '../services/film.service.js';
+import { getRecentFilms, getFilmData, addNewFilm } from '../services/film.service.js';
 import { loginViaCredentials, refreshSessionToken } from '../services/login.service.js';
 
 /**
@@ -108,6 +108,7 @@ export function postFilm(req, res) {
         if (!price) return queryParamMissingResponse(res, "price");
         if (!length) return queryParamMissingResponse(res, "length");
         if (!rating) return queryParamMissingResponse(res, "rating");
+        if (rating.length > 2) return quickResponse(res, 400, "rating value is too many characters")
         if (!release_year) return queryParamMissingResponse(res, "release_year");
         if (!actors) return queryParamMissingResponse(res, "actors");
         if (!userId) return queryParamMissingResponse(res, "userId");
@@ -127,8 +128,14 @@ export function postFilm(req, res) {
                 forbiddenResponse(res);
                 return;
             }
-            // TODO:
-            // the actual logic
+            addNewFilm(title, description, category, price, length, rating, release_year, actors, (result) => {
+                if (result != null) {
+                    okResponse(res, { id: result });
+                    return
+                }
+                tryCatchResponse(res, "something went wrong");
+                return
+            })
         });
 
     } catch (e) {
