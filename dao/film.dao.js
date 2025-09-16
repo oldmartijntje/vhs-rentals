@@ -38,6 +38,7 @@ export function getFullFilmInfoById(id, callback) {
     film.rental_rate AS price,
     film.length AS length,
     film.rating AS rating,
+    film.release_year AS release_year,
     group_concat(concat(actor.first_name, _utf8mb4' ', actor.last_name) separator ', ') AS actors
 from
     ((((film
