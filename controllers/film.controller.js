@@ -89,3 +89,76 @@ export function filmInfoRequest(req, res) {
         return;
     }
 }
+
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
+export function postFilm(req, res) {
+    try {
+        const { title, description, category, price, length, rating, release_year, actors, userId, sessionToken } = req.body;
+        if (!title) return queryParamMissingResponse(res, "id");
+        if (!description) return queryParamMissingResponse(res, "description");
+        if (!category) return queryParamMissingResponse(res, "category");
+        if (!price) return queryParamMissingResponse(res, "price");
+        if (!length) return queryParamMissingResponse(res, "length");
+        if (!rating) return queryParamMissingResponse(res, "rating");
+        if (!release_year) return queryParamMissingResponse(res, "release_year");
+        if (!actors) return queryParamMissingResponse(res, "actors");
+        if (!userId) return queryParamMissingResponse(res, "userId");
+        if (!sessionToken) return queryParamMissingResponse(res, "sessionToken");
+
+    } catch (e) {
+        tryCatchResponse(res, e);
+        return;
+    }
+}
+
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
+export function putFilm(req, res) {
+    try {
+        const { title, description, category, price, length, rating, release_year, actors, userId, sessionToken } = req.body;
+        if (!title) return queryParamMissingResponse(res, "id");
+        if (!description) return queryParamMissingResponse(res, "description");
+        if (!category) return queryParamMissingResponse(res, "category");
+        if (!price) return queryParamMissingResponse(res, "price");
+        if (!length) return queryParamMissingResponse(res, "length");
+        if (!rating) return queryParamMissingResponse(res, "rating");
+        if (!release_year) return queryParamMissingResponse(res, "release_year");
+        if (!actors) return queryParamMissingResponse(res, "actors");
+        if (!userId) return queryParamMissingResponse(res, "userId");
+        if (!sessionToken) return queryParamMissingResponse(res, "sessionToken");
+
+    } catch (e) {
+        tryCatchResponse(res, e);
+        return;
+    }
+}
+
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
+export function deleteFilm(req, res) {
+    try {
+        const { id, userId, sessionToken } = req.query;
+        if (!id) return queryParamMissingResponse(res, "id");
+        if (!userId) return queryParamMissingResponse(res, "userId");
+        if (!sessionToken) return queryParamMissingResponse(res, "sessionToken");
+        if (invalidNumberResponse(res, id, "id", 0, Infinity)) return;
+
+
+    } catch (e) {
+        tryCatchResponse(res, e);
+        return;
+    }
+}
