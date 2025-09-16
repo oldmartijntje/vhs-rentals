@@ -1,6 +1,6 @@
 <div class="bg-dark-1 full">
     <div class="container p-3">
-        <div class="row">
+        <div class="row row-gap-3">
             <div class="col d-flex flex-column row-gap-3">
                 {{!-- Vertical column 1 --}}
                 <div class="card p-3 d-flex gap-3">
@@ -49,9 +49,35 @@
             </div>
             <div class="col-md-auto">
             </div>
-            <div class="col col-lg-3 card">
+            <div class="col col-lg-3 card p-3">
                 {{!-- Vertical column 1 --}}
-            
+                <div class="center pt-3 border-bottom border-primary">
+                    <h2>Filmformation</h2>
+                </div>
+                <div class="center pt-3 border-bottom border-secondary w-100">
+                    <h3 class="center pt-3 border-bottom border-secondary text-center">Actors</h3>
+                    <div class="center pt-2 actorsInnerHTML">
+
+                    </div>
+                </div>
+                <div class="center pt-3 border-bottom border-secondary w-100">
+                    <h3 class="center pt-3 border-bottom border-secondary text-center">General Information</h3>
+                    <div class="center pt-2">
+                        <ul>
+                            <li>Category: <span class="categoryInnerHTML"></span></li>
+                            <li>Rating: <span class="ratingInnerHTML"></span></li>
+                            <li>Price: <span class="priceInnerHTML"></span></li>
+                            <li>Release Year: <span class="yearInnerHTML"></span></li>
+                            <li>Duration: <span class="lenghtInnerHTML"></span> minutes</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="center pt-3 w-100 border-bottom border-secondary">
+                    <h3 class="center pt-3 border-bottom border-secondary text-center">Rentable Copies</h3>
+                    <div class="center pt-2 copiesInnerHTML">
+
+                    </div>
+                </div>
             </div>
         </div>
     </div>
