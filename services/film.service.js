@@ -12,6 +12,19 @@ export function getRecentFilms(amount, callback) {
     getRecentFilmsFromDatabase(amount, callback)
 }
 
+function countCopies(result) {
+    return result.reduce(
+        (acc, item) => {
+            if (item.currently_rented_out === 1) {
+                acc.rented++;
+            } else {
+                acc.available++;
+            }
+            return acc;
+        },
+        { rented: 0, available: 0 }
+    );
+}
 
 /**
  * The code that gets the data of a film
@@ -40,17 +53,7 @@ export function getFilmData(id, isAuthenticated, callback) {
                 callback(result);
                 return;
             } else if (!isAuthenticated) {
-                const counts = result2.reduce(
-                    (acc, item) => {
-                        if (item.currently_rented_out === 1) {
-                            acc.rented++;
-                        } else {
-                            acc.available++;
-                        }
-                        return acc;
-                    },
-                    { rented: 0, available: 0 }
-                );
+                const counts = countCopies(result2);
                 result[0].inventory = (counts.available > 0 ? true : false)
                 result[0].informationId = 1;
                 callback(result);
@@ -61,12 +64,14 @@ export function getFilmData(id, isAuthenticated, callback) {
             //  getStoreAddressFromDatabase
             getStoreAddressesFromDatabase(uniqueStoreIds, (result3) => {
                 if (result2 == null) {
-                    result[0].inventory = null;
+                    const counts = countCopies(result2);
+                    result[0].inventory = counts;
                     result[0].informationId = 2;
                     callback(result);
                     return;
                 } else if (result2 == 404) {
-                    result[0].inventory = 404;
+                    const counts = countCopies(result2);
+                    result[0].inventory = counts;
                     result[0].informationId = 2;
                     callback(result);
                     return;
