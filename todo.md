@@ -103,3 +103,9 @@ The ones that are not referenced yet, but I know I have to make them
 
 - [ ] http://localhost:3000/Stores?v=1 for the viewing of a specific location
 - [ ] http://localhost:3000/Rented for viewing things you are currently renting
+
+Other things to do:
+
+- [ ] http://localhost:3000/, fix the "visit us" modal
+- [ ] authorisation in auth.js with enums
+- [ ] get info on staff, whether they are store owners
