@@ -1,1 +1,79 @@
+<div class="container mt-5">
+    <h1 class="mb-4">Edit Film</h1>
+
+    <!-- Film Form -->
+    <form id="film-form">
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" id="title" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea id="description" class="form-control" rows="3"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="category" class="form-label">Category</label>
+            <input type="text" id="category" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label for="price" class="form-label">Price</label>
+            <input type="number" id="price" class="form-control" step="0.01">
+        </div>
+
+        <div class="mb-3">
+            <label for="length" class="form-label">Length (mins)</label>
+            <input type="number" id="length" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label for="rating" class="form-label">Rating</label>
+            <input type="text" id="rating" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label for="release_year" class="form-label">Release Year</label>
+            <input type="number" id="release_year" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label for="actors" class="form-label">Actors</label>
+            <input type="text" id="actors" class="form-control">
+        </div>
+
+        <button type="submit" class="btn btn-success me-2">Save Changes</button>
+        <button type="button" id="delete-film" class="btn btn-danger">Delete Film</button>
+    </form>
+
+    <hr class="my-5">
+
+    <!-- Inventory -->
+    <h4>Inventory</h4>
+    <table class="table table-striped" id="inventory-table">
+        <thead>
+            <tr>
+                <th>Inventory ID</th>
+                <th>Store ID</th>
+                <th>Currently Rented Out</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <!-- Store Addresses -->
+    <h4>Store Addresses</h4>
+    <table class="table table-bordered" id="addresses-table">
+        <thead>
+            <tr>
+                <th>Address</th>
+                <th>District</th>
+                <th>City</th>
+                <th>Country</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
 <script src="/static/scripts/staff/edit-film.js"></script>

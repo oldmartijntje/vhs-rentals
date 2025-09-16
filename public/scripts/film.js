@@ -134,6 +134,6 @@ fetch(url, {
 
         }
     } else {
-        showErrorAndRedirect("/", "errorModal")
+        showErrorAndRedirect("/", "errorModal");
     }
 })
