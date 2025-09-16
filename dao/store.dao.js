@@ -27,6 +27,7 @@ export function getStoreAddressesFromDatabase(store_ids, callback) {
             a.postal_code,
             s.manager_staff_id,
             a.phone,
+            s.store_id,
             c.city AS city_name,
             c.country_id,
             co.country AS country_name
