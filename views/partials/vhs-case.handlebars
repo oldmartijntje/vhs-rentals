@@ -6,37 +6,38 @@
     </div>
 
     <div class="vhs-text vhs-black vhs-bold vhs-flex-row" style="transform: rotate(90deg); top:19em; left: 10em; width: 36em">
-        <span class="vhs-big-title">{{title}}</span>
+        <span class="vhs-big-title filmTitleInnerHTML">{{title}}</span>
         <span class="vhs-center">VIDEO CASSETTE</span>
         <span class="vhs-center vhs-orange" style="margin-left: 2em; margin-right: 3em">ULTRA HIGH QUALITY</span>
     </div>
 
-    <div class="vhs-text vhs-black vhs-bold vhs-center" style="transform: rotate(-30deg); font-size:2.5em; top:5em; left: 1.5em; width: 8em;">
+    <div class="vhs-text vhs-black vhs-bold vhs-center filmTitleInnerHTML" 
+    style="transform: rotate(-30deg); font-size:2.5em; top:5em; left: 1.5em; width: 8em;">
         {{title}}
     </div>
 
     <div class="vhs-text vhs-black vhs-bold" style="transform: rotate(-30deg); top:19em; left: 6em; width: 20em;">
-        AN {{actor}} MOVIE
+        AN <span class="actorInnerHTML">{{actor}}</span> MOVIE
     </div>
         
     <div class="vhs-text" style="top:36em; left:5em; width:16em;">
-        <div class="vhs-circle">
+        <div class="vhs-circle categoryInnerHTML">
             {{category}}
         </div>
     </div>
 
     <div class="vhs-text" style="top:5em; left: 36em; width: 16em;">
-        <div class="vhs-title">{{title}}</div>
+        <div class="vhs-title filmTitleInnerHTML">{{title}}</div>
         <div class="vhs-box">
             <span class="vhs-subtitle">VIDEO CASSETTE</span><br/>
             <span class="vhs-bold-orange">ULTRA HIGH QUALITY</span>
         </div>
-        <div class="vhs-description">
+        <div class="vhs-description descriptionInnerHTML">
             {{description}}
         </div>
     </div>
 
-    <div class="vhs-text vhs-black" style="top:38em; left: 42em; max-width: 33%;">
+    <div class="vhs-text vhs-black yearInnerHTML" style="top:38em; left: 42em; max-width: 33%;">
         {{year}} ©
     </div>
 </div>

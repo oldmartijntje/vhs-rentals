@@ -7,6 +7,14 @@ if (invalidNumber(film, 0, 0, true)) {
     window.location.href = `/.Film?v=${film}`;
 }
 
+function compactSetInnerHtmlForEach(list, value) {
+    console.log(value, list.length)
+    list.forEach((item) => {
+        console.log(value, item)
+        item.innerHTML = value;
+    })
+}
+
 const addQueryParamNavElements = document.querySelectorAll(".addQueryParam");
 addQueryParamNavElements.forEach((item) => {
     item.href = item.href + `?v=${film}`
@@ -33,7 +41,16 @@ fetch(`/api/film?id=${film}`, {
 }).then(async function (res) {
     const content = await res.json();
     if (res.status == 200 && res.ok == true) {
-        autoLoginAuthenticatedUser = true;
-        setHeaderText(autoLoginVersion);
+        let titles = document.querySelectorAll(".filmTitleInnerHTML");
+        let actors = document.querySelectorAll(".actorInnerHTML");
+        let categories = document.querySelectorAll(".categoryInnerHTML");
+        let descriptions = document.querySelectorAll(".descriptionInnerHTML");
+        let years = document.querySelectorAll(".yearInnerHTML");
+        compactSetInnerHtmlForEach(titles, content.title)
+        compactSetInnerHtmlForEach(actors, content.actors?.split(",")[0])
+        compactSetInnerHtmlForEach(categories, content.category)
+        compactSetInnerHtmlForEach(descriptions, content.description)
+        compactSetInnerHtmlForEach(years, content.release_year)
+        console.log(content)
     }
 })
