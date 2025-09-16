@@ -15,6 +15,7 @@
 - [ ] user stories for each epic
 - [ ] logging with the winston package
 - [ ] using nodemon
+- [ ] running on docker
 
 - [randvoorwaarden](https://brightspace.avans.nl/d2l/le/lessons/251408/topics/1770191)
     - I hate this: `Het systeem maakt alleen gebruik van callbackfuncties. We gebruiken nog geen async/await of Promises.`. The other things I am fine with, but this sucks.
@@ -88,7 +89,7 @@
 
 Here I will list the pages that I need to work on that are already referenced:
 
-- [ ] http://localhost:3000/Film?v=1000 for viewing a specific film
+- [x] http://localhost:3000/Film?v=1000 for viewing a specific film
 - [ ] http://localhost:3000/Catalogue for viewing the full catalog
 - [ ] http://localhost:3000/Account the customer dashboard
 - [ ] http://localhost:3000/Staff/Dashboard the staff dashboard
