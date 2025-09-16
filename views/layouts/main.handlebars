@@ -90,7 +90,15 @@
 </script>
 
 <body data-bs-theme="dark" style="height: 100svh;" class="d-flex flex-column">
-    {{> bootstrap-error }}
+    {{> bootstrap-error
+        message="Something went wrong. We'll be redirecting you back to the homepage."
+        modalName="errorModal" }}
+    {{> bootstrap-error
+        message="You need to be logged in to view this, please login."
+        modalName="loginModal" }}
+    {{> bootstrap-error
+        message="You are not authorized to view this."
+        modalName="authenticationModal" }}
     {{> header }}
     {{{body}}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
