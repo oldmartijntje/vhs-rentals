@@ -91,7 +91,7 @@ export function filmInfoRequest(req, res) {
 }
 
 /**
- * 
+ * add film
  * @param {*} req 
  * @param {*} res 
  * @returns 
@@ -117,14 +117,14 @@ export function postFilm(req, res) {
 }
 
 /**
- * 
+ * edit an film where id = ?
  * @param {*} req 
  * @param {*} res 
  * @returns 
  */
 export function putFilm(req, res) {
     try {
-        const { title, description, category, price, length, rating, release_year, actors, userId, sessionToken } = req.body;
+        const { title, description, category, price, length, rating, release_year, actors, film_id, userId, sessionToken } = req.body;
         if (!title) return queryParamMissingResponse(res, "id");
         if (!description) return queryParamMissingResponse(res, "description");
         if (!category) return queryParamMissingResponse(res, "category");
@@ -133,6 +133,7 @@ export function putFilm(req, res) {
         if (!rating) return queryParamMissingResponse(res, "rating");
         if (!release_year) return queryParamMissingResponse(res, "release_year");
         if (!actors) return queryParamMissingResponse(res, "actors");
+        if (!film_id) return queryParamMissingResponse(res, "film_id");
         if (!userId) return queryParamMissingResponse(res, "userId");
         if (!sessionToken) return queryParamMissingResponse(res, "sessionToken");
 
@@ -143,7 +144,7 @@ export function putFilm(req, res) {
 }
 
 /**
- * 
+ * delete 1 film where Id = ?
  * @param {*} req 
  * @param {*} res 
  * @returns 
