@@ -40,3 +40,4 @@ jobs:
             -H "X-API-Key: ${{ secrets.PORTAINER_API_KEY }}" \
             -H "Content-Type: application/json" \
             "${{ secrets.PORTAINER_URL }}/api/stacks/${{ secrets.STACK_ID }}/redeploy"
+
