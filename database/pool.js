@@ -16,6 +16,7 @@ logger.debug(`Database config: ${JSON.stringify({
     idleTimeout: 60000,
     queueLimit: 0,
 })}`)
+
 // Create a connection pool
 const pool = mysql.createPool({
     host: process.env.DB_HOST,
