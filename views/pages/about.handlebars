@@ -4,123 +4,215 @@
         <div class="col-md-8">
             <div class="card shadow-lg">
                 <div class="card-body">
-                    <h2 class="card-title">User Stories & Acceptatiecriteria</h2>
-                    <p class="card-text">Hieronder vind je de belangrijkste epics en user stories voor dit project.</p>
+                    <h2 class="card-title">Project Checklist</h2>
+                    <p class="card-text">Hieronder vind je een overzicht van de requirements, epics, user stories en pagina's zoals bijgehouden in het todo.md bestand.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mb-4">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Requirements</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><input type="checkbox" checked disabled> express js</li>
+                        <li class="list-group-item"><input type="checkbox" checked disabled> nodemon</li>
+                        <li class="list-group-item"><input type="checkbox" checked disabled> winston</li>
+                        <li class="list-group-item"><input type="checkbox" checked disabled> express app met handlebars</li>
+                        <li class="list-group-item"><input type="checkbox" checked disabled> DRY</li>
+                        <li class="list-group-item"><input type="checkbox" disabled> integratie testen</li>
+                        <li class="list-group-item"><input type="checkbox" disabled> CI/CD autodeploy</li>
+                        <li class="list-group-item"><input type="checkbox" checked disabled> view layer</li>
+                        <li class="list-group-item"><input type="checkbox" checked disabled> Controller layer</li>
+                        <li class="list-group-item"><input type="checkbox" checked disabled> Service layer</li>
+                        <li class="list-group-item"><input type="checkbox" checked disabled> DAO layer</li>
+                        <li class="list-group-item"><input type="checkbox" checked disabled> 3 epics</li>
+                        <li class="list-group-item"><input type="checkbox" checked disabled> user stories voor elke epic</li>
+                        <li class="list-group-item"><input type="checkbox" checked disabled> logging met winston</li>
+                        <li class="list-group-item"><input type="checkbox" checked disabled> gebruik van nodemon</li>
+                        <li class="list-group-item"><input type="checkbox" disabled> running on docker</li>
+                        <li class="list-group-item"><input type="checkbox" disabled> proper readme</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="accordion mb-5" id="epicsAccordion">
+        <!-- Renting and Returning Epic -->
         <div class="accordion-item">
-            <h2 class="accordion-header" id="headingOne">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
-                    aria-expanded="true" aria-controls="collapseOne">
-                    Epic: Verhuren & Retourneren
+            <h2 class="accordion-header" id="headingRentReturn">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRentReturn"
+                    aria-expanded="true" aria-controls="collapseRentReturn">
+                    Epic: Verhuren & Retourneren (customer)
                 </button>
             </h2>
-            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+            <div id="collapseRentReturn" class="accordion-collapse collapse show" aria-labelledby="headingRentReturn"
                 data-bs-parent="#epicsAccordion">
                 <div class="accordion-body">
-                    <strong>Voor klanten</strong>
                     <ul>
-                        <li>Als klant wil ik een film kunnen huren zodat ik deze kan bekijken.</li>
-                        <li>Als klant wil ik een gehuurde film kunnen retourneren zodat ik niet eindeloos betaal.</li>
+                        <li><input type="checkbox" disabled> Als klant wil ik een film kunnen huren zodat ik deze kan bekijken.</li>
+                        <li><input type="checkbox" disabled> Als klant wil ik een gehuurde film kunnen retourneren zodat ik niet eindeloos betaal.</li>
                     </ul>
                 </div>
             </div>
         </div>
+        <!-- Movie Management Epic -->
         <div class="accordion-item">
-            <h2 class="accordion-header" id="headingTwo">
+            <h2 class="accordion-header" id="headingMovieMgmt">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                    Epic: Filmaanbod beheren
+                    data-bs-target="#collapseMovieMgmt" aria-expanded="false" aria-controls="collapseMovieMgmt">
+                    Epic: Filmaanbod beheren (staff)
                 </button>
             </h2>
-            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+            <div id="collapseMovieMgmt" class="accordion-collapse collapse" aria-labelledby="headingMovieMgmt"
                 data-bs-parent="#epicsAccordion">
                 <div class="accordion-body">
-                    <strong>Voor medewerkers</strong>
                     <ul>
-                        <li>Inzien van alle films in de winkel.</li>
-                        <li>Toevoegen van nieuwe films aan de collectie.</li>
-                        <li>Bewerken van bestaande films.</li>
-                        <li>Verwijderen van films uit de collectie.</li>
+                        <li><input type="checkbox" checked disabled> Als medewerker wil ik een film kunnen bekijken zodat ik klanten kan informeren.</li>
+                        <li><input type="checkbox" checked disabled> Als medewerker wil ik een film kunnen toevoegen zodat we onze collectie kunnen updaten.</li>
+                        <li><input type="checkbox" checked disabled> Als medewerker wil ik een film kunnen bewerken zodat ik fouten kan corrigeren.</li>
+                        <li><input type="checkbox" checked disabled> Als medewerker wil ik een film kunnen verwijderen zodat we onze collectie kunnen updaten.</li>
                     </ul>
                 </div>
             </div>
         </div>
+        <!-- Searching Library Epic -->
         <div class="accordion-item">
-            <h2 class="accordion-header" id="headingThree">
+            <h2 class="accordion-header" id="headingSearchLib">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                    Epic: Bibliotheek doorzoeken
+                    data-bs-target="#collapseSearchLib" aria-expanded="false" aria-controls="collapseSearchLib">
+                    Epic: Bibliotheek doorzoeken (customer & staff)
                 </button>
             </h2>
-            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+            <div id="collapseSearchLib" class="accordion-collapse collapse" aria-labelledby="headingSearchLib"
                 data-bs-parent="#epicsAccordion">
                 <div class="accordion-body">
-                    <strong>Voor klanten & medewerkers</strong>
                     <ul>
-                        <li>Bladeren door de volledige filmcollectie.</li>
-                        <li>Filteren op auteur, naam, beschrijving, taal, winkel, voorraad.</li>
-                        <li>Medewerkers kunnen zien welke films uitgeleend zijn.</li>
+                        <li><input type="checkbox" checked disabled> Als klant wil ik door de volledige collectie kunnen bladeren zodat ik een film kan vinden die ik leuk vind.</li>
+                        <li><input type="checkbox" checked disabled> Als klant wil ik films kunnen filteren zodat ik niet naar de romantiek categorie hoef te kijken.</li>
+                        <li><input type="checkbox" checked disabled> Als medewerker wil ik door de collectie kunnen bladeren en filteren zodat ik kan zien welke films uitgeleend zijn.</li>
+                        <li><input type="checkbox" checked disabled> Als gebruiker wil ik een film en zijn details kunnen bekijken.</li>
                     </ul>
                 </div>
             </div>
         </div>
+        <!-- Renting History Epic -->
         <div class="accordion-item">
-            <h2 class="accordion-header" id="headingFour">
+            <h2 class="accordion-header" id="headingRentHist">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                    Epic: Verhuurgeschiedenis (klant)
+                    data-bs-target="#collapseRentHist" aria-expanded="false" aria-controls="collapseRentHist">
+                    Epic: Verhuurgeschiedenis (customer)
                 </button>
             </h2>
-            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
+            <div id="collapseRentHist" class="accordion-collapse collapse" aria-labelledby="headingRentHist"
                 data-bs-parent="#epicsAccordion">
                 <div class="accordion-body">
-                    <strong>Voor klanten</strong>
                     <ul>
-                        <li>Inzien van eigen verhuurgeschiedenis.</li>
-                        <li>Transactiegeschiedenis exporteren naar PDF.</li>
+                        <li><input type="checkbox" disabled> Als klant wil ik mijn verhuurgeschiedenis kunnen bekijken.</li>
+                        <li><input type="checkbox" disabled> Als klant wil ik mijn transactiegeschiedenis kunnen exporteren naar PDF.</li>
                     </ul>
                 </div>
             </div>
         </div>
+        <!-- Rental History Epic -->
         <div class="accordion-item">
-            <h2 class="accordion-header" id="headingFive">
+            <h2 class="accordion-header" id="headingRentalHist">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                    Epic: Verhuurgeschiedenis (medewerkers)
+                    data-bs-target="#collapseRentalHist" aria-expanded="false" aria-controls="collapseRentalHist">
+                    Epic: Verhuurgeschiedenis (staff)
                 </button>
             </h2>
-            <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive"
+            <div id="collapseRentalHist" class="accordion-collapse collapse" aria-labelledby="headingRentalHist"
                 data-bs-parent="#epicsAccordion">
                 <div class="accordion-body">
-                    <strong>Voor medewerkers</strong>
                     <ul>
-                        <li>Inzien van specifieke exemplaren van films.</li>
-                        <li>Inzien van verhuurgeschiedenis per exemplaar.</li>
-                        <li>Inzien van alle verhuurrecords van een klant.</li>
+                        <li><input type="checkbox" disabled> Als medewerker wil ik een specifiek exemplaar van een film kunnen bekijken.</li>
+                        <li><input type="checkbox" disabled> Als medewerker wil ik de verhuurgeschiedenis van een exemplaar kunnen bekijken.</li>
+                        <li><input type="checkbox" disabled> Als medewerker wil ik alle verhuurrecords van een klant kunnen bekijken.</li>
                     </ul>
                 </div>
             </div>
         </div>
+        <!-- Inventory Management Epic -->
         <div class="accordion-item">
-            <h2 class="accordion-header" id="headingSix">
+            <h2 class="accordion-header" id="headingInventory">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-                    Epic: Login & Sessies
+                    data-bs-target="#collapseInventory" aria-expanded="false" aria-controls="collapseInventory">
+                    Epic: Inventarisbeheer (staff)
                 </button>
             </h2>
-            <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix"
+            <div id="collapseInventory" class="accordion-collapse collapse" aria-labelledby="headingInventory"
                 data-bs-parent="#epicsAccordion">
                 <div class="accordion-body">
-                    <strong>Voor alle gebruikers</strong>
                     <ul>
-                        <li>Inloggen als gebruiker of medewerker.</li>
-                        <li>2FA verplicht kunnen stellen voor medewerkers (TOTP).</li>
-                        <li>Ingelogd blijven met sessie- en refresh tokens.</li>
+                        <li><input type="checkbox" disabled> Als medewerker wil ik de inventaris van een film kunnen bekijken.</li>
+                        <li><input type="checkbox" disabled> Als medewerker wil ik kunnen zien wie een exemplaar huurt.</li>
+                        <li><input type="checkbox" disabled> Als medewerker wil ik een nieuw exemplaar kunnen toevoegen aan de inventaris.</li>
+                        <li><input type="checkbox" disabled> Als medewerker wil ik een exemplaar kunnen verplaatsen tussen winkels.</li>
+                        <li><input type="checkbox" disabled> Als medewerker wil ik een exemplaar kunnen verwijderen uit de inventaris.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Login Epic -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingLogin">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseLogin" aria-expanded="false" aria-controls="collapseLogin">
+                    Epic: Login (customer & staff)
+                </button>
+            </h2>
+            <div id="collapseLogin" class="accordion-collapse collapse" aria-labelledby="headingLogin"
+                data-bs-parent="#epicsAccordion">
+                <div class="accordion-body">
+                    <ul>
+                        <li><input type="checkbox" disabled> Als gebruiker wil ik kunnen inloggen.</li>
+                        <li><input type="checkbox" disabled> Als medewerker wil ik kunnen inloggen.</li>
+                        <li><input type="checkbox" checked disabled> Als gebruiker wil ik ingelogd blijven met sessie- en refresh tokens.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Sessions Epic -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingSessions">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseSessions" aria-expanded="false" aria-controls="collapseSessions">
+                    Epic: Sessies (customer & staff)
+                </button>
+            </h2>
+            <div id="collapseSessions" class="accordion-collapse collapse" aria-labelledby="headingSessions"
+                data-bs-parent="#epicsAccordion">
+                <div class="accordion-body">
+                    <ul>
+                        <li><input type="checkbox" checked disabled> Als gebruiker wil ik ingelogd blijven met sessie- en refresh tokens.</li>
+                        <li><input type="checkbox" checked disabled> Als gebruiker wil ik de volgende dag terug kunnen komen zonder opnieuw in te loggen.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mb-4">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Concrete Pagina's</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><input type="checkbox" checked disabled> /Film?v=1000</li>
+                        <li class="list-group-item"><input type="checkbox" checked disabled> /Catalogue</li>
+                        <li class="list-group-item"><input type="checkbox" disabled> /Account</li>
+                        <li class="list-group-item"><input type="checkbox" disabled> /Staff/Dashboard</li>
+                        <li class="list-group-item"><input type="checkbox" disabled> /Rent?v=1000</li>
+                        <li class="list-group-item"><input type="checkbox" disabled> /Customer/History?v=1000</li>
+                        <li class="list-group-item"><input type="checkbox" disabled> /Staff/FilmHistory?v=1000</li>
+                        <li class="list-group-item"><input type="checkbox" checked disabled> /Staff/Edit/Film?v=1000</li>
+                        <li class="list-group-item"><input type="checkbox" disabled> /Staff/Edit/Inventory?v=1000</li>
+                        <li class="list-group-item"><input type="checkbox" disabled> /Stores?v=1</li>
+                        <li class="list-group-item"><input type="checkbox" disabled> /Rented</li>
                     </ul>
                 </div>
             </div>
