@@ -10,6 +10,6 @@ deploy:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SERVER_SSH_PORT }}     # optional, defaults to 22
           script: |
-            cd /home/deploy/myapp
+            cd /home/deploy/vhs-rentals
             docker-compose pull
             docker-compose up -d
