@@ -8,7 +8,7 @@
 - [x] an express app with either `ejs` or `pug` or `handlebars`
 - [x] DRY
 - [ ] integratie testen: https://brightspace.avans.nl/d2l/le/lessons/251408/topics/1785872
-- [ ] CI/CD autodeploy
+- [x] CI/CD autodeploy
 - [x] A `view` layer
 - [x] A `Controller` layer
 - [x] A `Service` layer
