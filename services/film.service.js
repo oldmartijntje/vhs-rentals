@@ -180,21 +180,23 @@ export function removeFilm(id, callback) {
 
 export function getAllFilmsOnPage(itemsPerPage, page, callback) {
     const offset = itemsPerPage * page;
-    getAllFilmsFromPage(itemsPerPage, offset, (result) => {
-        if (!result) return callback(null);
-        getFilmsCount((result2) => {
-            if (!result2) {
+
+    getAllFilmsFromPage(itemsPerPage, offset, (films) => {
+        if (!films) return callback(null);
+
+        getFilmsCount((totalCount) => {
+            if (!totalCount) {
                 callback({
-                    "totalPages": null,
-                    "data": result
+                    totalPages: null,
+                    data: films
                 });
                 return;
             }
+
             callback({
-                "totalPages": Math.ceil(result2 / itemsPerPage),
-                "data": result
+                totalPages: Math.ceil(totalCount / itemsPerPage),
+                data: films
             });
-            return;
         });
     });
 }
