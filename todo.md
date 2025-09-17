@@ -30,6 +30,7 @@
 - both -> searching library
 - customer -> renting history
 - staff -> rental history
+- staff -> inventory management
 - both -> login
 - both -> sessions
 
@@ -43,9 +44,9 @@
 **movie management**
 
 * [ ] 1. as an employee I want to be able to look at the movies we have in the store so that I can give specific information to customers
-* [ ] 2. as an employee I want to be able to add a movie so that we can update our collection
-* [ ] 3. as an employee I want to be able to edit a movie so that I can correct mistakes
-* [ ] 4. as an employee I want to be able to remove a movie so that we can update our collection
+* [x] 2. as an employee I want to be able to add a movie so that we can update our collection
+* [x] 3. as an employee I want to be able to edit a movie so that I can correct mistakes
+* [x] 4. as an employee I want to be able to remove a movie so that we can update our collection
 
 **searching library**
 
@@ -53,17 +54,28 @@
 * [ ] 2. as an customer I want to be able to filter the movies so that I do not have to look at the romance category.
 	* [ ] being able to filter on author, name, description, language, store, store inventory.
 * [ ] 3. as an employee I want to be able to browse and filter the entire movie collection so that I can see movies that are out, and am able to give correct suggestions to customers.
+* [x] 4. as an user I want to be able to view any movie and it's details so that i can proceed from there correctly
+    * [ ] An customer would want to decide to rent it or not
+    * [ ] An staff member would want to edit it, manage it, and view it's copies
 
 **Renting history**
 
 * [ ] 1. as an customer I want to be able to look at my renting history so that I can see which items I still need to return, and so that I am able to check for payment mistakes
-* [ ] 2. as an customer I want to be able to export the transaction history to a pdf so that I am able to print and save it in my archive.
+* [ ] 2. ~~as an customer I want to be able to export the transaction history to a pdf so that I am able to print and save it in my archive.~~
 
 **rental history**
 
 * [ ] 1. as an employee I want to be able to look at a specific copy of a movie so that I can see the specific copies separately
 * [ ] 2. as an employee I want to be able to look at the renting history of a specific movie copy so that we can look for fraud
-* [ ] 3. as an employee I want to be able to look at all rental records of a specific customer so that we can look for fraud.
+* [ ] 3. ~~as an employee I want to be able to look at all rental records of a specific customer so that we can look for fraud.~~
+
+**inventory management**
+
+* [ ] 1. as an employee I want to be able to look at the inventry for a specific film so that i can see whether we still have it in storage
+* [ ] 2. as an employee I want to be able to look at who is renting a copy from our inventory, so that i can make sure it is returned in time.
+* [ ] 3. as an employee I want to be able to add a new copy of a film to the inventory of 1 of our stores, so that we can actually keep the website up to date.
+* [ ] 4. as an employee I want to be able to be able to move a copy from 1 store to another so that i people can return copies to any store of their choice, no matter where they rented it from.
+* [ ] 5. as an employee I want to be able to remove a copy from our inventory so that we can remove stolen items from our website.
 
 **Login**
 
@@ -73,8 +85,6 @@
 * [ ] 2. as an employee I want to be able to login so that I can do my job correctly
     * [x] Login
     * [ ] Dashboard
-* [ ] 3. As an store owner / manager I want to be able to require 2fa for all my employees so that I can know for sure that my employees will not be likely to get hacked.
-	* [ ] TOTP
 
 **Sessions**
 
@@ -96,7 +106,7 @@ Here I will list the pages that I need to work on that are already referenced:
 - [ ] http://localhost:3000/Rent?v=1000 the page to rent a film
 - [ ] http://localhost:3000/Customer/History?v=1000 for viewing your renting history of this item
 - [ ] http://localhost:3000/Staff/FilmHistory?v=1000 so that staff can see renting history
-- [ ] http://localhost:3000/Staff/Edit/Film?v=1000 so that staff can CRUD a film
+- [x] http://localhost:3000/Staff/Edit/Film?v=1000 so that staff can CRUD a film
 - [ ] http://localhost:3000/Staff/Edit/Inventory?v=1000 so that staff can CRUD the inventory of a film
 
 The ones that are not referenced yet, but I know I have to make them
@@ -109,4 +119,4 @@ Other things to do:
 - [ ] http://localhost:3000/, fix the "visit us" modal
 - [x] authorisation in auth.js with enums
 - [ ] get info on staff, whether they are store owners
-- [ ] limit form RATING field to max 2 characters
+- [ ] limit form RATING field to max 5 characters

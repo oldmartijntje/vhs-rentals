@@ -108,7 +108,7 @@ export function postFilm(req, res) {
         if (!price) return queryParamMissingResponse(res, "price");
         if (!length) return queryParamMissingResponse(res, "length");
         if (!rating) return queryParamMissingResponse(res, "rating");
-        if (rating.length > 2) return quickResponse(res, 400, "rating value is too many characters")
+        if (rating.length > 5) return quickResponse(res, 400, "rating value is too many characters")
         if (!release_year) return queryParamMissingResponse(res, "release_year");
         if (!actors) return queryParamMissingResponse(res, "actors");
         if (!userId) return queryParamMissingResponse(res, "userId");
@@ -159,6 +159,7 @@ export function putFilm(req, res) {
         if (!price) return queryParamMissingResponse(res, "price");
         if (!length) return queryParamMissingResponse(res, "length");
         if (!rating) return queryParamMissingResponse(res, "rating");
+        if (rating.length > 5) return quickResponse(res, 400, "rating value is too many characters")
         if (!release_year) return queryParamMissingResponse(res, "release_year");
         if (!actors) return queryParamMissingResponse(res, "actors");
         if (!film_id) return queryParamMissingResponse(res, "film_id");
