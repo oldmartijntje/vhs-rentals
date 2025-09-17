@@ -1,5 +1,6 @@
 {
     "logToFile": true,
     "maxTokenTime": 1440,
-    "maxRefreshTokenTime": 2880
+    "maxRefreshTokenTime": 2880,
+    "expressPort": 6969
 }

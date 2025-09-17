@@ -20,7 +20,7 @@ try {
 logger.debug(`Settings.json: ${JSON.stringify(settings)}`)
 
 const app = express();
-const PORT = process.env.PORT || 6969;
+const PORT = settings.expressPort || process.env.PORT || 6969;
 
 app.engine('handlebars', engine({
     defaultLayout: 'main',

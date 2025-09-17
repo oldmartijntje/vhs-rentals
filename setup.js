@@ -41,6 +41,26 @@ async function main() {
                 validate: input => !isNaN(parseInt(input, 10)) && parseInt(input, 10) > 0 ? true : 'Please enter a valid port number',
                 default: DEFAULTS.DB_PORT
             },
+            {
+                type: 'list',
+                name: 'EXPRESS_PORT_CHOICE',
+                message: 'Express.js Port:',
+                choices: [
+                    { name: '3000', value: 3000 },
+                    { name: '3030', value: 3030 },
+                    { name: '6969', value: 6969 },
+                    { name: 'Custom', value: 'custom' }
+                ],
+                default: 2
+            },
+            {
+                type: 'input',
+                name: 'EXPRESS_PORT',
+                message: 'Enter custom Express.js port:',
+                when: (answers) => answers.EXPRESS_PORT_CHOICE === 'custom',
+                validate: input => !isNaN(parseInt(input, 10)) && parseInt(input, 10) > 0 ? true : 'Please enter a valid port number',
+                default: 6969
+            },
             { type: 'confirm', name: 'LOG_TO_FILE', message: 'Save logfiles to disk?', default: DEFAULTS.LOG_TO_FILE },
             {
                 type: 'list',
@@ -64,6 +84,7 @@ async function main() {
         ]);
         const finalPort = answers.DB_PORT_CHOICE === 'custom' ? answers.DB_PORT : answers.DB_PORT_CHOICE;
         const finalTokenTime = answers.MAX_TOKEN_TIME_CHOICE === 'custom' ? parseInt(answers.MAX_TOKEN_TIME, 10) : answers.MAX_TOKEN_TIME_CHOICE;
+        const finalExpressPort = answers.EXPRESS_PORT_CHOICE === 'custom' ? parseInt(answers.EXPRESS_PORT, 10) : answers.EXPRESS_PORT_CHOICE;
 
         // Write .env
         const envContent = `DB_HOST=${answers.DB_HOST}\nDB_USER=${answers.DB_USER}\nDB_PASSWORD=${answers.DB_PASSWORD}\nDB_DATABASE=${answers.DB_DATABASE}\nDB_PORT=${finalPort}\n`;
@@ -71,7 +92,12 @@ async function main() {
         console.log('.env file created');
 
         // Write settings.json
-        const settings = { logToFile: answers.LOG_TO_FILE, maxTokenTime: finalTokenTime, maxRefreshTokenTime: finalTokenTime * 2 };
+        const settings = {
+            logToFile: answers.LOG_TO_FILE,
+            maxTokenTime: finalTokenTime,
+            maxRefreshTokenTime: finalTokenTime * 2,
+            expressPort: finalExpressPort
+        };
         fs.writeFileSync(path.resolve(process.cwd(), 'settings.json'), JSON.stringify(settings, null, 2));
         console.log('settings.json file created');
         if (answers.MAX_TOKEN_TIME_CHOICE === 'custom') {
