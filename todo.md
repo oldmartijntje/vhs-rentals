@@ -6,15 +6,17 @@
 ## Requirements
 
 - [x] an express app with either `ejs` or `pug` or `handlebars`
-- [ ] DRY
-- [ ] A `view` layer
-- [ ] A `Controller` layer
-- [ ] A `Service` layer
-- [ ] A `DAO` layer (database access object?)
-- [ ] 3 epics
-- [ ] user stories for each epic
-- [ ] logging with the winston package
-- [ ] using nodemon
+- [x] DRY
+- [ ] integratie testen: https://brightspace.avans.nl/d2l/le/lessons/251408/topics/1785872
+- [ ] CI/CD autodeploy
+- [x] A `view` layer
+- [x] A `Controller` layer
+- [x] A `Service` layer
+- [x] A `DAO` layer (database access object?)
+- [x] 3 epics
+- [x] user stories for each epic
+- [x] logging with the winston package
+- [x] using nodemon
 - [ ] running on docker
 
 - [randvoorwaarden](https://brightspace.avans.nl/d2l/le/lessons/251408/topics/1770191)
