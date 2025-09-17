@@ -1,0 +1,8 @@
+services:
+  web:
+    image: oldmartijntje/vhs-rentals:latest
+    ports:
+      - "6969:6969"
+    restart: always
+    env_file:
+      - .env
