@@ -14,15 +14,3 @@
     </div>
   </div>
 </div>
-<script>
-    function showErrorAndRedirect(path, modalName) {
-        const errorModal = new bootstrap.Modal(document.getElementById(modalName));
-        errorModal.show();
-
-        // Redirect when user clicks OK
-        document.getElementById(`${modalName}_redirectBtn`).addEventListener('click', () => {
-            window.location.href = path;
-        });
-    }
-
-</script>
