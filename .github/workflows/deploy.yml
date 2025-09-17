@@ -1,4 +1,4 @@
-name: Build, Push, Deploy (Portainer Stack)
+name: Build, Push, and Deploy via SSH
 
 on:
   push:
@@ -22,7 +22,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      # 3) Build & push Docker image
+      # 3) Build and push Docker image
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
@@ -31,12 +31,19 @@ jobs:
             ${{ secrets.DOCKERHUB_USERNAME }}/vhs-rentals:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/vhs-rentals:${{ github.sha }}
 
-      # 4) Deploy stack via Portainer API
-      - name: Redeploy Portainer stack
+      # 4) SSH deploy to VPS
+      - name: Deploy to VPS via SSH
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
-        run: |
-          echo "Redeploying stack ${{ secrets.STACK_ID }} on Portainer"
-          curl -X POST \
-            -H "X-API-Key: ${{ secrets.PORTAINER_API_KEY }}" \
-            -H "Content-Type: application/json" \
-            "${{ secrets.PORTAINER_URL }}/api/stacks/${{ secrets.STACK_ID }}/redeploy"
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SERVER_SSH_PORT }}
+          script: |
+            set -e
+            cd /home/deploy/myapp
+            docker compose pull
+            docker compose up -d --remove-orphans
+            sleep 3
+            docker compose ps
