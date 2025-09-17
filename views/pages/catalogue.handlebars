@@ -6,7 +6,7 @@
         </ul>
     </nav>
     <div class="card mb-4 p-3 bg-dark-2">
-        <form class="row g-3 align-items-end">
+            <form class="row g-3 align-items-end" id="catalogue-filter-form">
             <div class="col-md-3">
                 <label for="filterName" class="form-label">Name</label>
                 <input type="text" class="form-control" id="filterName" placeholder="Film name">
@@ -17,27 +17,26 @@
             </div>
             <div class="col-md-2">
                 <label for="filterPrice" class="form-label">Price</label>
-                <input type="number" class="form-control" id="filterPrice" placeholder="Max price">
+                <input type="number" class="form-control" id="filterPrice" placeholder="Max price" min="0.01" step="0.01">
             </div>
             <div class="col-md-2">
                 <label for="filterRating" class="form-label">Rating</label>
-                <input type="number" class="form-control" id="filterRating" min="0" max="10" step="0.1" placeholder="Min rating">
+                <select class="form-select" id="filterRating">
+                    <option value="">Any</option>
+                    <option value="PG">PG</option>
+                    <option value="G">G</option>
+                    <option value="NC-17">NC-17</option>
+                    <option value="PG-13">PG-13</option>
+                    <option value="R">R</option>
+                </select>
             </div>
             <div class="col-md-2">
                 <label for="filterYear" class="form-label">Release Year</label>
-                <input type="number" class="form-control" id="filterYear" placeholder="Year">
+                <input type="number" class="form-control" id="filterYear" placeholder="Year" min="2005">
             </div>
-            <div class="col-md-1">
-                <label for="filterStatus" class="form-label">Status</label>
-                <select class="form-select" id="filterStatus">
-                    <option value="all">All</option>
-                    <option value="available">Available</option>
-                    <option value="out">Out of Stock</option>
-                </select>
-            </div>
-            <div class="col-md-1 d-grid">
-                <button type="button" class="btn btn-primary" disabled>Filter</button>
-            </div>
+                <div class="col-md-1 d-grid">
+                    <button type="submit" class="btn btn-primary">Filter</button>
+                </div>
         </form>
     </div>
     <div id="catalogue-list" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">

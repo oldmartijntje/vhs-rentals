@@ -140,12 +140,38 @@ export function removeFilmFromDatabase(filmId, callback) {
  * @param {*} offset 
  * @param {*} callback 
  */
-export function getAllFilmsFromPage(itemsPerPage, offset, callback) {
+export function getAllFilmsFromPage(itemsPerPage, offset, filters, callback) {
     const limit = Number(itemsPerPage);
     const off = Number(offset);
+    let whereClauses = [];
+    let params = [];
 
-    pool.query(
-        `SELECT
+    if (filters) {
+        if (filters.name) {
+            whereClauses.push('f.title LIKE ?');
+            params.push(`%${filters.name}%`);
+        }
+        if (filters.genre) {
+            whereClauses.push('c.name LIKE ?');
+            params.push(`%${filters.genre}%`);
+        }
+        if (filters.price) {
+            whereClauses.push('f.rental_rate <= ?');
+            params.push(filters.price);
+        }
+        if (filters.rating) {
+            whereClauses.push('f.rating = ?');
+            params.push(filters.rating);
+        }
+        if (filters.year) {
+            whereClauses.push('f.release_year = ?');
+            params.push(filters.year);
+        }
+    }
+
+    let whereSQL = whereClauses.length > 0 ? 'WHERE ' + whereClauses.join(' AND ') : '';
+
+    const sql = `SELECT
             f.film_id AS FID,
             f.title AS title,
             f.description AS description,
@@ -167,42 +193,82 @@ export function getAllFilmsFromPage(itemsPerPage, offset, callback) {
         LEFT JOIN rental r ON r.inventory_id = inv.inventory_id 
                            AND r.rental_date < NOW() 
                            AND r.return_date > NOW()
+        ${whereSQL}
         GROUP BY f.film_id, c.name
         ORDER BY f.film_id ASC
-        LIMIT ? OFFSET ?`,
-        [limit, off],
-        (err, results) => {
-            if (err) {
-                console.error(`Error at 'getAllFilmsFromPage':`, err);
-                return callback(false);
-            }
+        LIMIT ? OFFSET ?`;
+    params.push(limit, off);
 
-            // Simplify inventory to boolean
-            results.forEach(film => {
-                film.inventory = film.available === 1 ? true : false;
-                film.informationId = 3; // same as before
-                delete film.available; // remove raw value
-            });
-
-            callback(results);
+    pool.query(sql, params, (err, results) => {
+        if (err) {
+            console.error(`Error at 'getAllFilmsFromPage':`, err);
+            return callback(false);
         }
-    );
+
+        // Simplify inventory to boolean
+        results.forEach(film => {
+            film.inventory = film.available === 1 ? true : false;
+            film.informationId = 3; // same as before
+            delete film.available; // remove raw value
+        });
+
+        callback(results);
+    });
 }
 
 /**
  * Get the amount of films
  * @param {*} callback 
  */
-export function getFilmsCount(callback) {
-    pool.query(
-        `SELECT COUNT(*) AS total_films FROM sakila.film`,
-        (err, results) => {
-            if (err) {
-                console.error(`Error at 'getFilmsCount':`, err);
-                return callback(false);
-            }
-            // results[0].total_films will hold the count
-            callback(results[0].total_films);
+export function getFilmsCount(filters, callback) {
+    let whereClauses = [];
+    let params = [];
+
+    if (filters) {
+        if (filters.name) {
+            whereClauses.push('f.title LIKE ?');
+            params.push(`%${filters.name}%`);
         }
-    );
+        if (filters.genre) {
+            whereClauses.push('c.name LIKE ?');
+            params.push(`%${filters.genre}%`);
+        }
+        if (filters.price) {
+            whereClauses.push('f.rental_rate <= ?');
+            params.push(filters.price);
+        }
+        if (filters.rating) {
+            whereClauses.push('f.rating = ?');
+            params.push(filters.rating);
+        }
+        if (filters.year) {
+            whereClauses.push('f.release_year = ?');
+            params.push(filters.year);
+        }
+    }
+
+    let whereSQL = whereClauses.length > 0 ? 'WHERE ' + whereClauses.join(' AND ') : '';
+
+    const sql = `SELECT COUNT(*) AS total_films FROM (
+        SELECT f.film_id
+        FROM film f
+        LEFT JOIN film_category fc ON fc.film_id = f.film_id
+        LEFT JOIN category c ON c.category_id = fc.category_id
+        LEFT JOIN film_actor fa ON fa.film_id = f.film_id
+        LEFT JOIN actor a ON a.actor_id = fa.actor_id
+        LEFT JOIN inventory inv ON inv.film_id = f.film_id
+        LEFT JOIN rental r ON r.inventory_id = inv.inventory_id 
+                           AND r.rental_date < NOW() 
+                           AND r.return_date > NOW()
+        ${whereSQL}
+        GROUP BY f.film_id, c.name
+    ) as filtered_films`;
+
+    pool.query(sql, params, (err, results) => {
+        if (err) {
+            console.error(`Error at 'getFilmsCount':`, err);
+            return callback(false);
+        }
+        callback(results[0].total_films);
+    });
 }

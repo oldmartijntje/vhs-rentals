@@ -6,17 +6,66 @@ document.addEventListener('DOMContentLoaded', function () {
     let films = [];
     let totalPages = 0;
     let currentPage = 0;
+
+    // Get filter values from query params
+    function getFiltersFromQuery() {
+        const params = new URLSearchParams(window.location.search);
+        return {
+            filterName: params.get('filterName') || '',
+            filterGenre: params.get('filterGenre') || '',
+            filterPrice: params.get('filterPrice') || '',
+            filterRating: params.get('filterRating') || '',
+            filterYear: params.get('filterYear') || ''
+        };
+    }
+
     function getPageFromQuery() {
         const params = new URLSearchParams(window.location.search);
         const page = parseInt(params.get('page'), 10);
         return isNaN(page) || page < 1 ? 1 : page;
     }
     currentPage = getPageFromQuery();
+    let filters = getFiltersFromQuery();
+
+    // Set filter inputs to match query params
+    function setFilterInputs() {
+        document.getElementById('filterName').value = filters.filterName;
+        document.getElementById('filterGenre').value = filters.filterGenre;
+        document.getElementById('filterPrice').value = filters.filterPrice;
+        document.getElementById('filterRating').value = filters.filterRating;
+        document.getElementById('filterYear').value = filters.filterYear;
+    }
+
+    // Only filter when the Filter button is pressed
+    function setupFilterEvents() {
+        const filterInputs = [
+            'filterName', 'filterGenre', 'filterPrice', 'filterRating', 'filterYear'
+        ];
+        const filterForm = document.getElementById('catalogue-filter-form');
+        if (filterForm) {
+            filterForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                const params = new URLSearchParams(window.location.search);
+                // Only reset to page 1 if any filter value changes
+                let filterChanged = false;
+                filterInputs.forEach(fid => {
+                    const val = document.getElementById(fid).value;
+                    if (val) {
+                        if (params.get(fid) !== val) filterChanged = true;
+                        params.set(fid, val);
+                    } else {
+                        if (params.has(fid)) filterChanged = true;
+                        params.delete(fid);
+                    }
+                });
+                if (filterChanged) params.set('page', 1);
+                window.location.search = params.toString();
+            });
+        }
+    }
 
     function renderFilms(page) {
         catalogueList.innerHTML = '';
-        const start = (page - 1) * FILMS_PER_PAGE;
-        const end = start + FILMS_PER_PAGE;
         if (films.length === 0) {
             catalogueList.innerHTML = '<div class="col"><div class="alert alert-warning text-center">No films found.</div></div>';
             return;
@@ -58,7 +107,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 btn.className = 'page-link';
                 btn.textContent = page;
                 btn.onclick = () => {
-                    window.location.href = `/Catalogue?page=${page}`;
+                    // preserve filters in pagination
+                    const params = new URLSearchParams(window.location.search);
+                    params.set('page', page);
+                    window.location.search = params.toString();
                 };
                 li.appendChild(btn);
                 return li;
@@ -92,10 +144,16 @@ document.addEventListener('DOMContentLoaded', function () {
         if (paginationTop) renderBar(paginationTop);
     }
 
-
     function fetchFilms() {
-        // Send page param to backend
-        fetch(`/api/film/all?page=${currentPage - 1}`)
+        // Build query string with filters
+        const params = new URLSearchParams();
+        params.set('page', currentPage - 1);
+        Object.entries(filters).forEach(([key, val]) => {
+            if (val) {
+                params.set(key, val);
+            }
+        });
+        fetch(`/api/film/all?${params.toString()}`)
             .then(res => res.json())
             .then(data => {
                 films = Array.isArray(data.data) ? data.data : [];
@@ -108,5 +166,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
+    setFilterInputs();
+    setupFilterEvents();
     fetchFilms();
 });

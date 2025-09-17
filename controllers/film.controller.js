@@ -239,14 +239,21 @@ export function deleteFilm(req, res) {
 
 export function getAllFilms(req, res) {
     try {
-        const { page, amountPerPageOverride } = req.query;
+        const { page, amountPerPageOverride, filterName, filterGenre, filterPrice, filterRating, filterYear } = req.query;
         if (!page) return queryParamMissingResponse(res, "page");
         if (invalidNumberResponse(res, page, "page", 0, Infinity)) return;
         if (amountPerPageOverride) {
             if (invalidNumberResponse(res, amountPerPageOverride, "amountPerPageOverride", 1, 100)) return;
         }
         const amount = amountPerPageOverride ?? 32;
-        getAllFilmsOnPage(amount, page, (result) => {
+        const filters = {
+            name: filterName || undefined,
+            genre: filterGenre || undefined,
+            price: filterPrice || undefined,
+            rating: filterRating || undefined,
+            year: filterYear || undefined
+        };
+        getAllFilmsOnPage(amount, page, filters, (result) => {
             if (result != null) {
                 okResponse(res, result);
                 return
