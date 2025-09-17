@@ -1,17 +1,23 @@
+import 'dotenv/config';
+
 import express from 'express';
 import path from 'path';
 import fs from 'fs';
 import { engine } from 'express-handlebars';
 import loginRouter from './routes/login.routes.js';
 import { logger, requestLogger } from './middleware/logger.js';
-import { viewRouter } from './routes/view.routes.js'
+import { viewRouter } from './routes/view.routes.js';
 import filmRouter from './routes/film.routes.js';
 import { hbsHelpers } from './helper/handlebars.helper.js';
+
+logger.info("RUNNING STARTUP!")
 
 let settings = { logToFile: false };
 try {
     settings = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'settings.json'), 'utf8'));
 } catch (e) { }
+
+logger.debug(`Settings.json: ${JSON.stringify(settings)}`)
 
 const app = express();
 const PORT = process.env.PORT || 6969;
@@ -32,7 +38,6 @@ app.use(express.json());
 
 app.use('/static', express.static(path.join(process.cwd(), 'public')));
 
-// include .routes.js
 app.use('/api/login', loginRouter);
 app.use('/api/film', filmRouter);
 app.use('/', viewRouter);
