@@ -18,6 +18,7 @@
 - [x] logging with the winston package
 - [x] using nodemon
 - [ ] running on docker
+- [ ] proper readme
 
 - [randvoorwaarden](https://brightspace.avans.nl/d2l/le/lessons/251408/topics/1770191)
     - I hate this: `Het systeem maakt alleen gebruik van callbackfuncties. We gebruiken nog geen async/await of Promises.`. The other things I am fine with, but this sucks.
@@ -52,10 +53,10 @@
 
 **searching library**
 
-* [ ] 1. as an customer I want to be able to browse the entire movie collection so that I can find a movie that I like
-* [ ] 2. as an customer I want to be able to filter the movies so that I do not have to look at the romance category.
-	* [ ] being able to filter on author, name, description, language, store, store inventory.
-* [ ] 3. as an employee I want to be able to browse and filter the entire movie collection so that I can see movies that are out, and am able to give correct suggestions to customers.
+* [x] 1. as an customer I want to be able to browse the entire movie collection so that I can find a movie that I like
+* [x] 2. as an customer I want to be able to filter the movies so that I do not have to look at the romance category.
+	* [x] being able to filter on name, date, price, rating, category.
+* [x] 3. as an employee I want to be able to browse and filter the entire movie collection so that I can see movies that are out, and am able to give correct suggestions to customers.
 * [x] 4. as an user I want to be able to view any movie and it's details so that i can proceed from there correctly
     * An customer would want to decide to rent it or not
     * An staff member would want to edit it, manage it, and view it's copies
@@ -102,7 +103,7 @@
 Here I will list the pages that I need to work on that are already referenced:
 
 - [x] http://localhost:3000/Film?v=1000 for viewing a specific film
-- [ ] http://localhost:3000/Catalogue for viewing the full catalog
+- [x] http://localhost:3000/Catalogue for viewing the full catalog
 - [ ] http://localhost:3000/Account the customer dashboard
 - [ ] http://localhost:3000/Staff/Dashboard the staff dashboard
 - [ ] http://localhost:3000/Rent?v=1000 the page to rent a film
