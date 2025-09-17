@@ -103,7 +103,7 @@ export function addNewFilm(title, description, category, price, length, rating, 
     addNewFilmToDatabase(title.toUpperCase(), description, price, length, rating, release_year, (filmId) => {
         if (!filmId) return callback(null);
 
-        addCategoryToDatabase(category.toUpperCase(), (categoryId) => {
+        addCategoryToDatabase(capitalizeFirstLetter(category, false), (categoryId) => {
             if (!categoryId) return callback(null);
 
             linkFilmCategory(filmId, categoryId, () => {
@@ -139,7 +139,7 @@ export function updateFilm(film_id, title, description, category, price, length,
 
         // clear existing category links
         clearFilmCategories(film_id, () => {
-            addCategoryToDatabase(category.toUpperCase(), (categoryId) => {
+            addCategoryToDatabase(capitalizeFirstLetter(category, false), (categoryId) => {
                 if (!categoryId) return callback(null);
 
                 linkFilmCategory(film_id, categoryId, () => {

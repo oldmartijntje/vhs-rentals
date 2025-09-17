@@ -1,6 +1,11 @@
 import pool from '../database/pool.js';
 import { logger } from '../middleware/logger.js';
 
+/**
+ * add an actor
+ * @param {*} actorString 
+ * @param {*} callback 
+ */
 export function addActors(actorString, callback) {
     const actorNames = actorString.split(',').map((a) => a.trim());
     let actorIds = [];
@@ -47,6 +52,12 @@ export function addActors(actorString, callback) {
     next();
 }
 
+/**
+ * link an actor to a film in the film_actor table
+ * @param {*} filmId 
+ * @param {*} actorIds 
+ * @param {*} callback 
+ */
 export function linkFilmActors(filmId, actorIds, callback) {
     let i = 0;
 
@@ -69,6 +80,12 @@ export function linkFilmActors(filmId, actorIds, callback) {
     next();
 }
 
+/**
+ * remove all items from a specific film in the film_actor.
+ * used for updates / deletes on the film table
+ * @param {*} filmId 
+ * @param {*} callback 
+ */
 export function clearFilmActors(filmId, callback) {
     pool.query(`DELETE FROM sakila.film_actor WHERE film_id = ?`, [filmId], (err) => {
         if (err) console.error(`Error at 'clearFilmActors':`, err);

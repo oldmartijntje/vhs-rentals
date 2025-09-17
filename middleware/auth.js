@@ -53,6 +53,11 @@ export class Auth {
         });
     }
 
+    /**
+     * Check whether the connected user is one of the roles provided in the list
+     * @param {*} userTypesAllowed - a list of the UserType enum
+     * @returns 
+     */
     authorizationCheck(userTypesAllowed) {
         if (!this.isValidated) throw new Error("You can't check authorisation for a user that is not validated.")
         let isFound = false;
@@ -65,6 +70,10 @@ export class Auth {
         return isFound;
     }
 
+    /**
+     * Get all the data from the logged in user
+     * @returns 
+     */
     getUser() {
         if (!this.isValidated) throw new Error("You can't get user data for a user that is not validated.")
         logger.info(`A PROCESS JUST ACCESSED ALL USER DATA FROM USER ${this.userId}`)

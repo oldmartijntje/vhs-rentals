@@ -1,6 +1,11 @@
 import pool from '../database/pool.js';
 import { logger } from '../middleware/logger.js';
 
+/**
+ * add an category
+ * @param {*} name 
+ * @param {*} callback 
+ */
 export function addCategoryToDatabase(name, callback) {
     pool.query(
         `SELECT category_id FROM sakila.category WHERE name = ?`,
@@ -29,6 +34,12 @@ export function addCategoryToDatabase(name, callback) {
     );
 }
 
+/**
+ * add a link from the film table to the category table in the film_category table.
+ * @param {*} filmId 
+ * @param {*} categoryId 
+ * @param {*} callback 
+ */
 export function linkFilmCategory(filmId, categoryId, callback) {
     pool.query(
         `INSERT INTO sakila.film_category (film_id, category_id) VALUES (?, ?)`,
@@ -42,6 +53,13 @@ export function linkFilmCategory(filmId, categoryId, callback) {
     );
 }
 
+/**
+ * clear the film_ccategory table where film == ?
+ * 
+ * used for updates / deletes on the film table
+ * @param {*} filmId 
+ * @param {*} callback 
+ */
 export function clearFilmCategories(filmId, callback) {
     pool.query(`DELETE FROM sakila.film_category WHERE film_id = ?`, [filmId], (err) => {
         if (err) console.error(`Error at 'clearFilmCategories':`, err);

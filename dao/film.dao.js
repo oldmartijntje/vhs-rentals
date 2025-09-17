@@ -67,6 +67,16 @@ group by
     });
 }
 
+/**
+ * adds a new film to the database
+ * @param {*} title 
+ * @param {*} description 
+ * @param {*} price 
+ * @param {*} length 
+ * @param {*} rating 
+ * @param {*} release_year 
+ * @param {*} callback 
+ */
 export function addNewFilmToDatabase(title, description, price, length, rating, release_year, callback) {
     pool.query(
         `INSERT INTO sakila.film (title, description, rental_rate, length, rating, release_year, language_id)
@@ -82,6 +92,17 @@ export function addNewFilmToDatabase(title, description, price, length, rating, 
     );
 }
 
+/**
+ * Updates a film in the database
+ * @param {*} filmId 
+ * @param {*} title 
+ * @param {*} description 
+ * @param {*} price 
+ * @param {*} length 
+ * @param {*} rating 
+ * @param {*} release_year 
+ * @param {*} callback 
+ */
 export function updateFilmInDatabase(filmId, title, description, price, length, rating, release_year, callback) {
     pool.query(
         `UPDATE sakila.film 
@@ -98,6 +119,11 @@ export function updateFilmInDatabase(filmId, title, description, price, length, 
     );
 }
 
+/**
+ * remove a film from the database
+ * @param {*} filmId 
+ * @param {*} callback 
+ */
 export function removeFilmFromDatabase(filmId, callback) {
     pool.query(`DELETE FROM sakila.film WHERE film_id = ?`, [filmId], (err, results) => {
         if (err) {

@@ -7,12 +7,23 @@ if (invalidNumber(film, 0, 0, true)) {
     window.location.href = `/.Film?v=${film}`;
 }
 
+/**
+ * Override innerhtml for each html element in list.
+ * Commonly used to replace default data with fetched data
+ * @param {*} list 
+ * @param {*} value 
+ */
 function compactSetInnerHtmlForEach(list, value) {
     list.forEach((item) => {
         item.innerHTML = value;
     })
 }
 
+/**
+ * Split a string into bullet points. used to display actors and copies.
+ * @param {*} string 
+ * @returns 
+ */
 function splitToBulletPoint(string) {
     let parts = string.split(",");
     let template = "<ul>";
@@ -23,6 +34,11 @@ function splitToBulletPoint(string) {
     return template;
 }
 
+/**
+ * show adresses with available copies
+ * @param {*} list 
+ * @returns 
+ */
 function stringifyAvailabilityAdress(list) {
     let returnable = [];
     list.forEach((item) => {
