@@ -55,8 +55,8 @@
 	* [ ] being able to filter on author, name, description, language, store, store inventory.
 * [ ] 3. as an employee I want to be able to browse and filter the entire movie collection so that I can see movies that are out, and am able to give correct suggestions to customers.
 * [x] 4. as an user I want to be able to view any movie and it's details so that i can proceed from there correctly
-    * [ ] An customer would want to decide to rent it or not
-    * [ ] An staff member would want to edit it, manage it, and view it's copies
+    * An customer would want to decide to rent it or not
+    * An staff member would want to edit it, manage it, and view it's copies
 
 **Renting history**
 
