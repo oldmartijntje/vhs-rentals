@@ -151,7 +151,6 @@ export function getAllFilmsFromPage(itemsPerPage, offset, callback) {
             f.description AS description,
             c.name AS category,
             f.rental_rate AS price,
-            f.length AS length,
             f.rating AS rating,
             f.release_year AS release_year,
             GROUP_CONCAT(DISTINCT CONCAT(a.first_name, ' ', a.last_name) SEPARATOR ', ') AS actors,
