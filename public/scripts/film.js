@@ -89,7 +89,7 @@ fetch(url, {
         let inventoryVersion = content.informationId;
         switch (inventoryVersion) {
             case 0:
-                compactSetInnerHtmlForEach(copies, "Couldn't connect to database");
+                compactSetInnerHtmlForEach(copies, "Couldn't find a rentable copy");
                 break;
             case 1:
                 compactSetInnerHtmlForEach(copies, (content.inventory ? "There are copies available." : "There are currently no copies available."));

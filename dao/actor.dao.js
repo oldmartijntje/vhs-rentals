@@ -68,3 +68,10 @@ export function linkFilmActors(filmId, actorIds, callback) {
 
     next();
 }
+
+export function clearFilmActors(filmId, callback) {
+    pool.query(`DELETE FROM sakila.film_actor WHERE film_id = ?`, [filmId], (err) => {
+        if (err) console.error(`Error at 'clearFilmActors':`, err);
+        callback();
+    });
+}

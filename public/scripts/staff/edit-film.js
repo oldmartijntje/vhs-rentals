@@ -82,7 +82,7 @@ if (authenticated) {
                         // Redirect to edit page for newly created film
                         window.location.href = `/Staff/Edit/Film?v=${result.id}`;
                     } else {
-                        alert('Failed to create film.');
+                        alert(`Failed to create film: ${result.message}`);
                     }
                 })
                 .catch(err => console.error('Error creating film:', err));
@@ -109,24 +109,27 @@ if (authenticated) {
                 document.getElementById('actors').value = filmData.actors;
 
                 // Populate inventory table
-                inventoryTable.querySelector('tbody').innerHTML = filmData.inventory.map(inv => `
-                <tr>
-                    <td>${inv.inventory_id}</td>
-                    <td>${inv.store_id}</td>
-                    <td>${inv.currently_rented_out}</td>
-                </tr>
-            `).join('');
+                if (filmData.inventory != null && filmData.inventory != 404) {
+                    console.log(filmData.inventory)
+                    inventoryTable.querySelector('tbody').innerHTML = filmData.inventory.map(inv => `
+                    <tr>
+                        <td>${inv.inventory_id}</td>
+                        <td>${inv.store_id}</td>
+                        <td>${inv.currently_rented_out}</td>
+                    </tr>
+                `).join('');
 
-                // Populate addresses table
-                addressesTable.querySelector('tbody').innerHTML = filmData.addresses.map(addr => `
-                <tr>
-                    <td>${addr.address}${addr.address2 ? ', ' + addr.address2 : ''}</td>
-                    <td>${addr.district}</td>
-                    <td>${addr.city_name}</td>
-                    <td>${addr.country_name}</td>
-                </tr>
-            `).join('');
+                    // Populate addresses table
+                    addressesTable.querySelector('tbody').innerHTML = filmData.addresses.map(addr => `
+                    <tr>
+                        <td>${addr.address}${addr.address2 ? ', ' + addr.address2 : ''}</td>
+                        <td>${addr.district}</td>
+                        <td>${addr.city_name}</td>
+                        <td>${addr.country_name}</td>
+                    </tr>
+                    `).join('');
 
+                }
                 // Handle form submission for PUT
                 filmForm.addEventListener('submit', e => {
                     e.preventDefault();
@@ -151,8 +154,12 @@ if (authenticated) {
                         body: JSON.stringify(updatedFilm)
                     })
                         .then(res => {
-                            if (res.ok) alert('Film updated successfully!');
-                            else alert('Failed to update film.');
+                            if (res.ok) {
+                                alert('Film updated successfully!');
+                                window.location.href = `/Staff/Edit/Film?v=${film_id}`;
+                            } else {
+                                alert(`Failed to update film: ${result.message}`);
+                            }
                         });
                 });
 
@@ -164,8 +171,13 @@ if (authenticated) {
                             headers: { 'Content-Type': 'application/json' }
                         })
                             .then(res => {
-                                if (res.ok) window.location.href = '/films';
-                                else alert('Failed to delete film.');
+
+                                if (res.ok) {
+                                    alert('Film deleted successfully!');
+                                    window.location.href = '/films';
+                                } else {
+                                    alert(`Failed to delete film: ${result.message}`);
+                                }
                             });
                     }
                 });

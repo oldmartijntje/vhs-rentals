@@ -1,9 +1,9 @@
 import { logger } from "../middleware/logger.js"
-import { getRecentFilmsFromDatabase, getFullFilmInfoById, addNewFilmToDatabase } from "../dao/film.dao.js"
-import { addCategoryToDatabase, linkFilmCategory } from "../dao/category.dao.js"
+import { getRecentFilmsFromDatabase, getFullFilmInfoById, addNewFilmToDatabase, updateFilmInDatabase } from "../dao/film.dao.js"
+import { addCategoryToDatabase, clearFilmCategories, linkFilmCategory } from "../dao/category.dao.js"
 import { getInventoryStatusFromDatabase } from "../dao/inventory.dao.js";
 import { getStoreAddressesFromDatabase } from "../dao/store.dao.js";
-import { addActors, linkFilmActors } from "../dao/actor.dao.js";
+import { addActors, clearFilmActors, linkFilmActors } from "../dao/actor.dao.js";
 
 /**
  * The code that gets X recent films. 
@@ -122,6 +122,7 @@ export function addNewFilm(title, description, category, price, length, rating, 
 
 /**
  * 
+ * @param {*} film_id 
  * @param {*} title 
  * @param {*} description 
  * @param {*} category 
@@ -132,8 +133,31 @@ export function addNewFilm(title, description, category, price, length, rating, 
  * @param {*} actors 
  * @param {*} callback 
  */
-export function updateFilm(title, description, category, price, length, rating, release_year, actors, callback) {
+export function updateFilm(film_id, title, description, category, price, length, rating, release_year, actors, callback) {
+    updateFilmInDatabase(film_id, title.toUpperCase(), description, price, length, rating, release_year, (success) => {
+        if (!success) return callback(null);
 
+        // clear existing category links
+        clearFilmCategories(film_id, () => {
+            addCategoryToDatabase(category.toUpperCase(), (categoryId) => {
+                if (!categoryId) return callback(null);
+
+                linkFilmCategory(film_id, categoryId, () => {
+                    // clear existing actor links
+                    clearFilmActors(film_id, () => {
+                        addActors(actors.toUpperCase(), (actorIds) => {
+                            if (!actorIds) return callback(null);
+
+                            linkFilmActors(film_id, actorIds, () => {
+                                logger.debug(`Film ${film_id} successfully updated`);
+                                callback(film_id);
+                            });
+                        });
+                    });
+                });
+            });
+        });
+    });
 }
 
 /**

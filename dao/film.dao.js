@@ -81,3 +81,19 @@ export function addNewFilmToDatabase(title, description, price, length, rating, 
         }
     );
 }
+
+export function updateFilmInDatabase(filmId, title, description, price, length, rating, release_year, callback) {
+    pool.query(
+        `UPDATE sakila.film 
+     SET title = ?, description = ?, rental_rate = ?, length = ?, rating = ?, release_year = ?
+     WHERE film_id = ?`,
+        [title, description, price, length, rating, release_year, filmId],
+        (err, results) => {
+            if (err) {
+                console.error(`Error at 'updateFilmInDatabase':`, err);
+                return callback(false);
+            }
+            return callback(results.affectedRows > 0);
+        }
+    );
+}

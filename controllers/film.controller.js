@@ -7,7 +7,7 @@ import {
 } from '../helper/response.helper.js';
 import { Auth } from '../middleware/auth.js';
 import { logger } from '../middleware/logger.js';
-import { getRecentFilms, getFilmData, addNewFilm } from '../services/film.service.js';
+import { getRecentFilms, getFilmData, addNewFilm, updateFilm } from '../services/film.service.js';
 import { loginViaCredentials, refreshSessionToken } from '../services/login.service.js';
 
 /**
@@ -164,10 +164,31 @@ export function putFilm(req, res) {
         if (!film_id) return queryParamMissingResponse(res, "film_id");
         if (!userId) return queryParamMissingResponse(res, "userId");
         if (!sessionToken) return queryParamMissingResponse(res, "sessionToken");
+        if (invalidNumberResponse(res, film_id, "film_id", 0, Infinity)) return;
         if (invalidNumberResponse(res, price, "price", 0, Infinity)) return;
         if (invalidNumberResponse(res, length, "length", 0, Infinity)) return;
         if (invalidNumberResponse(res, userId, "userId", 0, Infinity)) return;
         if (invalidNumberResponse(res, release_year, "release_year", 1800, Infinity)) return; // i am not going to limit people making movies in the year 1.797693134862315E+308
+
+        const auth = new Auth(userId, sessionToken);
+        auth.validate((isValidated) => {
+            if (!isValidated) {
+                invalidAuthenticationAttemptResponse(res);
+                return;
+            }
+            if (!auth.authorizationCheck([UserType.STAFF, UserType.STORE_OWNER])) {
+                forbiddenResponse(res);
+                return;
+            }
+            updateFilm(film_id, title, description, category, price, length, rating, release_year, actors, (result) => {
+                if (result != null) {
+                    okResponse(res, { id: result });
+                    return
+                }
+                tryCatchResponse(res, "something went wrong");
+                return
+            })
+        });
 
     } catch (e) {
         tryCatchResponse(res, e);

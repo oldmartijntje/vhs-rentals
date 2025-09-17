@@ -41,3 +41,10 @@ export function linkFilmCategory(filmId, categoryId, callback) {
         }
     );
 }
+
+export function clearFilmCategories(filmId, callback) {
+    pool.query(`DELETE FROM sakila.film_category WHERE film_id = ?`, [filmId], (err) => {
+        if (err) console.error(`Error at 'clearFilmCategories':`, err);
+        callback();
+    });
+}
