@@ -169,7 +169,7 @@ export function getAllFilmsFromPage(itemsPerPage, offset, callback) {
                            AND r.rental_date < NOW() 
                            AND r.return_date > NOW()
         GROUP BY f.film_id, c.name
-        ORDER BY f.film_id DESC
+        ORDER BY f.film_id ASC
         LIMIT ? OFFSET ?`,
         [limit, off],
         (err, results) => {
