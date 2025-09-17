@@ -145,12 +145,46 @@ export function getAllFilmsFromPage(itemsPerPage, offset, callback) {
     const off = Number(offset);
 
     pool.query(
-        `SELECT * FROM sakila.film LIMIT ${limit} OFFSET ${off}`,
+        `SELECT
+            f.film_id AS FID,
+            f.title AS title,
+            f.description AS description,
+            c.name AS category,
+            f.rental_rate AS price,
+            f.length AS length,
+            f.rating AS rating,
+            f.release_year AS release_year,
+            GROUP_CONCAT(DISTINCT CONCAT(a.first_name, ' ', a.last_name) SEPARATOR ', ') AS actors,
+            MAX(CASE 
+                WHEN inv.inventory_id IS NOT NULL AND r.rental_id IS NULL THEN 1
+                ELSE 0
+            END) AS available
+        FROM film f
+        LEFT JOIN film_category fc ON fc.film_id = f.film_id
+        LEFT JOIN category c ON c.category_id = fc.category_id
+        LEFT JOIN film_actor fa ON fa.film_id = f.film_id
+        LEFT JOIN actor a ON a.actor_id = fa.actor_id
+        LEFT JOIN inventory inv ON inv.film_id = f.film_id
+        LEFT JOIN rental r ON r.inventory_id = inv.inventory_id 
+                           AND r.rental_date < NOW() 
+                           AND r.return_date > NOW()
+        GROUP BY f.film_id, c.name
+        ORDER BY f.film_id DESC
+        LIMIT ? OFFSET ?`,
+        [limit, off],
         (err, results) => {
             if (err) {
                 console.error(`Error at 'getAllFilmsFromPage':`, err);
                 return callback(false);
             }
+
+            // Simplify inventory to boolean
+            results.forEach(film => {
+                film.inventory = film.available === 1 ? true : false;
+                film.informationId = 3; // same as before
+                delete film.available; // remove raw value
+            });
+
             callback(results);
         }
     );
