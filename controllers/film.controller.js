@@ -7,7 +7,7 @@ import {
 } from '../helper/response.helper.js';
 import { Auth } from '../middleware/auth.js';
 import { logger } from '../middleware/logger.js';
-import { getRecentFilms, getFilmData, addNewFilm, updateFilm } from '../services/film.service.js';
+import { getRecentFilms, getFilmData, addNewFilm, updateFilm, removeFilm } from '../services/film.service.js';
 import { loginViaCredentials, refreshSessionToken } from '../services/login.service.js';
 
 /**
@@ -211,6 +211,25 @@ export function deleteFilm(req, res) {
         if (invalidNumberResponse(res, id, "id", 0, Infinity)) return;
         if (invalidNumberResponse(res, userId, "userId", 0, Infinity)) return;
 
+        const auth = new Auth(userId, sessionToken);
+        auth.validate((isValidated) => {
+            if (!isValidated) {
+                invalidAuthenticationAttemptResponse(res);
+                return;
+            }
+            if (!auth.authorizationCheck([UserType.STAFF, UserType.STORE_OWNER])) {
+                forbiddenResponse(res);
+                return;
+            }
+            removeFilm(id, (result) => {
+                if (result != null) {
+                    okResponse(res, { id: result });
+                    return
+                }
+                tryCatchResponse(res, "something went wrong");
+                return
+            })
+        });
 
     } catch (e) {
         tryCatchResponse(res, e);

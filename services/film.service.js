@@ -1,5 +1,5 @@
 import { logger } from "../middleware/logger.js"
-import { getRecentFilmsFromDatabase, getFullFilmInfoById, addNewFilmToDatabase, updateFilmInDatabase } from "../dao/film.dao.js"
+import { getRecentFilmsFromDatabase, getFullFilmInfoById, addNewFilmToDatabase, updateFilmInDatabase, removeFilmFromDatabase } from "../dao/film.dao.js"
 import { addCategoryToDatabase, clearFilmCategories, linkFilmCategory } from "../dao/category.dao.js"
 import { getInventoryStatusFromDatabase } from "../dao/inventory.dao.js";
 import { getStoreAddressesFromDatabase } from "../dao/store.dao.js";
@@ -166,5 +166,14 @@ export function updateFilm(film_id, title, description, category, price, length,
  * @param {function} callback (result|null) => void
  */
 export function removeFilm(id, callback) {
+    clearFilmActors(id, () => {
+        clearFilmCategories(id, () => {
+            removeFilmFromDatabase(id, (success) => {
+                if (!success) return callback(null);
 
+                logger.debug(`Film ${id} successfully removed`);
+                callback(true);
+            });
+        });
+    });
 }

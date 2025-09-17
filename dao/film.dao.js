@@ -97,3 +97,13 @@ export function updateFilmInDatabase(filmId, title, description, price, length, 
         }
     );
 }
+
+export function removeFilmFromDatabase(filmId, callback) {
+    pool.query(`DELETE FROM sakila.film WHERE film_id = ?`, [filmId], (err, results) => {
+        if (err) {
+            console.error(`Error at 'removeFilmFromDatabase':`, err);
+            return callback(false);
+        }
+        callback(results.affectedRows > 0);
+    });
+}
