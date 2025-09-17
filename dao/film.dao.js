@@ -133,3 +133,43 @@ export function removeFilmFromDatabase(filmId, callback) {
         callback(results.affectedRows > 0);
     });
 }
+
+/**
+ * Get all films from page, this means you can set page size and which page you are on.
+ * @param {*} itemsPerPage 
+ * @param {*} offset 
+ * @param {*} callback 
+ */
+export function getAllFilmsFromPage(itemsPerPage, offset, callback) {
+    const limit = Number(itemsPerPage);
+    const off = Number(offset);
+
+    pool.query(
+        `SELECT * FROM sakila.film LIMIT ${limit} OFFSET ${off}`,
+        (err, results) => {
+            if (err) {
+                console.error(`Error at 'getAllFilmsFromPage':`, err);
+                return callback(false);
+            }
+            callback(results);
+        }
+    );
+}
+
+/**
+ * Get the amount of films
+ * @param {*} callback 
+ */
+export function getFilmsCount(callback) {
+    pool.query(
+        `SELECT COUNT(*) AS total_films FROM sakila.film`,
+        (err, results) => {
+            if (err) {
+                console.error(`Error at 'getFilmsCount':`, err);
+                return callback(false);
+            }
+            // results[0].total_films will hold the count
+            callback(results[0].total_films);
+        }
+    );
+}

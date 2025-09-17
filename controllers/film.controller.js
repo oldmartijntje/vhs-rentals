@@ -7,7 +7,7 @@ import {
 } from '../helper/response.helper.js';
 import { Auth } from '../middleware/auth.js';
 import { logger } from '../middleware/logger.js';
-import { getRecentFilms, getFilmData, addNewFilm, updateFilm, removeFilm } from '../services/film.service.js';
+import { getRecentFilms, getFilmData, addNewFilm, updateFilm, removeFilm, getAllFilmsOnPage } from '../services/film.service.js';
 import { loginViaCredentials, refreshSessionToken } from '../services/login.service.js';
 
 /**
@@ -231,6 +231,29 @@ export function deleteFilm(req, res) {
             })
         });
 
+    } catch (e) {
+        tryCatchResponse(res, e);
+        return;
+    }
+}
+
+export function getAllFilms(req, res) {
+    try {
+        const { page, amountPerPageOverride } = req.query;
+        if (!page) return queryParamMissingResponse(res, "page");
+        if (invalidNumberResponse(res, page, "page", 0, Infinity)) return;
+        if (amountPerPageOverride) {
+            if (invalidNumberResponse(res, amountPerPageOverride, "amountPerPageOverride", 1, 100)) return;
+        }
+        const amount = amountPerPageOverride ?? 32;
+        getAllFilmsOnPage(amount, page, (result) => {
+            if (result != null) {
+                okResponse(res, result);
+                return
+            }
+            tryCatchResponse(res, "something went wrong");
+            return
+        });
     } catch (e) {
         tryCatchResponse(res, e);
         return;

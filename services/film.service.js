@@ -1,5 +1,5 @@
 import { logger } from "../middleware/logger.js"
-import { getRecentFilmsFromDatabase, getFullFilmInfoById, addNewFilmToDatabase, updateFilmInDatabase, removeFilmFromDatabase } from "../dao/film.dao.js"
+import { getRecentFilmsFromDatabase, getFullFilmInfoById, addNewFilmToDatabase, updateFilmInDatabase, removeFilmFromDatabase, getAllFilmsFromPage, getFilmsCount } from "../dao/film.dao.js"
 import { addCategoryToDatabase, clearFilmCategories, linkFilmCategory } from "../dao/category.dao.js"
 import { getInventoryStatusFromDatabase } from "../dao/inventory.dao.js";
 import { getStoreAddressesFromDatabase } from "../dao/store.dao.js";
@@ -174,6 +174,27 @@ export function removeFilm(id, callback) {
                 logger.debug(`Film ${id} successfully removed`);
                 callback(true);
             });
+        });
+    });
+}
+
+export function getAllFilmsOnPage(itemsPerPage, page, callback) {
+    const offset = itemsPerPage * page;
+    getAllFilmsFromPage(itemsPerPage, offset, (result) => {
+        if (!result) return callback(null);
+        getFilmsCount((result2) => {
+            if (!result2) {
+                callback({
+                    "totalPages": null,
+                    "data": result
+                });
+                return;
+            }
+            callback({
+                "totalPages": Math.ceil(result2 / itemsPerPage),
+                "data": result
+            });
+            return;
         });
     });
 }
