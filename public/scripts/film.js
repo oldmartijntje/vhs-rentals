@@ -1,7 +1,7 @@
 const urlParams = new URLSearchParams(window.location.search);
 const film = urlParams.get('v');
 if (film == null) {
-    window.location.href = "/Films";
+    window.location.href = "/Catalogue";
 }
 if (invalidNumber(film, 0, 0, true)) {
     window.location.href = `/.Film?v=${film}`;

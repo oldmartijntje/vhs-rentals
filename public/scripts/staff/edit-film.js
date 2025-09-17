@@ -174,7 +174,7 @@ if (authenticated) {
 
                                 if (res.ok) {
                                     alert('Film deleted successfully!');
-                                    window.location.href = '/films';
+                                    window.location.href = '/Catalogue';
                                 } else {
                                     alert(`Failed to delete film: ${result.message}`);
                                 }

@@ -23,6 +23,10 @@ viewRouter.get('/Staff/Edit/Film', (req, res) => {
 viewRouter.get('/Staff/Edit/Inventory', (req, res) => {
     res.render('pages/staff/edit-inventory', { title: 'Edit Inventory' });
 });
+viewRouter.get('/Catalogue', (req, res) => {
+    res.render('pages/catalogue', { title: 'Catalogue' });
+});
+
 
 // 404 handler
 viewRouter.use((req, res) => {
