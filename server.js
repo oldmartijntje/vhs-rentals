@@ -14,7 +14,7 @@ try {
 } catch (e) { }
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 6969;
 
 app.engine('handlebars', engine({
     defaultLayout: 'main',
