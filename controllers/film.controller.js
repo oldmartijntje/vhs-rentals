@@ -48,7 +48,6 @@ export function filmInfoRequest(req, res) {
         const { id, userId, sessionToken } = req.query;
 
         if (!id) return queryParamMissingResponse(res, "id");
-        if (invalidNumberResponse(res, userId, "userId", 0, Infinity)) return;
         if (invalidNumberResponse(res, id, "id", 0, Infinity)) return;
         if (userId != undefined && sessionToken != undefined) {
             const auth = new Auth(userId, sessionToken);
