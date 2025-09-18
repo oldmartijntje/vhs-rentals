@@ -79,4 +79,13 @@ export class Auth {
         logger.info(`A PROCESS JUST ACCESSED ALL USER DATA FROM USER ${this.userId}`)
         return this.userData;
     }
+
+    /**
+     * gets the original sakila db user_id
+     */
+    getStaffOrCustomerId() {
+        if (!this.isValidated) throw new Error("You can't get user data for a user that is not validated.")
+        if (this.userData.customer_id != null) return this.userData.customer_id;
+        return this.userData.staff_id;
+    }
 }

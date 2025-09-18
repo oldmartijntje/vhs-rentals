@@ -107,3 +107,77 @@ export function addInventoryItemToDatabase(film_id, store_id, callback) {
         }
     );
 }
+
+/**
+ * Set return_date of the latest open rental for an inventory item to NOW()
+ * @param {number} inventory_id
+ * @param {function} callback
+ */
+export function setRentalReturnedNow(inventory_id, callback) {
+    if (invalidNumber(inventory_id, 0, Infinity)) throw new Error(`Number: "${inventory_id}"\nDid you not sanitize your inputs??`);
+    // Find the latest rental for this inventory_id where return_date IS NULL
+    pool.query(
+        `UPDATE rental SET return_date = NOW()
+         WHERE inventory_id = ?
+           AND rental_date < NOW()
+           AND return_date > NOW()`,
+        [inventory_id],
+        (err, result) => {
+            if (err) {
+                logger.error(`error at 'setRentalReturnedNow' method: ${err}`);
+                return callback(null);
+            }
+            return callback(result.affectedRows > 0);
+        }
+    );
+}
+
+/**
+ * Update store_id of an inventory item
+ * @param {number} inventory_id
+ * @param {number} store_id
+ * @param {function} callback
+ */
+export function updateInventoryStoreId(inventory_id, store_id, callback) {
+    if (invalidNumber(inventory_id, 0, Infinity)) throw new Error(`Number: "${inventory_id}"\nDid you not sanitize your inputs??`);
+    if (invalidNumber(store_id, 0, Infinity)) throw new Error(`Number: "${store_id}"\nDid you not sanitize your inputs??`);
+    pool.query(
+        `UPDATE inventory SET store_id = ? WHERE inventory_id = ?`,
+        [store_id, inventory_id],
+        (err, result) => {
+            if (err) {
+                logger.error(`error at 'updateInventoryStoreId' method: ${err}`);
+                return callback(null);
+            }
+            return callback(result.affectedRows > 0);
+        }
+    );
+}
+
+/**
+ * Rent a copy of a film (create rental)
+ * @param {number} inventory_id
+ * @param {number} customer_id
+ * @param {number} rental_period_days
+ * @param {function} callback
+ */
+export function createRentalForCustomer(inventory_id, customer_id, rental_period_days, callback) {
+    if (invalidNumber(inventory_id, 0, Infinity)) throw new Error(`Number: "${inventory_id}"\nDid you not sanitize your inputs??`);
+    if (invalidNumber(customer_id, 0, Infinity)) throw new Error(`Number: "${customer_id}"\nDid you not sanitize your inputs??`);
+    if (invalidNumber(rental_period_days, 1, 365)) throw new Error(`Number: "${rental_period_days}"\nDid you not sanitize your inputs??`);
+    const dueDate = new Date(Date.now() + rental_period_days * 24 * 60 * 60 * 1000);
+    // Format dueDate as MySQL DATETIME string
+    const dueDateStr = dueDate.toISOString().slice(0, 19).replace('T', ' ');
+    pool.query(
+        `INSERT INTO rental (rental_date, inventory_id, customer_id, return_date, staff_id)
+         VALUES (NOW(), ?, ?, ?, 1)`,
+        [inventory_id, customer_id, dueDateStr],
+        (err, result) => {
+            if (err) {
+                logger.error(`error at 'createRentalForCustomer' method: ${err}`);
+                return callback(null);
+            }
+            return callback({ success: true, rental_id: result.insertId, due_date: dueDate });
+        }
+    );
+}
