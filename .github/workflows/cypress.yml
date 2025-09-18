@@ -17,7 +17,7 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           start: npm start
-          wait-on: 'http://localhost:3000'
+          wait-on: 'http://localhost:6969'
           record: true
           parallel: true
         env:
