@@ -7,6 +7,7 @@ import {
 } from '../helper/response.helper.js';
 import { Auth } from '../middleware/auth.js';
 import { getInventoryDataByFilm } from '../services/inventory.service.js';
+import { addInventoryItem } from '../services/inventory.service.js';
 
 /**
  * 
@@ -39,6 +40,45 @@ export function getInventoryData(req, res) {
                 return;
             })
 
+        });
+    } catch (e) {
+        tryCatchResponse(res, e);
+        return;
+    }
+}
+
+/**
+ * Add an item to inventory
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
+export function addInventoryItemController(req, res) {
+    try {
+        const { film_id, store_id, userId, sessionToken } = req.body;
+        if (!userId) return queryParamMissingResponse(res, 'userId');
+        if (!film_id) return queryParamMissingResponse(res, 'film_id');
+        if (!store_id) return queryParamMissingResponse(res, 'store_id');
+        if (!sessionToken) return queryParamMissingResponse(res, 'sessionToken');
+        if (invalidNumberResponse(res, userId, 'userId', 0, Infinity)) return;
+        if (invalidNumberResponse(res, film_id, 'film_id', 0, Infinity)) return;
+        if (invalidNumberResponse(res, store_id, 'store_id', 0, Infinity)) return;
+
+        const auth = new Auth(userId, sessionToken);
+        auth.validate((isValidated) => {
+            if (!isValidated) {
+                invalidAuthenticationAttemptResponse(res);
+                return;
+            }
+            if (!auth.authorizationCheck([UserType.STAFF, UserType.STORE_OWNER])) {
+                forbiddenResponse(res);
+                return;
+            }
+            addInventoryItem(film_id, store_id, (result) => {
+                if (result == null) return tryCatchResponse(res, "something went wrong");
+                okResponse(res, { success: true, id: result });
+                return;
+            });
         });
     } catch (e) {
         tryCatchResponse(res, e);

@@ -86,3 +86,24 @@ WHERE i.film_id = ?;
         return callback(results);
     });
 }
+/**
+ * Add a new item to inventory
+ * @param {number} film_id - The film ID
+ * @param {number} store_id - The store ID
+ * @param {function} callback - Callback (err, result)
+ */
+export function addInventoryItemToDatabase(film_id, store_id, callback) {
+    if (invalidNumber(film_id, 0, Infinity)) throw new Error(`Number: "${film_id}"\nDid you not sanitize your inputs??`);
+    if (invalidNumber(store_id, 0, Infinity)) throw new Error(`Number: "${store_id}"\nDid you not sanitize your inputs??`);
+    pool.query(
+        `INSERT INTO inventory (film_id, store_id) VALUES (?, ?)`,
+        [film_id, store_id],
+        (err, result) => {
+            if (err) {
+                logger.error(`error at 'addInventoryItemToDatabase' method: ${err}`);
+                return callback(null);
+            }
+            return callback(result.insertId);
+        }
+    );
+}
