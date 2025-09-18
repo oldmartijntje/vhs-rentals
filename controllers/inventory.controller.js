@@ -7,7 +7,7 @@ import {
 } from '../helper/response.helper.js';
 import { Auth } from '../middleware/auth.js';
 import { logger } from '../middleware/logger.js';
-import { getInventoryDataByFilm, rentInventoryToCustomer } from '../services/inventory.service.js';
+import { customerReturnInventory, getInventoryDataByFilm, rentInventoryToCustomer } from '../services/inventory.service.js';
 import { addInventoryItem } from '../services/inventory.service.js';
 import { returnRentalNow, editInventoryStoreId } from '../services/inventory.service.js';
 
@@ -187,6 +187,46 @@ export function addInventoryItemController(req, res) {
             addInventoryItem(film_id, store_id, (result) => {
                 if (result == null) return tryCatchResponse(res, "something went wrong");
                 okResponse(res, { success: true, id: result });
+                return;
+            });
+        });
+    } catch (e) {
+        tryCatchResponse(res, e);
+        return;
+    }
+}
+
+
+/**
+ * Customer returns an inventory item
+ */
+export function userReturnInventoryController(req, res) {
+    try {
+        const { inventory_id, userId, sessionToken } = req.body;
+        if (!userId) return queryParamMissingResponse(res, 'userId');
+        if (!inventory_id) return queryParamMissingResponse(res, 'inventory_id');
+        if (!sessionToken) return queryParamMissingResponse(res, 'sessionToken');
+        if (invalidNumberResponse(res, userId, 'userId', 0, Infinity)) return;
+        if (invalidNumberResponse(res, inventory_id, 'inventory_id', 0, Infinity)) return;
+
+        const auth = new Auth(userId, sessionToken);
+        auth.validate((isValidated) => {
+            if (!isValidated) {
+                invalidAuthenticationAttemptResponse(res);
+                return;
+            }
+            if (!auth.authorizationCheck([UserType.CUSTOMER])) {
+                forbiddenResponse(res);
+                return;
+            }
+            const customer_id = auth.getStaffOrCustomerId();
+            // Only return if this customer is currently renting this inventory item
+            customerReturnInventory(inventory_id, customer_id, (success) => {
+                if (!success) {
+                    okResponse(res, { success: false, message: "No active rental found for this user and inventory item." });
+                    return;
+                }
+                okResponse(res, { success: true });
                 return;
             });
         });

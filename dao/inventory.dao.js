@@ -181,3 +181,30 @@ export function createRentalForCustomer(inventory_id, customer_id, rental_period
         }
     );
 }
+
+/**
+ * Customer returns an inventory item if currently renting it
+ * @param {number} inventory_id
+ * @param {number} customer_id
+ * @param {function} callback
+ */
+export function customerReturnInventoryItem(inventory_id, customer_id, callback) {
+    if (invalidNumber(inventory_id, 0, Infinity)) throw new Error(`Number: "${inventory_id}"\nDid you not sanitize your inputs??`);
+    if (invalidNumber(customer_id, 0, Infinity)) throw new Error(`Number: "${customer_id}"\nDid you not sanitize your inputs??`);
+    // Find active rental for this customer and inventory item
+    pool.query(
+        `UPDATE rental SET return_date = NOW()
+         WHERE inventory_id = ?
+           AND customer_id = ?
+           AND rental_date < NOW()
+           AND return_date > NOW()`,
+        [inventory_id, customer_id],
+        (err, result) => {
+            if (err) {
+                logger.error(`error at 'customerReturnInventoryItem' method: ${err}`);
+                return callback(null);
+            }
+            return callback(result.affectedRows > 0);
+        }
+    );
+}
