@@ -10,6 +10,7 @@ import { viewRouter } from './routes/view.routes.js';
 import filmRouter from './routes/film.routes.js';
 import { hbsHelpers } from './helper/handlebars.helper.js';
 import accountRouter from './routes/user.routes.js';
+import inventoryRouter from './routes/inventory.routes.js';
 
 logger.info("RUNNING STARTUP!")
 
@@ -42,6 +43,7 @@ app.use('/static', express.static(path.join(process.cwd(), 'public')));
 app.use('/api/login', loginRouter);
 app.use('/api/film', filmRouter);
 app.use('/api/account', accountRouter);
+app.use('/api/inventory', inventoryRouter);
 app.use('/', viewRouter);
 
 app.listen(PORT, () => {
