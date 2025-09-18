@@ -1,4 +1,4 @@
-name: Build, Push, and Deploy via SSH
+name: Build, Push, and Deploy via SSH (to portainer)
 
 on:
   workflow_run:
