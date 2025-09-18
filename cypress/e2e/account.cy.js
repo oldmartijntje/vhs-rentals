@@ -1,6 +1,17 @@
 /// <reference types="cypress" />
 
 describe('Customer Account Page', () => {
+    it('does not close error modal when clicking outside or on modal', () => {
+        cy.clearLocalStorage();
+        cy.visit('http://localhost:6969/Account');
+        cy.get('#loginModal').should('be.visible');
+        // Try clicking the backdrop
+        cy.get('.modal-backdrop').click({ force: true });
+        cy.get('#loginModal').should('be.visible');
+        // Try clicking the modal itself
+        cy.get('#loginModal').click({ force: true });
+        cy.get('#loginModal').should('be.visible');
+    });
     const customer = { email: 'customer@example.com', password: '12345' };
 
     function login() {
@@ -32,13 +43,21 @@ describe('Customer Account Page', () => {
     });
 
     it('shows navigation buttons for rented items and history', () => {
-        cy.get('a.btn.customer-link').contains('Rented Items').should('exist');
-        cy.get('a.btn.customer-link').contains('Renting History').should('exist');
+        cy.get('.card-body.d-flex a.btn.customer-link').contains('Rented Items').should('exist');
+        cy.get('.card-body.d-flex a.btn.customer-link').contains('Renting History').should('exist');
+        cy.get('.card-body.d-flex a.btn.staff-link').contains('Staff Dashboard').should('exist');
     });
-
-    it('redirects to login if not authenticated', () => {
+    it('shows error modal if not authenticated', () => {
         cy.clearLocalStorage();
         cy.visit('http://localhost:6969/Account');
-        cy.url({ timeout: 10000 }).should('include', '/Login');
+        cy.get('#loginModal').should('be.visible');
+    });
+
+    it('closes error modal when clicking OK', () => {
+        cy.clearLocalStorage();
+        cy.visit('http://localhost:6969/Account');
+        cy.get('#loginModal').should('be.visible');
+        cy.get('#loginModal_redirectBtn').click();
+        cy.get('#loginModal').should('not.be.visible');
     });
 });

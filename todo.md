@@ -7,7 +7,7 @@
 
 - [x] an express app with either `ejs` or `pug` or `handlebars`
 - [x] DRY
-- [ ] integratie testen: https://brightspace.avans.nl/d2l/le/lessons/251408/topics/1785872
+- [x] integratie testen: https://brightspace.avans.nl/d2l/le/lessons/251408/topics/1785872
 - [x] CI/CD autodeploy
 - [x] A `view` layer
 - [x] A `Controller` layer
@@ -17,8 +17,20 @@
 - [x] user stories for each epic
 - [x] logging with the winston package
 - [x] using nodemon
-- [ ] running on docker
-- [ ] proper readme
+- [x] running on docker
+- [x] Gelaagde architectuur
+- [x] Geen duplicatie van code
+- [x] Logische toegang tot functionaliteit
+- [x] De webapplicatie is gebouwd met JavaScript en Express
+- [x] MVC-architectuur
+- [x] Sakila verhuurcasus via een MySql relationele database
+- [ ] De applicatie is stabiel, crasht niet, en werkt foutloos.
+- [ ] Een foutsituatie leidt de gebruiker altijd naar een scherm met een passende, heldere foutmelding.
+- [x] De online applicatie maakt gebruik van een online MySql database.
+- [x] De functionaliteit die je gemaakt hebt is getest met correcte, passende, en goed uitgewerkte, geautomatiseerde testcases die slagen.
+- [ ] Er is een heldere en correcte beschrijving van je server in de readme.md van je code in een online Git repository .
+- [x] Je applicatie bevat authenticatie
+- [ ] Je applicatie volgt de UX richtlijnen zoals in de lessen is besproken, zodat deze gebruiksvriendelijk is en past bij het gebruikersperspectief dat je gekozen hebt.
 
 - [randvoorwaarden](https://brightspace.avans.nl/d2l/le/lessons/251408/topics/1770191)
     - I hate this: `Het systeem maakt alleen gebruik van callbackfuncties. We gebruiken nog geen async/await of Promises.`. The other things I am fine with, but this sucks.

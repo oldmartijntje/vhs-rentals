@@ -89,8 +89,29 @@
     }
 
     function showErrorAndRedirect(path, modalName) {
-        const errorModal = new bootstrap.Modal(document.getElementById(modalName));
+        // Use static backdrop so clicking outside does nothing
+        const errorModal = new bootstrap.Modal(document.getElementById(modalName), { backdrop: 'static', keyboard: false });
         errorModal.show();
+
+        // Disable all other elements except the modal
+        const modalEl = document.getElementById(modalName);
+        const allElements = Array.from(document.body.children);
+        allElements.forEach(el => {
+            if (el !== modalEl && !el.classList.contains('modal-backdrop')) {
+                el.setAttribute('aria-hidden', 'true');
+                el.style.pointerEvents = 'none';
+                el.style.filter = 'blur(2px)';
+            }
+        });
+
+        // Restore elements when modal is closed
+        modalEl.addEventListener('hidden.bs.modal', () => {
+            allElements.forEach(el => {
+                el.removeAttribute('aria-hidden');
+                el.style.pointerEvents = '';
+                el.style.filter = '';
+            });
+        });
 
         // Redirect when user clicks OK
         document.getElementById(`${modalName}_redirectBtn`).addEventListener('click', () => {
