@@ -178,7 +178,7 @@ if (authenticated) {
                                 } else {
                                     alert(`Failed to delete film: ${result.message}`);
                                 }
-                            });
+                            }).catch(err => console.error('Error deleting film:', err));
                     }
                 });
             })
