@@ -25,7 +25,6 @@ export function getAccountInfoRequest(req, res) {
         const auth = new Auth(userId, sessionToken);
         auth.validate((isValidated) => {
             if (isValidated) {
-                logger.debug(JSON.stringify(auth.getUser()))
                 getAccountData(userId, (result) => {
                     if (result == null) {
                         quickResponse(res, 500, "unknown error")
