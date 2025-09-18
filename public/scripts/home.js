@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 newestArrivalsContainer.innerHTML = '';
                 films.forEach(film => {
                     const card = document.createElement('div');
-                    card.className = 'card';
+                    card.className = 'card recent-movie';
                     card.style.width = '18rem';
                     card.innerHTML = `
                         <img src="/static/images/vhs.svg" class="card-img-top card-image-size" alt="...">
