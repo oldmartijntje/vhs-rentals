@@ -5,7 +5,7 @@
             <div class="card shadow-lg">
                 <div class="card-body">
                     <h2 class="card-title">Project Checklist</h2>
-                    <p class="card-text">Hieronder vind je een overzicht van de requirements, epics, user stories en pagina's zoals bijgehouden in het todo.md bestand.</p>
+                    <p class="card-text">Hieronder vind je een overzicht van de actuele requirements, epics, user stories en pagina's zoals bijgehouden in het <code>todo.md</code> bestand. Laatste update: 18 september 2025.</p>
                 </div>
             </div>
         </div>
@@ -22,7 +22,7 @@
                         <li class="list-group-item"><input type="checkbox" checked disabled> winston</li>
                         <li class="list-group-item"><input type="checkbox" checked disabled> express app met handlebars</li>
                         <li class="list-group-item"><input type="checkbox" checked disabled> DRY</li>
-                        <li class="list-group-item"><input type="checkbox" disabled> integratie testen</li>
+                        <li class="list-group-item"><input type="checkbox" checked disabled> integratie testen</li>
                         <li class="list-group-item"><input type="checkbox" checked disabled> CI/CD autodeploy</li>
                         <li class="list-group-item"><input type="checkbox" checked disabled> view layer</li>
                         <li class="list-group-item"><input type="checkbox" checked disabled> Controller layer</li>
@@ -32,8 +32,20 @@
                         <li class="list-group-item"><input type="checkbox" checked disabled> user stories voor elke epic</li>
                         <li class="list-group-item"><input type="checkbox" checked disabled> logging met winston</li>
                         <li class="list-group-item"><input type="checkbox" checked disabled> gebruik van nodemon</li>
-                        <li class="list-group-item"><input type="checkbox" disabled> running on docker</li>
-                        <li class="list-group-item"><input type="checkbox" disabled> proper readme</li>
+                        <li class="list-group-item"><input type="checkbox" checked disabled> running on docker</li>
+                        <li class="list-group-item"><input type="checkbox" checked disabled> Gelaagde architectuur</li>
+                        <li class="list-group-item"><input type="checkbox" checked disabled> Geen duplicatie van code</li>
+                        <li class="list-group-item"><input type="checkbox" checked disabled> Logische toegang tot functionaliteit</li>
+                        <li class="list-group-item"><input type="checkbox" checked disabled> De webapplicatie is gebouwd met JavaScript en Express</li>
+                        <li class="list-group-item"><input type="checkbox" checked disabled> MVC-architectuur</li>
+                        <li class="list-group-item"><input type="checkbox" checked disabled> Sakila verhuurcasus via een MySql relationele database</li>
+                        <li class="list-group-item"><input type="checkbox" disabled> De applicatie is stabiel, crasht niet, en werkt foutloos.</li>
+                        <li class="list-group-item"><input type="checkbox" disabled> Een foutsituatie leidt naar passende foutmelding.</li>
+                        <li class="list-group-item"><input type="checkbox" checked disabled> Online MySql database</li>
+                        <li class="list-group-item"><input type="checkbox" checked disabled> Functionaliteit getest met geautomatiseerde testcases</li>
+                        <li class="list-group-item"><input type="checkbox" disabled> Heldere beschrijving van server in README.md</li>
+                        <li class="list-group-item"><input type="checkbox" checked disabled> Authenticatie</li>
+                        <li class="list-group-item"><input type="checkbox" disabled> UX richtlijnen gevolgd</li>
                     </ul>
                 </div>
             </div>
@@ -92,7 +104,7 @@
                 <div class="accordion-body">
                     <ul>
                         <li><input type="checkbox" checked disabled> Als klant wil ik door de volledige collectie kunnen bladeren zodat ik een film kan vinden die ik leuk vind.</li>
-                        <li><input type="checkbox" checked disabled> Als klant wil ik films kunnen filteren zodat ik niet naar de romantiek categorie hoef te kijken.</li>
+                        <li><input type="checkbox" checked disabled> Als klant wil ik films kunnen filteren zodat ik niet naar de romantiek categorie hoef te kijken. <span class="text-muted">(filteren op naam, datum, prijs, rating, categorie)</span></li>
                         <li><input type="checkbox" checked disabled> Als medewerker wil ik door de collectie kunnen bladeren en filteren zodat ik kan zien welke films uitgeleend zijn.</li>
                         <li><input type="checkbox" checked disabled> Als gebruiker wil ik een film en zijn details kunnen bekijken.</li>
                     </ul>
@@ -112,7 +124,6 @@
                 <div class="accordion-body">
                     <ul>
                         <li><input type="checkbox" disabled> Als klant wil ik mijn verhuurgeschiedenis kunnen bekijken.</li>
-                        <li><input type="checkbox" disabled> Als klant wil ik mijn transactiegeschiedenis kunnen exporteren naar PDF.</li>
                     </ul>
                 </div>
             </div>
@@ -131,7 +142,6 @@
                     <ul>
                         <li><input type="checkbox" disabled> Als medewerker wil ik een specifiek exemplaar van een film kunnen bekijken.</li>
                         <li><input type="checkbox" disabled> Als medewerker wil ik de verhuurgeschiedenis van een exemplaar kunnen bekijken.</li>
-                        <li><input type="checkbox" disabled> Als medewerker wil ik alle verhuurrecords van een klant kunnen bekijken.</li>
                     </ul>
                 </div>
             </div>
@@ -169,8 +179,8 @@
                 data-bs-parent="#epicsAccordion">
                 <div class="accordion-body">
                     <ul>
-                        <li><input type="checkbox" disabled> Als gebruiker wil ik kunnen inloggen.</li>
-                        <li><input type="checkbox" disabled> Als medewerker wil ik kunnen inloggen.</li>
+                        <li><input type="checkbox" checked disabled> Als gebruiker wil ik kunnen inloggen.</li>
+                        <li><input type="checkbox" checked disabled> Als medewerker wil ik kunnen inloggen.</li>
                         <li><input type="checkbox" checked disabled> Als gebruiker wil ik ingelogd blijven met sessie- en refresh tokens.</li>
                     </ul>
                 </div>
@@ -204,15 +214,23 @@
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item"><input type="checkbox" checked disabled> /Film?v=1000</li>
                         <li class="list-group-item"><input type="checkbox" checked disabled> /Catalogue</li>
-                        <li class="list-group-item"><input type="checkbox" disabled> /Account</li>
+                        <li class="list-group-item"><input type="checkbox" checked disabled> /Account</li>
                         <li class="list-group-item"><input type="checkbox" disabled> /Staff/Dashboard</li>
                         <li class="list-group-item"><input type="checkbox" disabled> /Rent?v=1000</li>
                         <li class="list-group-item"><input type="checkbox" disabled> /Customer/History?v=1000</li>
+                        <li class="list-group-item"><input type="checkbox" disabled> /Customer/History</li>
+                        <li class="list-group-item"><input type="checkbox" disabled> /Rented</li>
                         <li class="list-group-item"><input type="checkbox" disabled> /Staff/FilmHistory?v=1000</li>
                         <li class="list-group-item"><input type="checkbox" checked disabled> /Staff/Edit/Film?v=1000</li>
                         <li class="list-group-item"><input type="checkbox" disabled> /Staff/Edit/Inventory?v=1000</li>
                         <li class="list-group-item"><input type="checkbox" disabled> /Stores?v=1</li>
-                        <li class="list-group-item"><input type="checkbox" disabled> /Rented</li>
+                    </ul>
+                    <h6 class="mt-3">Overige taken</h6>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><input type="checkbox" disabled> / (visit us modal fixen)</li>
+                        <li class="list-group-item"><input type="checkbox" checked disabled> authorisatie in auth.js met enums</li>
+                        <li class="list-group-item"><input type="checkbox" disabled> info opvragen over staff (store owners)</li>
+                        <li class="list-group-item"><input type="checkbox" checked disabled> rating veld max 5 karakters</li>
                     </ul>
                 </div>
             </div>

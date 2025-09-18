@@ -58,7 +58,7 @@
 
 **movie management**
 
-* [ ] 1. as an employee I want to be able to look at the movies we have in the store so that I can give specific information to customers
+* [x] 1. as an employee I want to be able to look at the movies we have in our stores so that I can give specific information to customers
 * [x] 2. as an employee I want to be able to add a movie so that we can update our collection
 * [x] 3. as an employee I want to be able to edit a movie so that I can correct mistakes
 * [x] 4. as an employee I want to be able to remove a movie so that we can update our collection
@@ -76,13 +76,11 @@
 **Renting history**
 
 * [ ] 1. as an customer I want to be able to look at my renting history so that I can see which items I still need to return, and so that I am able to check for payment mistakes
-* [ ] 2. ~~as an customer I want to be able to export the transaction history to a pdf so that I am able to print and save it in my archive.~~
 
 **rental history**
 
 * [ ] 1. as an employee I want to be able to look at a specific copy of a movie so that I can see the specific copies separately
 * [ ] 2. as an employee I want to be able to look at the renting history of a specific movie copy so that we can look for fraud
-* [ ] 3. ~~as an employee I want to be able to look at all rental records of a specific customer so that we can look for fraud.~~
 
 **inventory management**
 
@@ -129,11 +127,10 @@ Here I will list the pages that I need to work on that are already referenced:
 The ones that are not referenced yet, but I know I have to make them
 
 - [ ] http://localhost:3000/Stores?v=1 for the viewing of a specific location
-- [ ] http://localhost:3000/Rented for viewing things you are currently renting
 
 Other things to do:
 
 - [ ] http://localhost:3000/, fix the "visit us" modal
 - [x] authorisation in auth.js with enums
 - [ ] get info on staff, whether they are store owners
-- [ ] limit form RATING field to max 5 characters
+- [x] limit form RATING field to max 5 characters
