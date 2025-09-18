@@ -148,7 +148,7 @@ if (authenticated) {
                         film_id: film
                     };
 
-                    fetch(`/api/film?id=${filmData.FID}`, {
+                    fetch(`/api/film`, {
                         method: 'PUT',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(updatedFilm)
@@ -156,7 +156,7 @@ if (authenticated) {
                         .then(res => {
                             if (res.ok) {
                                 alert('Film updated successfully!');
-                                window.location.href = `/Staff/Edit/Film?v=${film_id}`;
+                                window.location.href = `/Staff/Edit/Film?v=${filmData.FID}`;
                             } else {
                                 alert(`Failed to update film: ${result.message}`);
                             }
