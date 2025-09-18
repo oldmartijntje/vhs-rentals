@@ -6,7 +6,10 @@
   "scripts": {
     "start": "node server.js",
     "setup": "node setup.js",
-    "dev": "nodemon server.js -e js,mjs,cjs,json,handlebars"
+    "dev": "nodemon server.js -e js,mjs,cjs,json,handlebars",
+    "cy:run": "start-server-and-test start http://localhost:6969 cypress:run",
+    "cypress:run": "cypress run",
+    "cypress:open": "cypress open"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
