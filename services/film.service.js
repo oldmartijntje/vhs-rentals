@@ -4,6 +4,7 @@ import { addCategoryToDatabase, clearFilmCategories, linkFilmCategory } from "..
 import { getInventoryStatusFromDatabase } from "../dao/inventory.dao.js";
 import { getStoreAddressesFromDatabase } from "../dao/store.dao.js";
 import { addActors, clearFilmActors, linkFilmActors } from "../dao/actor.dao.js";
+import { capitalizeFirstLetter } from "../helper/beautify.helper.js"
 
 /**
  * The code that gets X recent films. 
