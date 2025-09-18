@@ -26,6 +26,9 @@ viewRouter.get('/Staff/Edit/Inventory', (req, res) => {
 viewRouter.get('/Catalogue', (req, res) => {
     res.render('pages/catalogue', { title: 'Catalogue' });
 });
+viewRouter.get('/Account', (req, res) => {
+    res.render('pages/account', { title: 'Account' });
+});
 
 
 // 404 handler

@@ -82,9 +82,9 @@
 
 **Login**
 
-* [ ] 1. as an user I want to be able to login so that I can see personal information
+* [x] 1. as an user I want to be able to login so that I can see personal information
     * [x] Login
-    * [ ] Account page
+    * [x] Account page
 * [ ] 2. as an employee I want to be able to login so that I can do my job correctly
     * [x] Login
     * [ ] Dashboard
@@ -104,10 +104,12 @@ Here I will list the pages that I need to work on that are already referenced:
 
 - [x] http://localhost:3000/Film?v=1000 for viewing a specific film
 - [x] http://localhost:3000/Catalogue for viewing the full catalog
-- [ ] http://localhost:3000/Account the customer dashboard
+- [x] http://localhost:3000/Account the customer dashboard
 - [ ] http://localhost:3000/Staff/Dashboard the staff dashboard
 - [ ] http://localhost:3000/Rent?v=1000 the page to rent a film
 - [ ] http://localhost:3000/Customer/History?v=1000 for viewing your renting history of this item
+- [ ] http://localhost:3000/Customer/History for viewing your entire renting history
+- [ ] http://localhost:3000/Rented for viewing the items that you are currently renting.
 - [ ] http://localhost:3000/Staff/FilmHistory?v=1000 so that staff can see renting history
 - [x] http://localhost:3000/Staff/Edit/Film?v=1000 so that staff can CRUD a film
 - [ ] http://localhost:3000/Staff/Edit/Inventory?v=1000 so that staff can CRUD the inventory of a film
