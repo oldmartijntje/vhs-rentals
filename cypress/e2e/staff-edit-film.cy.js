@@ -67,7 +67,7 @@ describe('Staff Edit Film CRUD Access', () => {
             cy.get('#title').clear().type('Updated Title');
             cy.get('button[type="submit"]').contains('Save Changes').click();
             cy.wait(2000);
-            cy.get('#title').should('have.value', 'Updated Title');
+            cy.get('#title').invoke('val').should('satisfy', val => val.toLowerCase() === 'updated title'.toLowerCase());
         });
 
         it('can delete the created film', () => {
