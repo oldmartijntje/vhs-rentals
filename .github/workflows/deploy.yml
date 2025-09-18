@@ -42,7 +42,7 @@ jobs:
           port: ${{ secrets.SERVER_SSH_PORT }}
           script: |
             set -e
-            cd /home/deploy/myapp
+            cd /home/deploy/vhs-rentals
             docker compose pull
             docker compose up -d --remove-orphans
             sleep 3
