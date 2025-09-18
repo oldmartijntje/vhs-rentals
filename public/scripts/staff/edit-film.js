@@ -15,26 +15,8 @@ addQueryParamNavElements.forEach((item) => {
 let data = localStorage.getItem("vhs_rental_user");
 let userId;
 let token;
-let authenticated = false;
 
-if (data != null) {
-    try {
-        let dataObject = JSON.parse(atob(data));
-        if (dataObject.userId != undefined && dataObject.token != undefined && dataObject.version == 2) {
-            authenticated = true;
-            token = dataObject.token;
-            userId = dataObject.userId;
-        } else if (dataObject.userId != undefined && dataObject.token != undefined) {
-            showErrorAndRedirect("/", "authorizationModal");
-        } else {
-            showErrorAndRedirect("/Login", "loginModal");
-        }
-    } catch (e) { }
-} else {
-    showErrorAndRedirect("/Login", "loginModal");
-}
-
-if (authenticated) {
+if (true) {
     const filmForm = document.getElementById('film-form');
     const deleteBtn = document.getElementById('delete-film');
     const inventoryTable = document.querySelector('#inventory-table');

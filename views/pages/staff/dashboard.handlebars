@@ -1,0 +1,36 @@
+<div class="container mt-5">
+  <h1 class="mb-4">Staff Dashboard</h1>
+  <p class="lead">Welcome, staff member! Use the dashboard below to manage the VHS rental system.</p>
+
+  <div class="row">
+    <div class="col-md-4 mb-3">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title">Manage Films</h5>
+          <p class="card-text">Visit the catalogue to view and edit films, or to edit the inventory.</p>
+          <a href="/catalogue" class="btn btn-primary">Edit Films</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-3">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title">Archive</h5>
+          <p class="card-text">Visit the rental archive.</p>
+          <a href="/staff/archive" class="btn btn-primary">Archive</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-3">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title">Rental</h5>
+          <p class="card-text">View the items that are currently being rented by customers.</p>
+          <a href="/staff/rented" class="btn btn-primary">Rental</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="/static/scripts/helper/youAreNotStaff.js"></script>
+<script src="/static/scripts/staff/dashboard.js"></script>
