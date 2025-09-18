@@ -6,6 +6,18 @@ document.addEventListener('DOMContentLoaded', function () {
     let films = [];
     let totalPages = 0;
     let currentPage = 0;
+    let data = localStorage.getItem("vhs_rental_user");
+    let userLogin = 0;
+    if (data != null) {
+        try {
+            let dataObject = JSON.parse(atob(data));
+            if (dataObject.userId != undefined && dataObject.token != undefined && dataObject.version != undefined) {
+                userLogin = dataObject.version;
+            }
+        } catch (e) {
+
+        }
+    }
 
     // Get filter values from query params
     function getFiltersFromQuery() {
@@ -88,11 +100,15 @@ document.addEventListener('DOMContentLoaded', function () {
                             <span class="text-warning">Rating: ${film.rating || 'N/A'}</span>
                             <span class="ms-3 text-success">€${film.price || 'N/A'}</span>
                         </div>
-                        <a href="/Film?v=${film.FID}" class="btn btn-primary mt-auto">Details</a>
+                        <div class="d-flex gap-2 mb-2">
+                            <a href="/Film?v=${film.FID}" class="btn btn-primary mt-auto flex-grow-1">Details</a>
+                            <a href="/Staff/Edit/Film?v=${film.FID}" class="btn btn-danger mt-auto staff-link flex-grow-1">Edit</a>
+                        </div>
                     </div>
                 </div>
             `;
             catalogueList.appendChild(card);
+            setHeaderText(userLogin)
         });
     }
 
