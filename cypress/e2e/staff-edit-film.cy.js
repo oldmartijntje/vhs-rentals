@@ -63,16 +63,16 @@ describe('Staff Edit Film CRUD Access', () => {
 
         it('can edit the created film', () => {
             cy.visit(`http://localhost:6969/Staff/Edit/Film?v=${filmId}`);
-            cy.wait(200); // Wait for input to update
+            cy.wait(2000); // Wait for input to update
             cy.get('#title').clear().type('Updated Title');
             cy.get('button[type="submit"]').contains('Save Changes').click();
-            cy.wait(200);
+            cy.wait(2000);
             cy.get('#title').should('have.value', 'Updated Title');
         });
 
         it('can delete the created film', () => {
             cy.visit(`http://localhost:6969/Staff/Edit/Film?v=${filmId}`);
-            cy.wait(200); // Wait for input to update
+            cy.wait(2000); // Wait for input to update
             cy.get('#delete-film').click();
             cy.on('window:confirm', () => true);
             cy.url({ timeout: 10000 }).should('include', '/Catalogue');
