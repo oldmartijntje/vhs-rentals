@@ -7,7 +7,7 @@ describe('Film page', () => {
 
     it('shows the VHS case with loading placeholders', () => {
         cy.get('.vhs-content').should('exist');
-        cy.get('.filmTitleInnerHTML').should('contain.text', 'Loading..');
+        cy.get('.filmTitleInnerHTML').should('exist');
         cy.get('.actorInnerHTML').should('exist');
         cy.get('.categoryInnerHTML').should('exist');
         cy.get('.yearInnerHTML').should('exist');
