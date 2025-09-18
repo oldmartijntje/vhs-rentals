@@ -1,6 +1,21 @@
 /// <reference types="cypress" />
 
 describe('Customer Login Page', () => {
+    it('logs in as customer with correct credentials', () => {
+        cy.visit('http://localhost:6969/Login');
+        cy.get('#email').type('customer@example.com');
+        cy.get('#password').type('12345');
+        cy.get('button').contains('Login').click();
+        cy.url({ timeout: 10000 }).should('include', '/Account');
+    });
+
+    it('shows error when logging in as staff on customer page', () => {
+        cy.visit('http://localhost:6969/Login');
+        cy.get('#email').type('staff@example.com');
+        cy.get('#password').type('12345');
+        cy.get('button').contains('Login').click();
+        cy.get('#errorLoginText').should('be.visible');
+    });
     beforeEach(() => {
         cy.visit('http://localhost:6969/Login');
     });
