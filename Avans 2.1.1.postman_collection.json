@@ -8,60 +8,689 @@
 	},
 	"item": [
 		{
-			"name": "login staff",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"email\": \"Jon.Stephens@sakilastaff.com\",\n    \"password\": \"12345\",\n    \"role\": \"staff\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "auth",
+			"item": [
+				{
+					"name": "login staff",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"Jon.Stephens@sakilastaff.com\",\n    \"password\": \"12345\",\n    \"role\": \"staff\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/login/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"login",
+								""
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "{{url}}/api/login/",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"api",
-						"login",
-						""
-					]
+				{
+					"name": "validateToken",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": 3195,\n    \"sessionToken\": \"4d76c5705ae2c0d28d25e2e52df9345e6bc61e5192a573333af00a4662a76142\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/login/validateToken",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"login",
+								"validateToken"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login client",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"ANDREA.HENDERSON@sakilacustomer.org\",\n    \"password\": \"12345\",\n    \"role\": \"customer\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/login/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"login",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refresh token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": 3195,\n    \"refreshToken\": \"9f0d35e3930fdab2699cf00fb562b3e46354f8314eee03dd40a21fd4219089e9c2b969309eebd999212edbf88685e12aab0c07b00f91ef8139d8ae7b5e49438e\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/login/tokenRefresh",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"login",
+								"tokenRefresh"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "refresh token",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"userId\": 3195,\n    \"refreshToken\": \"6a937316646dc097dbe63d99855276f328aab577f6d993604aad1da68aa8aeca68aecd672021414da690222c6aad722c2d97983a9b9c6d0f3b3716de887862b4\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "films",
+			"item": [
+				{
+					"name": "get film info",
+					"item": [
+						{
+							"name": "get film (auth)",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/film?id=4&sessionToken=4c466c690e60d191dc5b4bd6a1f0c9baca433574cce05231f1f6c9dcbfff0d34&userId=3195",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"film"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "4"
+										},
+										{
+											"key": "sessionToken",
+											"value": "4c466c690e60d191dc5b4bd6a1f0c9baca433574cce05231f1f6c9dcbfff0d34"
+										},
+										{
+											"key": "userId",
+											"value": "3195"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get film",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/film?id=4",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"film"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "4"
+										},
+										{
+											"key": "sessionToken",
+											"value": "4c466c690e60d191dc5b4bd6a1f0c9baca433574cce05231f1f6c9dcbfff0d34",
+											"disabled": true
+										},
+										{
+											"key": "userId",
+											"value": "3195",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
 						}
-					}
-				},
-				"url": {
-					"raw": "{{url}}/api/login/tokenRefresh",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"api",
-						"login",
-						"tokenRefresh"
 					]
+				},
+				{
+					"name": "newest films",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/film/newest?amount=3",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"film",
+								"newest"
+							],
+							"query": [
+								{
+									"key": "amount",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete film",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"bee movie\",\n    \"description\": \"it is about a bee\",\n    \"category\": \"horror\",\n    \"price\": 0.99,\n    \"length\": 120,\n    \"rating\": \"PG\",\n    \"release_year\": 2025,\n    \"actors\": \"henk de hooper, jan pieter, mario mario, luigi mario\",\n    \"userId\": 3195,\n    \"sessionToken\": \"48fee86b8acd6c4ed70ca435ff7691001f417964959ea30c25eb849c07b076e0\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/film?sessionToken=f69d1a05851d7fe2543e3ef9b32c57d9de4a060e7f4a9e23efbd6fd2ad910d75&userId=4139&id=1082",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"film"
+							],
+							"query": [
+								{
+									"key": "sessionToken",
+									"value": "f69d1a05851d7fe2543e3ef9b32c57d9de4a060e7f4a9e23efbd6fd2ad910d75"
+								},
+								{
+									"key": "userId",
+									"value": "4139"
+								},
+								{
+									"key": "id",
+									"value": "1082"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT film",
+					"request": {
+						"method": "PUT",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "POST film (staff)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"bee movie\",\n    \"description\": \"it is about a bee\",\n    \"category\": \"horror\",\n    \"price\": 0.99,\n    \"length\": 120,\n    \"rating\": \"PG\",\n    \"release_year\": 2025,\n    \"actors\": \"henk de hopper, jan pieter, mario mario, luigi mario, kees kerfstok, mara machtig\",\n    \"userId\": 4139,\n    \"sessionToken\": \"f69d1a05851d7fe2543e3ef9b32c57d9de4a060e7f4a9e23efbd6fd2ad910d75\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/film",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"film"
+							],
+							"query": [
+								{
+									"key": "sessionToken",
+									"value": "4c466c690e60d191dc5b4bd6a1f0c9baca433574cce05231f1f6c9dcbfff0d34",
+									"disabled": true
+								},
+								{
+									"key": "userId",
+									"value": "3195",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST film (customer)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"bee movie\",\n    \"description\": \"it is about a bee\",\n    \"category\": \"horror\",\n    \"price\": 0.99,\n    \"length\": 120,\n    \"rating\": \"PG\",\n    \"release_year\": 2025,\n    \"actors\": \"henk de hooper, jan pieter, mario mario, luigi mario\",\n    \"userId\": 3195,\n    \"sessionToken\": \"48fee86b8acd6c4ed70ca435ff7691001f417964959ea30c25eb849c07b076e0\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/film",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"film"
+							],
+							"query": [
+								{
+									"key": "sessionToken",
+									"value": "4c466c690e60d191dc5b4bd6a1f0c9baca433574cce05231f1f6c9dcbfff0d34",
+									"disabled": true
+								},
+								{
+									"key": "userId",
+									"value": "3195",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all films",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/film/all?page=0&amountPerPageOverride=32",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"film",
+								"all"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "amountPerPageOverride",
+									"value": "32"
+								}
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
+		},
+		{
+			"name": "account",
+			"item": [
+				{
+					"name": "get account details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/account?userId=3195&sessionToken=20575e082a362285629c5b2ed6ab5faf9d2047e639eb0c78a7e8ac217c3300c3",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"account"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "3195"
+								},
+								{
+									"key": "sessionToken",
+									"value": "20575e082a362285629c5b2ed6ab5faf9d2047e639eb0c78a7e8ac217c3300c3"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "inventory",
+			"item": [
+				{
+					"name": "get inventory",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/inventory?userId=4139&sessionToken=f69d1a05851d7fe2543e3ef9b32c57d9de4a060e7f4a9e23efbd6fd2ad910d75&film_id=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"inventory"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "4139"
+								},
+								{
+									"key": "sessionToken",
+									"value": "f69d1a05851d7fe2543e3ef9b32c57d9de4a060e7f4a9e23efbd6fd2ad910d75"
+								},
+								{
+									"key": "film_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "rent",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": \"3195\",\n    \"inventory_id\": 3,\n    \"sessionToken\": \"41d9ae07b6bee2fafa708b75596190645369494786b6eae484f685b24d0f8578\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/inventory/rent",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"inventory",
+								"rent"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": \"4139\",\n    \"film_id\": 1,\n    \"store_id\": 1,\n    \"sessionToken\": \"f69d1a05851d7fe2543e3ef9b32c57d9de4a060e7f4a9e23efbd6fd2ad910d75\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/inventory",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"inventory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": \"4139\",\n    \"inventory_id\": 4584,\n    \"store_id\": 1,\n    \"sessionToken\": \"f69d1a05851d7fe2543e3ef9b32c57d9de4a060e7f4a9e23efbd6fd2ad910d75\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/inventory",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"inventory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user returns copy",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": \"3195\",\n    \"inventory_id\": 1,\n    \"sessionToken\": \"20575e082a362285629c5b2ed6ab5faf9d2047e639eb0c78a7e8ac217c3300c3\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/inventory/return-user",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"inventory",
+								"return-user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "returned a copy",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": \"4139\",\n    \"inventory_id\": 1,\n    \"sessionToken\": \"f69d1a05851d7fe2543e3ef9b32c57d9de4a060e7f4a9e23efbd6fd2ad910d75\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/inventory/return",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"inventory",
+								"return"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all your rented films",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": \"3195\",\n    \"inventory_id\": 1,\n    \"sessionToken\": \"20575e082a362285629c5b2ed6ab5faf9d2047e639eb0c78a7e8ac217c3300c3\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/inventory/my-rentals?userId=3195&sessionToken=20575e082a362285629c5b2ed6ab5faf9d2047e639eb0c78a7e8ac217c3300c3",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"inventory",
+								"my-rentals"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "3195"
+								},
+								{
+									"key": "sessionToken",
+									"value": "20575e082a362285629c5b2ed6ab5faf9d2047e639eb0c78a7e8ac217c3300c3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get All Rented items",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": \"3195\",\n    \"inventory_id\": 1,\n    \"sessionToken\": \"20575e082a362285629c5b2ed6ab5faf9d2047e639eb0c78a7e8ac217c3300c3\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/inventory/all-rented?userId=4139&sessionToken=f69d1a05851d7fe2543e3ef9b32c57d9de4a060e7f4a9e23efbd6fd2ad910d75&film_id=",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"inventory",
+								"all-rented"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "4139"
+								},
+								{
+									"key": "sessionToken",
+									"value": "f69d1a05851d7fe2543e3ef9b32c57d9de4a060e7f4a9e23efbd6fd2ad910d75"
+								},
+								{
+									"key": "film_id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete inventory item",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/inventory?userId=4139&sessionToken=f69d1a05851d7fe2543e3ef9b32c57d9de4a060e7f4a9e23efbd6fd2ad910d75&inventory_id=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"inventory"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "4139"
+								},
+								{
+									"key": "sessionToken",
+									"value": "f69d1a05851d7fe2543e3ef9b32c57d9de4a060e7f4a9e23efbd6fd2ad910d75"
+								},
+								{
+									"key": "inventory_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
