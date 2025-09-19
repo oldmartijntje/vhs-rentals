@@ -27,5 +27,5 @@ jobs:
         with:
           push: true
           tags: |
-            ghcr.io/${{ github.repository }}/vhs-rentals:latest
-            ghcr.io/${{ github.repository }}/vhs-rentals:${{ github.sha }}
+            ghcr.io/oldmartijntje/vhs-rentals:latest
+            ghcr.io/oldmartijntje/vhs-rentals:${{ github.sha }}
