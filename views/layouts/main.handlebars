@@ -74,15 +74,21 @@
             customerLinks.forEach((el) => {
                 el.style.display = "";
             });
+            staffLinks.forEach((el) => {
+                el.style.display = "none";
+            });
         } else if (autoLoginVersion == 2) {
             staffLinks.forEach((el) => {
                 el.style.display = "";
             });
-        } else {
             customerLinks.forEach((el) => {
                 el.style.display = "none";
             });
+        } else {
             staffLinks.forEach((el) => {
+                el.style.display = "none";
+            });
+            customerLinks.forEach((el) => {
                 el.style.display = "none";
             });
         }
