@@ -38,6 +38,9 @@ export function getInventoryData(req, res) {
                 if (result == null) return tryCatchResponse(res, "something went wrong");
                 if (!auth.authorizationCheck([UserType.STAFF, UserType.STORE_OWNER])) {
                     result.forEach(element => {
+                        if (element.last_customer_id == auth.getStaffOrCustomerId()) {
+                            element.you = true;
+                        }
                         element.last_customer_id = undefined;
                         element.last_rental_id = undefined;
                     });

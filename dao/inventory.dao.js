@@ -84,7 +84,7 @@ WHERE i.film_id = ?;
             return callback(null);
         }
         if (!results[0]) {
-            return callback(404);
+            return callback([]);
         }
         return callback(results);
     });
