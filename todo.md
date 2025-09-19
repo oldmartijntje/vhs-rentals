@@ -86,8 +86,8 @@
 
 * [x] 1. as an employee I want to be able to look at the inventry for a specific film so that i can see whether we still have it in storage
 * [x] 2. as an employee I want to be able to add a new copy of a film to the inventory of 1 of our stores, so that we can actually keep the website up to date.
-* [ ] 3. as an employee I want to be able to be able to move a copy from 1 store to another so that i people can return copies to any store of their choice, no matter where they rented it from.
-* [ ] 4. as an employee I want to be able to remove a copy from our inventory so that we can remove stolen items from our website.
+* [x] 3. as an employee I want to be able to be able to move a copy from 1 store to another so that i people can return copies to any store of their choice, no matter where they rented it from.
+* [x] 4. as an employee I want to be able to remove a copy from our inventory so that we can remove stolen items from our website.
 
 **Login**
 
@@ -133,3 +133,8 @@ Other things to do:
 - [x] authorisation in auth.js with enums
 - [ ] get info on staff, whether they are store owners
 - [x] limit form RATING field to max 5 characters
+
+
+## Upgrades possible
+
+- [ ] on the http://localhost:6969/Catalogue, make year and ganre dropdowns

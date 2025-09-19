@@ -24,6 +24,7 @@ function fetchInventory() {
                         <td>
                             <button class="btn btn-secondary btn-sm edit-store-btn" data-id="${inv.inventory_id}" data-store="${inv.store_id}">Edit Store</button>
                             ${inv.rented ? `<button class="btn btn-warning btn-sm return-btn" data-id="${inv.inventory_id}">Return</button>` : ''}
+                            <button class="btn btn-danger btn-sm delete-inventory-btn" data-id="${inv.inventory_id}">Delete</button>
                         </td>
                     `;
                     tbody.appendChild(tr);
@@ -34,15 +35,7 @@ function fetchInventory() {
                 const editInventoryIdInput = document.getElementById('edit-inventory-id');
                 const editStoreIdInput = document.getElementById('edit-store-id');
 
-                inventoryTable.addEventListener('click', e => {
-                    if (e.target.classList.contains('edit-store-btn')) {
-                        const inventory_id = e.target.getAttribute('data-id');
-                        const current_store_id = e.target.getAttribute('data-store');
-                        editInventoryIdInput.value = inventory_id;
-                        editStoreIdInput.value = current_store_id;
-                        editStoreModal.show();
-                    }
-                });
+                // ...existing code...
 
                 editStoreForm.addEventListener('submit', function (e) {
                     e.preventDefault();
@@ -122,6 +115,31 @@ inventoryTable.addEventListener('click', e => {
                 }
             })
             .catch(err => console.error('Error returning inventory:', err));
+    } else if (e.target.classList.contains('delete-inventory-btn')) {
+        const inventory_id = e.target.getAttribute('data-id');
+        if (confirm('Are you sure you want to delete this inventory item?')) {
+            fetch(`/api/inventory?userId=${userId}&sessionToken=${token}&inventory_id=${inventory_id}`, {
+                method: 'DELETE',
+            })
+                .then(res => res.json())
+                .then(result => {
+                    if (result.success) {
+                        fetchInventory();
+                    } else {
+                        alert(`Failed to delete inventory: ${result.message}`);
+                    }
+                })
+                .catch(err => console.error('Error deleting inventory:', err));
+        }
+    } else if (e.target.classList.contains('edit-store-btn')) {
+        const inventory_id = e.target.getAttribute('data-id');
+        const current_store_id = e.target.getAttribute('data-store');
+        const editStoreModal = new bootstrap.Modal(document.getElementById('editStoreModal'));
+        const editInventoryIdInput = document.getElementById('edit-inventory-id');
+        const editStoreIdInput = document.getElementById('edit-store-id');
+        editInventoryIdInput.value = inventory_id;
+        editStoreIdInput.value = current_store_id;
+        editStoreModal.show();
     }
 });
 
