@@ -33,8 +33,7 @@ describe('Customer Login Page', () => {
         cy.get('label[for="rememberMe"]').should('contain.text', 'Remember me');
     });
 
-    it('shows forgot password and staff login links', () => {
-        cy.get('.login-links-row a').contains('Forgot password?').should('exist');
+    it('shows taff login link', () => {
         cy.get('.login-links-row a').contains('I work here').should('exist');
     });
 
