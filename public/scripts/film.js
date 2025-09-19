@@ -148,6 +148,8 @@ fetch(url, {
             default:
 
         }
+    } else if (res.status == 404) {
+        window.location.href = `/.Film?v=${film}`;
     } else {
         showErrorAndRedirect("/", "errorModal");
     }
