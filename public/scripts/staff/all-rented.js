@@ -27,7 +27,11 @@ document.addEventListener('DOMContentLoaded', () => {
         accordion.innerHTML = '';
         filteredMovieHeader.innerHTML = '';
         if (!items || items.length === 0) {
-            accordion.innerHTML = '<div class="alert alert-info">No currently rented items found.</div>';
+            if (filmId) {
+                filteredMovieHeader.innerHTML = `<h2 class='mb-3'>This film is not being rented</h2>
+                <button id='viewAllRentedBtn' class='btn btn-outline-secondary mb-2'>View All Rented</button>`
+            }
+            accordion.innerHTML = `<div class="alert alert-info">No currently rented items found.</div>`;
             return;
         }
         // If filtering by filmId, show film title header
