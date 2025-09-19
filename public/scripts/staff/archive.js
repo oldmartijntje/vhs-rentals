@@ -32,16 +32,21 @@ function renderArchive(page) {
     const start = (page - 1) * pageSize;
     const end = start + pageSize;
     const pageItems = archiveData.slice(start, end);
-    // Movie header logic
     const filteredMovieHeader = document.getElementById('filtered-movie-header');
     const params = new URLSearchParams(window.location.search);
     const filteredFilmId = params.get('v');
-    if (filteredFilmId && pageItems.length > 0) {
-        // Use first item's film_name
-        const filmName = pageItems[0].film_name;
-        filteredMovieHeader.innerHTML = `<h2 class='mb-3'><a href="/Film?v=${filteredFilmId}">${filmName}</a>'s Renting History</h2>
-            <button id='viewFullArchiveBtn' class='btn btn-outline-secondary mb-2'>View Full Archive</button>`;
-        // Add event for button
+
+    if (filteredFilmId) {
+        if (pageItems.length > 0) {
+            // Use first item's film_name
+            const filmName = pageItems[0].film_name;
+            filteredMovieHeader.innerHTML = `<h2 class='mb-3'><a href="/Film?v=${filteredFilmId}">${filmName}</a>'s Renting History</h2>
+                <button id='viewFullArchiveBtn' class='btn btn-outline-secondary mb-2'>View Full Archive</button>`;
+        } else {
+            filteredMovieHeader.innerHTML = `<h2 class='mb-3'>This film has no rental history</h2>
+                <button id='viewFullArchiveBtn' class='btn btn-outline-secondary mb-2'>View Full Archive</button>`;
+            archiveAccordion.innerHTML = `<div class="alert alert-info">No archived rentals found for this film.</div>`;
+        }
         setTimeout(() => {
             const btn = document.getElementById('viewFullArchiveBtn');
             if (btn) {
@@ -56,6 +61,7 @@ function renderArchive(page) {
     } else {
         filteredMovieHeader.innerHTML = '';
     }
+
     pageItems.forEach((item, idx) => {
         const collapseId = `collapse${item.rental_id}`;
         const headingId = `heading${item.rental_id}`;
