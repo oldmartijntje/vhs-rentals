@@ -1,5 +1,5 @@
 import express from 'express';
-import { getInventoryData, addInventoryItemController, returnRentalController, editInventoryStoreIdController, rentInventoryController, userReturnInventoryController, getMyCurrentRentalsController, getAllRentedInventoryController } from '../controllers/inventory.controller.js';
+import { getInventoryData, addInventoryItemController, returnRentalController, editInventoryStoreIdController, rentInventoryController, userReturnInventoryController, getMyCurrentRentalsController, getAllRentedInventoryController, getArchivedRentalsController } from '../controllers/inventory.controller.js';
 
 const inventoryRouter = express.Router();
 
@@ -11,5 +11,6 @@ inventoryRouter.put('/return-user', userReturnInventoryController);
 inventoryRouter.post('/rent', rentInventoryController);
 inventoryRouter.get('/my-rentals', getMyCurrentRentalsController);
 inventoryRouter.get('/all-rented', getAllRentedInventoryController);
+inventoryRouter.get('/archive', getArchivedRentalsController);
 
 export default inventoryRouter;

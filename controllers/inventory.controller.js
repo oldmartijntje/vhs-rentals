@@ -7,7 +7,7 @@ import {
 } from '../helper/response.helper.js';
 import { Auth } from '../middleware/auth.js';
 import { logger } from '../middleware/logger.js';
-import { customerReturnInventory, getAllRentedInventory, getCustomerCurrentRentals, getInventoryDataByFilm, rentInventoryToCustomer } from '../services/inventory.service.js';
+import { customerReturnInventory, getAllRentedInventory, getArchivedRentalsService, getCustomerCurrentRentals, getInventoryDataByFilm, rentInventoryToCustomer } from '../services/inventory.service.js';
 import { addInventoryItem } from '../services/inventory.service.js';
 import { returnRentalNow, editInventoryStoreId } from '../services/inventory.service.js';
 
@@ -241,10 +241,11 @@ export function userReturnInventoryController(req, res) {
  */
 export function getAllRentedInventoryController(req, res) {
     try {
-        const { userId, sessionToken } = req.query;
+        const { userId, sessionToken, film_id } = req.query;
         if (!userId) return queryParamMissingResponse(res, 'userId');
         if (!sessionToken) return queryParamMissingResponse(res, 'sessionToken');
         if (invalidNumberResponse(res, userId, 'userId', 0, Infinity)) return;
+        if (film_id && invalidNumberResponse(res, film_id, 'film_id', 0, Infinity)) return;
 
         const auth = new Auth(userId, sessionToken);
         auth.validate((isValidated) => {
@@ -256,7 +257,7 @@ export function getAllRentedInventoryController(req, res) {
                 forbiddenResponse(res);
                 return;
             }
-            getAllRentedInventory((results) => {
+            getAllRentedInventory(film_id, (results) => {
                 if (!results) return tryCatchResponse(res, "something went wrong");
                 okResponse(res, results);
                 return;
@@ -289,6 +290,39 @@ export function getMyCurrentRentalsController(req, res) {
             }
             const customer_id = auth.getStaffOrCustomerId();
             getCustomerCurrentRentals(customer_id, (results) => {
+                if (!results) return tryCatchResponse(res, "something went wrong");
+                okResponse(res, results);
+                return;
+            });
+        });
+    } catch (e) {
+        tryCatchResponse(res, e);
+        return;
+    }
+}
+
+/**
+ * Get all archived rentals (staff/store owner)
+ */
+export function getArchivedRentalsController(req, res) {
+    try {
+        const { userId, sessionToken, film_id } = req.query;
+        if (!userId) return queryParamMissingResponse(res, 'userId');
+        if (!sessionToken) return queryParamMissingResponse(res, 'sessionToken');
+        if (invalidNumberResponse(res, userId, 'userId', 0, Infinity)) return;
+        if (film_id && invalidNumberResponse(res, film_id, 'film_id', 0, Infinity)) return;
+
+        const auth = new Auth(userId, sessionToken);
+        auth.validate((isValidated) => {
+            if (!isValidated) {
+                invalidAuthenticationAttemptResponse(res);
+                return;
+            }
+            if (!auth.authorizationCheck([UserType.STAFF, UserType.STORE_OWNER])) {
+                forbiddenResponse(res);
+                return;
+            }
+            getArchivedRentalsService(film_id, (results) => {
                 if (!results) return tryCatchResponse(res, "something went wrong");
                 okResponse(res, results);
                 return;

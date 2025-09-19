@@ -5,6 +5,7 @@ import { createRentalForCustomer } from "../dao/inventory.dao.js";
 import { customerReturnInventoryItem } from "../dao/inventory.dao.js";
 import { getCurrentRentalsForCustomer } from "../dao/inventory.dao.js";
 import { getAllCurrentlyRentedInventory } from "../dao/inventory.dao.js";
+import { getArchivedRentals } from "../dao/inventory.dao.js";
 
 export function getInventoryDataByFilm(film_id, callback) {
     getDetailedInventoryStatusFromDatabase(film_id, callback)
@@ -34,6 +35,10 @@ export function getCustomerCurrentRentals(customer_id, callback) {
     getCurrentRentalsForCustomer(customer_id, callback);
 }
 
-export function getAllRentedInventory(callback) {
-    getAllCurrentlyRentedInventory(callback);
+export function getAllRentedInventory(film_id, callback) {
+    getAllCurrentlyRentedInventory(film_id, callback);
+}
+
+export function getArchivedRentalsService(film_id, callback) {
+    getArchivedRentals(film_id, callback);
 }

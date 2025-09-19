@@ -213,8 +213,8 @@ export function customerReturnInventoryItem(inventory_id, customer_id, callback)
  * Get all currently rented out films with film_id and address info
  * @param {function} callback
  */
-export function getAllCurrentlyRentedInventory(callback) {
-    pool.query(`
+export function getAllCurrentlyRentedInventory(film_id, callback) {
+    let sql = `
         SELECT 
             i.inventory_id,
             i.film_id,
@@ -232,8 +232,13 @@ export function getAllCurrentlyRentedInventory(callback) {
         JOIN country co ON ci.country_id = co.country_id
         JOIN rental r ON i.inventory_id = r.inventory_id
         WHERE r.rental_date < NOW()
-          AND r.return_date > NOW()
-    `, [], (err, results) => {
+          AND r.return_date > NOW()`;
+    const params = [];
+    if (film_id) {
+        sql += ' AND i.film_id = ?';
+        params.push(film_id);
+    }
+    pool.query(sql, params, (err, results) => {
         if (err) {
             logger.error(`error at 'getAllCurrentlyRentedInventory' method: ${err}`);
             return callback(null);
@@ -265,4 +270,42 @@ export function getCurrentRentalsForCustomer(customer_id, callback) {
             return callback(results);
         }
     );
+}
+
+/**
+ * Get all archived rentals (return_date in the past)
+ * @param {function} callback
+ */
+export function getArchivedRentals(film_id, callback) {
+    let sql = `
+        SELECT 
+            i.inventory_id,
+            i.film_id,
+            f.title AS film_name,
+            CONCAT(a.address, ', ', ci.city, ', ', co.country) AS store_address,
+            r.customer_id,
+            r.rental_id,
+            r.rental_date,
+            r.return_date
+        FROM inventory i
+        JOIN film f ON i.film_id = f.film_id
+        JOIN store s ON i.store_id = s.store_id
+        JOIN address a ON s.address_id = a.address_id
+        JOIN city ci ON a.city_id = ci.city_id
+        JOIN country co ON ci.country_id = co.country_id
+        JOIN rental r ON i.inventory_id = r.inventory_id
+        WHERE r.return_date < NOW()`;
+    const params = [];
+    if (film_id) {
+        sql += ' AND i.film_id = ?';
+        params.push(film_id);
+    }
+    sql += ' ORDER BY r.return_date DESC';
+    pool.query(sql, params, (err, results) => {
+        if (err) {
+            logger.error(`error at 'getArchivedRentals' method: ${err}`);
+            return callback(null);
+        }
+        return callback(results);
+    });
 }
