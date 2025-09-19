@@ -53,8 +53,8 @@
 
 **renting and returning**
 
-* [ ] 1. as a customer I want to be able to rent a movie so that I am able to watch it
-* [ ] 2. as a customer I want to be able to return a rented movie so that I don't get indefinitely billed
+* [x] 1. as a customer I want to be able to rent a movie so that I am able to watch it
+* [x] 2. as a customer I want to be able to return a rented movie so that I don't get indefinitely billed
 
 **movie management**
 
@@ -94,7 +94,7 @@
 * [x] 1. as an user I want to be able to login so that I can see personal information
     * [x] Login
     * [x] Account page
-* [ ] 2. as an employee I want to be able to login so that I can do my job correctly
+* [x] 2. as an employee I want to be able to login so that I can do my job correctly
     * [x] Login
     * [x] Dashboard
 
@@ -115,10 +115,10 @@ Here I will list the pages that I need to work on that are already referenced:
 - [x] http://localhost:3000/Catalogue for viewing the full catalog
 - [x] http://localhost:3000/Account the customer dashboard
 - [x] http://localhost:3000/Staff/Dashboard the staff dashboard
-- [ ] http://localhost:3000/Rent?v=1000 the page to rent a film
+- [x] http://localhost:3000/Rent?v=1000 the page to rent a film
 - [ ] http://localhost:3000/Customer/History?v=1000 for viewing your renting history of this item
 - [ ] http://localhost:3000/Customer/History for viewing your entire renting history
-- [ ] http://localhost:3000/Rented for viewing the items that you are currently renting.
+- [x] http://localhost:3000/Rented for viewing the items that you are currently renting.
 - [x] http://localhost:3000/Staff/Archive?v=1000 so that staff can see renting history
 - [x] http://localhost:3000/Staff/Edit/Film?v=1000 so that staff can CRUD a film
 - [x] http://localhost:3000/Staff/Edit/Inventory?v=1000 so that staff can CRUD the inventory of a film
@@ -126,6 +126,7 @@ Here I will list the pages that I need to work on that are already referenced:
 Other things to do:
 
 - [ ] http://localhost:3000/, fix the "visit us" modal
+- [x] show price on renting and rented pages
 - [x] authorisation in auth.js with enums
 - [ ] get info on staff, whether they are store owners
 - [x] limit form RATING field to max 5 characters

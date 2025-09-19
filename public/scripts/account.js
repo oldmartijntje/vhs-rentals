@@ -1,28 +1,7 @@
 // Loads customer account info and populates the account page
 (function () {
-    let authenticatedGetRequest = false;
-    let data = localStorage.getItem("vhs_rental_user");
-    let userId;
-    let token;
-    if (data != null) {
-        try {
-            let dataObject = JSON.parse(atob(data));
-            if (dataObject.userId != undefined && dataObject.token != undefined && dataObject.version == 1) {
-                authenticated = true;
-                token = dataObject.token;
-                userId = dataObject.userId;
-                authenticatedGetRequest = true;
-            } else if (dataObject.userId != undefined && dataObject.token != undefined) {
-                showErrorAndRedirect("/", "authorizationModal");
-            } else {
-                showErrorAndRedirect("/Login", "loginModal");
-            }
-        } catch (e) { }
-    } else {
-        showErrorAndRedirect("/Login", "loginModal");
-    }
     let url;
-    if (authenticatedGetRequest) {
+    if (true) {
         url = `/api/account?userId=${userId}&sessionToken=${token}`;
         fetch(url, {
             method: 'GET',

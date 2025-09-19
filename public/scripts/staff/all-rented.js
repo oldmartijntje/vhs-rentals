@@ -3,9 +3,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    const userId = 4139;
-    const sessionToken = 'f69d1a05851d7fe2543e3ef9b32c57d9de4a060e7f4a9e23efbd6fd2ad910d75';
-    const endpointBase = `/api/inventory/all-rented?userId=${userId}&sessionToken=${sessionToken}`;
+    const endpointBase = `/api/inventory/all-rented?userId=${userId}&sessionToken=${token}`;
     const accordion = document.getElementById('rented-accordion');
     const filterBtn = document.getElementById('filterBtn');
     const filmIdInput = document.getElementById('filmIdInput');
