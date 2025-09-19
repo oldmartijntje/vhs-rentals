@@ -39,12 +39,13 @@ function renderInventory(items) {
     if (filmTitle) {
         html += `<h2 class="text-center mb-3">Copies of ${filmTitle}</h2>`;
     }
-    html += '<table class="table table-dark table-striped"><thead><tr><th>Inventory ID</th><th>Store</th><th>Address</th><th>Status</th><th></th></tr></thead><tbody>';
+    html += '<table class="table table-dark table-striped"><thead><tr><th>Inventory ID</th><th>Store</th><th>Address</th><th>Costs Per Week</th><th>Status</th><th></th></tr></thead><tbody>';
     items.forEach(item => {
         html += `<tr>
             <td>${item.inventory_id}</td>
             <td>${item.store_id}</td>
             <td>${item.store_address}</td>
+            <td><span class="text-info">€${item.film_price}</span></td>
             <td>${item.rented === 0 ? '<span class="text-success">Available</span>' : (item.you ? '<span class="text-warning">Rented by you</span>' : '<span class="text-danger">Rented</span>')}</td>
             <td>${item.rented === 0 ? `<button class="btn btn-primary rent-btn" data-id="${item.inventory_id}">Rent</button>` : ''}
 ${item.you ? `<button class="btn btn-danger btn-sm return-btn" data-id="${item.inventory_id}">Return</button>` : ''}</td>

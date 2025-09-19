@@ -28,12 +28,13 @@ function renderRented(items) {
         rentedList.innerHTML = '<div class="alert alert-warning">No current rentals found.</div>';
         return;
     }
-    let html = '<table class="table table-dark table-striped"><thead><tr><th>Film</th><th>Rental ID</th><th>Inventory ID</th><th>Rental Date</th><th>Return Date</th><th></th><th></th></tr></thead><tbody>';
+    let html = '<table class="table table-dark table-striped"><thead><tr><th>Film</th><th>Rental ID</th><th>Inventory ID</th><th>Costs</th><th>Rental Date</th><th>Return Date</th><th></th><th></th></tr></thead><tbody>';
     items.forEach(item => {
         html += `<tr>
             <td>${item.film_name}</td>
             <td>${item.rental_id}</td>
             <td>${item.inventory_id}</td>
+            <td><span class="text-info">€${item.film_price}</span></td>
             <td>${new Date(item.rental_date).toLocaleString()}</td>
             <td>${new Date(item.return_date).toLocaleString()}</td>
             <td><a href="/Film?v=${item.film_id}" class="btn btn-info btn-sm">View</a></td>
