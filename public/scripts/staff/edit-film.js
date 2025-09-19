@@ -32,6 +32,10 @@ if (true) {
         pageTitle.textContent = "Add Film";
         submitBtn.textContent = "Add Film";
 
+        // Hide 'View Film' button when adding a film
+        const viewFilmBtn = document.getElementById('view-film-btn');
+        if (viewFilmBtn) viewFilmBtn.style.display = 'none';
+
         // Handle form submission for POST
         filmForm.addEventListener('submit', e => {
             e.preventDefault();
