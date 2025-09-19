@@ -7,7 +7,7 @@ import {
 } from '../helper/response.helper.js';
 import { Auth } from '../middleware/auth.js';
 import { logger } from '../middleware/logger.js';
-import { customerReturnInventory, getInventoryDataByFilm, rentInventoryToCustomer } from '../services/inventory.service.js';
+import { customerReturnInventory, getAllRentedInventory, getCustomerCurrentRentals, getInventoryDataByFilm, rentInventoryToCustomer } from '../services/inventory.service.js';
 import { addInventoryItem } from '../services/inventory.service.js';
 import { returnRentalNow, editInventoryStoreId } from '../services/inventory.service.js';
 
@@ -227,6 +227,70 @@ export function userReturnInventoryController(req, res) {
                     return;
                 }
                 okResponse(res, { success: true });
+                return;
+            });
+        });
+    } catch (e) {
+        tryCatchResponse(res, e);
+        return;
+    }
+}
+
+/**
+ * Get all currently rented out films (admin/staff/store owner)
+ */
+export function getAllRentedInventoryController(req, res) {
+    try {
+        const { userId, sessionToken } = req.query;
+        if (!userId) return queryParamMissingResponse(res, 'userId');
+        if (!sessionToken) return queryParamMissingResponse(res, 'sessionToken');
+        if (invalidNumberResponse(res, userId, 'userId', 0, Infinity)) return;
+
+        const auth = new Auth(userId, sessionToken);
+        auth.validate((isValidated) => {
+            if (!isValidated) {
+                invalidAuthenticationAttemptResponse(res);
+                return;
+            }
+            if (!auth.authorizationCheck([UserType.STAFF, UserType.STORE_OWNER])) {
+                forbiddenResponse(res);
+                return;
+            }
+            getAllRentedInventory((results) => {
+                if (!results) return tryCatchResponse(res, "something went wrong");
+                okResponse(res, results);
+                return;
+            });
+        });
+    } catch (e) {
+        tryCatchResponse(res, e);
+        return;
+    }
+}
+/**
+ * Get all currently rented films for a customer
+ */
+export function getMyCurrentRentalsController(req, res) {
+    try {
+        const { userId, sessionToken } = req.query;
+        if (!userId) return queryParamMissingResponse(res, 'userId');
+        if (!sessionToken) return queryParamMissingResponse(res, 'sessionToken');
+        if (invalidNumberResponse(res, userId, 'userId', 0, Infinity)) return;
+
+        const auth = new Auth(userId, sessionToken);
+        auth.validate((isValidated) => {
+            if (!isValidated) {
+                invalidAuthenticationAttemptResponse(res);
+                return;
+            }
+            if (!auth.authorizationCheck([UserType.CUSTOMER])) {
+                forbiddenResponse(res);
+                return;
+            }
+            const customer_id = auth.getStaffOrCustomerId();
+            getCustomerCurrentRentals(customer_id, (results) => {
+                if (!results) return tryCatchResponse(res, "something went wrong");
+                okResponse(res, results);
                 return;
             });
         });

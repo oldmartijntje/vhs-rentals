@@ -208,3 +208,61 @@ export function customerReturnInventoryItem(inventory_id, customer_id, callback)
         }
     );
 }
+
+/**
+ * Get all currently rented out films with film_id and address info
+ * @param {function} callback
+ */
+export function getAllCurrentlyRentedInventory(callback) {
+    pool.query(`
+        SELECT 
+            i.inventory_id,
+            i.film_id,
+            f.title AS film_name,
+            CONCAT(a.address, ', ', ci.city, ', ', co.country) AS store_address,
+            r.customer_id,
+            r.rental_id,
+            r.rental_date,
+            r.return_date
+        FROM inventory i
+        JOIN film f ON i.film_id = f.film_id
+        JOIN store s ON i.store_id = s.store_id
+        JOIN address a ON s.address_id = a.address_id
+        JOIN city ci ON a.city_id = ci.city_id
+        JOIN country co ON ci.country_id = co.country_id
+        JOIN rental r ON i.inventory_id = r.inventory_id
+        WHERE r.rental_date < NOW()
+          AND r.return_date > NOW()
+    `, [], (err, results) => {
+        if (err) {
+            logger.error(`error at 'getAllCurrentlyRentedInventory' method: ${err}`);
+            return callback(null);
+        }
+        return callback(results);
+    });
+}
+/**
+ * Get all currently rented films for a customer
+ * @param {number} customer_id
+ * @param {function} callback
+ */
+export function getCurrentRentalsForCustomer(customer_id, callback) {
+    if (invalidNumber(customer_id, 0, Infinity)) throw new Error(`Number: "${customer_id}"\nDid you not sanitize your inputs??`);
+    pool.query(
+        `SELECT r.rental_id, r.inventory_id, r.rental_date, r.return_date, i.film_id, f.title AS film_name
+         FROM rental r
+         JOIN inventory i ON r.inventory_id = i.inventory_id
+         JOIN film f ON i.film_id = f.film_id
+         WHERE r.customer_id = ?
+           AND r.rental_date < NOW()
+           AND r.return_date > NOW()`,
+        [customer_id],
+        (err, results) => {
+            if (err) {
+                logger.error(`error at 'getCurrentRentalsForCustomer' method: ${err}`);
+                return callback(null);
+            }
+            return callback(results);
+        }
+    );
+}
