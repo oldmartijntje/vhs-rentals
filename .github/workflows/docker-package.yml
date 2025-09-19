@@ -1,0 +1,31 @@
+name: Build Docker Package for GitHub Registry
+
+on:
+  workflow_run:
+    workflows: ["Cypress Tests"] # must match name in cypress.yml
+    types:
+      - completed
+
+jobs:
+  build-and-publish-github-package:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Docker image to GitHub Packages
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository }}/vhs-rentals:latest
+            ghcr.io/${{ github.repository }}/vhs-rentals:${{ github.sha }}
