@@ -1,0 +1,15 @@
+<div class="mb-3" style="max-width: 500px; margin: 0 auto;"></div>
+    <label for="filmIdInput" class="form-label">Filter by Film ID</label>
+    <input type="number" id="filmIdInput" class="form-control" placeholder="Enter Film ID (optional)">
+    <button id="filterBtn" class="btn btn-primary mt-2 w-100">Filter</button>
+</div>
+<div id="filtered-movie-header" class="text-center mb-4"></div>
+<nav aria-label="{{paginationLabel}} top" class="mb-3">
+    <ul class="pagination justify-content-center" id="{{paginationTopId}}"></ul>
+</nav>
+<div class="d-flex justify-content-center">
+    <div id="{{accordionId}}" class="accordion w-100" style="max-width: 700px;"></div>
+</div>
+<nav>
+    <ul class="pagination justify-content-center mt-4" id="{{paginationId}}"></ul>
+</nav>
