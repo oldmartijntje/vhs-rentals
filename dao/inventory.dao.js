@@ -309,3 +309,43 @@ export function getArchivedRentals(film_id, callback) {
         return callback(results);
     });
 }
+
+/**
+ * Get all archived rentals for a customer
+ * @param {number} customer_id
+ * @param {function} callback
+ */
+export function getArchivedRentalsServiceForCustomer(customer_id, film_id, callback) {
+    let sql = `
+        SELECT 
+            i.inventory_id,
+            i.film_id,
+            f.title AS film_name,
+            CONCAT(a.address, ', ', ci.city, ', ', co.country) AS store_address,
+            r.customer_id,
+            r.rental_id,
+            r.rental_date,
+            r.return_date
+        FROM inventory i
+        JOIN film f ON i.film_id = f.film_id
+        JOIN store s ON i.store_id = s.store_id
+        JOIN address a ON s.address_id = a.address_id
+        JOIN city ci ON a.city_id = ci.city_id
+        JOIN country co ON ci.country_id = co.country_id
+        JOIN rental r ON i.inventory_id = r.inventory_id
+        WHERE r.return_date < NOW()
+          AND r.customer_id = ?`;
+    const params = [customer_id];
+    if (film_id) {
+        sql += ' AND i.film_id = ?';
+        params.push(film_id);
+    }
+    sql += ' ORDER BY r.return_date DESC';
+    pool.query(sql, params, (err, results) => {
+        if (err) {
+            logger.error(`error at 'getArchivedRentalsServiceForCustomer' method: ${err}`);
+            return callback(null);
+        }
+        return callback(results);
+    });
+}

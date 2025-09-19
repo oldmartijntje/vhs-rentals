@@ -7,7 +7,7 @@ import {
 } from '../helper/response.helper.js';
 import { Auth } from '../middleware/auth.js';
 import { logger } from '../middleware/logger.js';
-import { customerReturnInventory, getAllRentedInventory, getArchivedRentalsService, getCustomerCurrentRentals, getInventoryDataByFilm, rentInventoryToCustomer } from '../services/inventory.service.js';
+import { customerReturnInventory, getAllRentedInventory, getArchivedRentalsService, getArchivedRentalsServiceForCustomers, getCustomerCurrentRentals, getInventoryDataByFilm, rentInventoryToCustomer } from '../services/inventory.service.js';
 import { addInventoryItem } from '../services/inventory.service.js';
 import { returnRentalNow, editInventoryStoreId } from '../services/inventory.service.js';
 
@@ -302,7 +302,7 @@ export function getMyCurrentRentalsController(req, res) {
 }
 
 /**
- * Get all archived rentals (staff/store owner)
+ * Get all archived rentals (staff/store owner or customer)
  */
 export function getArchivedRentalsController(req, res) {
     try {
@@ -318,15 +318,25 @@ export function getArchivedRentalsController(req, res) {
                 invalidAuthenticationAttemptResponse(res);
                 return;
             }
-            if (!auth.authorizationCheck([UserType.STAFF, UserType.STORE_OWNER])) {
+            if (auth.authorizationCheck([UserType.STAFF, UserType.STORE_OWNER])) {
+                // Staff or store owner: see all
+                getArchivedRentalsService(film_id, (results) => {
+                    if (!results) return tryCatchResponse(res, "something went wrong");
+                    okResponse(res, results);
+                    return;
+                });
+            } else if (auth.authorizationCheck([UserType.CUSTOMER])) {
+                // Customer: see only their own history
+                const customer_id = auth.getStaffOrCustomerId();
+                getArchivedRentalsServiceForCustomers(customer_id, film_id, (results) => {
+                    if (!results) return tryCatchResponse(res, "something went wrong");
+                    okResponse(res, results);
+                    return;
+                });
+            } else {
                 forbiddenResponse(res);
                 return;
             }
-            getArchivedRentalsService(film_id, (results) => {
-                if (!results) return tryCatchResponse(res, "something went wrong");
-                okResponse(res, results);
-                return;
-            });
         });
     } catch (e) {
         tryCatchResponse(res, e);
