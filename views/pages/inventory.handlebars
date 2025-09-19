@@ -1,0 +1,17 @@
+
+<div class="container py-4 d-flex justify-content-center">
+    <div class="card p-4 shadow-lg" style="max-width: 800px; width: 100%;">
+        <h1 class="mb-4 text-center">Available Copies</h1>
+        <div class="d-flex justify-content-center gap-2 mb-3">
+            <a id="view-film-btn" class="btn btn-info">View Film</a>
+            <a id="rented-btn" class="btn btn-warning">Current Rentals</a>
+            <a id="history-btn" class="btn btn-secondary">Rental History</a>
+        </div>
+        <div id="inventory-list">
+            <div class="text-center">Loading inventory...</div>
+        </div>
+        <div id="rental-confirmation" class="mt-4" style="display:none;"></div>
+    </div>
+</div>
+<script src="/static/scripts/helper/youAreNotACustomer.js"></script>
+<script src="/static/scripts/inventory.js"></script>

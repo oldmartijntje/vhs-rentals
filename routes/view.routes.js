@@ -35,6 +35,9 @@ viewRouter.get('/Staff/Dashboard', (req, res) => {
 viewRouter.get('/Staff/Archive', (req, res) => {
     res.render('pages/staff/archive', { title: 'Archive' });
 });
+viewRouter.get('/Rent', (req, res) => {
+    res.render('pages/inventory', { title: 'Rent Film' });
+});
 viewRouter.get('/Staff/Rented', (req, res) => {
     res.render('pages/staff/all-rented', { title: 'Rental' });
 });
