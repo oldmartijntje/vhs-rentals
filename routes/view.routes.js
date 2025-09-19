@@ -44,6 +44,9 @@ viewRouter.get('/Rented', (req, res) => {
 viewRouter.get('/Staff/Rented', (req, res) => {
     res.render('pages/staff/all-rented', { title: 'Rental' });
 });
+viewRouter.get('/Customer/History', (req, res) => {
+    res.render('pages/history', { title: 'Archive' });
+});
 
 // 404 handler
 viewRouter.use((req, res) => {

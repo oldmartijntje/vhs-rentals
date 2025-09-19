@@ -75,7 +75,7 @@
 
 **Renting history**
 
-* [ ] 1. as an customer I want to be able to look at my renting history so that I can see which items I still need to return, and so that I am able to check for payment mistakes
+* [x] 1. as an customer I want to be able to look at my renting history so that I can see which items I still need to return, and so that I am able to check for payment mistakes
 
 **rental history**
 
@@ -116,8 +116,8 @@ Here I will list the pages that I need to work on that are already referenced:
 - [x] http://localhost:3000/Account the customer dashboard
 - [x] http://localhost:3000/Staff/Dashboard the staff dashboard
 - [x] http://localhost:3000/Rent?v=1000 the page to rent a film
-- [ ] http://localhost:3000/Customer/History?v=1000 for viewing your renting history of this item
-- [ ] http://localhost:3000/Customer/History for viewing your entire renting history
+- [x] http://localhost:3000/Customer/History?v=1000 for viewing your renting history of this item
+- [x] http://localhost:3000/Customer/History for viewing your entire renting history
 - [x] http://localhost:3000/Rented for viewing the items that you are currently renting.
 - [x] http://localhost:3000/Staff/Archive?v=1000 so that staff can see renting history
 - [x] http://localhost:3000/Staff/Edit/Film?v=1000 so that staff can CRUD a film
