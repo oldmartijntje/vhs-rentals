@@ -96,7 +96,7 @@
     * [x] Account page
 * [ ] 2. as an employee I want to be able to login so that I can do my job correctly
     * [x] Login
-    * [ ] Dashboard
+    * [x] Dashboard
 
 **Sessions**
 
@@ -114,7 +114,7 @@ Here I will list the pages that I need to work on that are already referenced:
 - [x] http://localhost:3000/Film?v=1000 for viewing a specific film
 - [x] http://localhost:3000/Catalogue for viewing the full catalog
 - [x] http://localhost:3000/Account the customer dashboard
-- [ ] http://localhost:3000/Staff/Dashboard the staff dashboard
+- [x] http://localhost:3000/Staff/Dashboard the staff dashboard
 - [ ] http://localhost:3000/Rent?v=1000 the page to rent a film
 - [ ] http://localhost:3000/Customer/History?v=1000 for viewing your renting history of this item
 - [ ] http://localhost:3000/Customer/History for viewing your entire renting history
