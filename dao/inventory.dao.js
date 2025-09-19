@@ -51,7 +51,7 @@ export function getDetailedInventoryStatusFromDatabase(film_id, callback) {
     CASE 
         WHEN r.rental_date IS NOT NULL 
              AND r.rental_date <= NOW()
-             AND r.return_date IS NULL 
+             AND r.return_date >= NOW() 
         THEN TRUE
         ELSE FALSE
     END AS rented,
