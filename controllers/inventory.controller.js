@@ -80,7 +80,11 @@ export function returnRentalController(req, res) {
                 return;
             }
             returnRentalNow(inventory_id, (success) => {
-                if (!success) return tryCatchResponse(res, "something went wrong or rental not found");
+                if (!success) {
+                    logger.info(`Failed to return rental for inventory_id: ${inventory_id} by user ${userId}`);
+                    return tryCatchResponse(res, "something went wrong or rental not found");
+                }
+                logger.info(`Rental returned for inventory_id: ${inventory_id} by user ${userId}`);
                 okResponse(res, { success: true });
                 return;
             });
@@ -116,7 +120,11 @@ export function editInventoryStoreIdController(req, res) {
                 return;
             }
             editInventoryStoreId(inventory_id, store_id, (success) => {
-                if (!success) return tryCatchResponse(res, "something went wrong or inventory not found");
+                if (!success) {
+                    logger.info(`Failed to edit store_id for inventory_id: ${inventory_id} by user ${userId}`);
+                    return tryCatchResponse(res, "something went wrong or inventory not found");
+                }
+                logger.info(`Store_id edited for inventory_id: ${inventory_id} to store_id: ${store_id} by user ${userId}`);
                 okResponse(res, { success: true });
                 return;
             });
@@ -153,7 +161,11 @@ export function rentInventoryController(req, res) {
             }
             logger.debug(JSON.stringify(auth.getUser()))
             rentInventoryToCustomer(inventory_id, auth.getStaffOrCustomerId(), period, (result) => {
-                if (!result) return tryCatchResponse(res, "something went wrong");
+                if (!result) {
+                    logger.info(`Failed to rent inventory_id: ${inventory_id} to customer ${userId}`);
+                    return tryCatchResponse(res, "something went wrong");
+                }
+                logger.info(`Inventory_id: ${inventory_id} rented to customer ${userId} for ${period} days`);
                 okResponse(res, result);
                 return;
             });
@@ -192,7 +204,11 @@ export function addInventoryItemController(req, res) {
                 return;
             }
             addInventoryItem(film_id, store_id, (result) => {
-                if (result == null) return tryCatchResponse(res, "something went wrong");
+                if (result == null) {
+                    logger.info(`Failed to add inventory item for film_id: ${film_id}, store_id: ${store_id} by user ${userId}`);
+                    return tryCatchResponse(res, "something went wrong");
+                }
+                logger.info(`Inventory item added for film_id: ${film_id}, store_id: ${store_id} by user ${userId}, id: ${result}`);
                 okResponse(res, { success: true, id: result });
                 return;
             });
@@ -230,9 +246,11 @@ export function userReturnInventoryController(req, res) {
             // Only return if this customer is currently renting this inventory item
             customerReturnInventory(inventory_id, customer_id, (success) => {
                 if (!success) {
+                    logger.info(`Failed customer return for inventory_id: ${inventory_id} by user ${userId}`);
                     okResponse(res, { success: false, message: "No active rental found for this user and inventory item." });
                     return;
                 }
+                logger.info(`Customer return for inventory_id: ${inventory_id} by user ${userId}`);
                 okResponse(res, { success: true });
                 return;
             });
@@ -374,7 +392,11 @@ export function deleteInventoryItemController(req, res) {
                 return;
             }
             deleteInventoryItem(inventory_id, (success) => {
-                if (!success) return tryCatchResponse(res, "something went wrong or inventory not found");
+                if (!success) {
+                    logger.info(`Failed to delete inventory item: ${inventory_id} by user ${userId}`);
+                    return tryCatchResponse(res, "something went wrong or inventory not found");
+                }
+                logger.info(`Inventory item deleted: ${inventory_id} by user ${userId}`);
                 okResponse(res, { success: true });
                 return;
             });

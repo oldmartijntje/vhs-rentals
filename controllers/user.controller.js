@@ -27,12 +27,15 @@ export function getAccountInfoRequest(req, res) {
             if (isValidated) {
                 getAccountData(userId, (result) => {
                     if (result == null) {
+                        logger.info(`Failed to get account info for user ${userId}`);
                         quickResponse(res, 500, "unknown error")
                     } else {
+                        logger.info(`Account info retrieved for user ${userId}`);
                         okResponse(res, result);
                     }
                 })
             } else {
+                logger.info(`Invalid authentication attempt for account info by user ${userId}`);
                 invalidAuthenticationAttemptResponse(res);
             }
         });

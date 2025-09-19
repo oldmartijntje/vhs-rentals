@@ -19,7 +19,11 @@ export function loginRequest(req, res) {
         if (role != "customer" && role != "staff") return quickResponse(res, 400, "invalid \"role\"");
 
         loginViaCredentials(email, password, role, (responseObject) => {
-            if (responseObject == null) return quickResponse(res, 400, "invalid \"email\" and \"password\" combination");
+            if (responseObject == null) {
+                logger.info(`Failed login attempt for email: ${email}, role: ${role}`);
+                return quickResponse(res, 400, "invalid \"email\" and \"password\" combination");
+            }
+            logger.info(`Successful login for email: ${email}, role: ${role}`);
             okResponse(res, responseObject);
         });
     } catch (e) {
@@ -42,7 +46,11 @@ export function tokenRefreshRequest(req, res) {
         if (!refreshToken) return bodyItemMissingResponse(res, "refreshToken");
 
         refreshSessionToken(userId, refreshToken, (responseObject) => {
-            if (responseObject == null) return quickResponse(res, 400, "invalid \"userId\" and \"refreshToken\" combination, has your refreshToken expired?");
+            if (responseObject == null) {
+                logger.info(`Failed token refresh for userId: ${userId}`);
+                return quickResponse(res, 400, "invalid \"userId\" and \"refreshToken\" combination, has your refreshToken expired?");
+            }
+            logger.info(`Successful token refresh for userId: ${userId}`);
             okResponse(res, responseObject);
         });
     } catch (e) {
@@ -68,9 +76,11 @@ export function validateTokenRequest(req, res) {
             if (isValidated) {
                 let userData = auth.getUser()
                 userData.picture = null;
+                logger.info(`Token validated for userId: ${userId}`);
                 logger.debug(`User validated with this data: ${JSON.stringify(userData)}`)
                 okResponse(res, { "authentication": true }) // honestly doesn't matter, we don't look at this in the frontend.
             } else {
+                logger.info(`Failed token validation for userId: ${userId}`);
                 quickResponse(res, 400, false)
             }
         })

@@ -129,9 +129,11 @@ export function postFilm(req, res) {
             }
             addNewFilm(title, description, category, price, length, rating, release_year, actors, (result) => {
                 if (result != null) {
+                    logger.info(`Film added: ${title} (${result}) by user ${userId}`);
                     okResponse(res, { id: result });
                     return
                 }
+                logger.info(`Failed to add film: ${title} by user ${userId}`);
                 tryCatchResponse(res, "something went wrong");
                 return
             })
@@ -182,9 +184,11 @@ export function putFilm(req, res) {
             }
             updateFilm(film_id, title, description, category, price, length, rating, release_year, actors, (result) => {
                 if (result != null) {
+                    logger.info(`Film updated: ${title} (${film_id}) by user ${userId}`);
                     okResponse(res, { id: result });
                     return
                 }
+                logger.info(`Failed to update film: ${title} (${film_id}) by user ${userId}`);
                 tryCatchResponse(res, "something went wrong");
                 return
             })
@@ -223,9 +227,11 @@ export function deleteFilm(req, res) {
             }
             removeFilm(id, (result) => {
                 if (result != null) {
+                    logger.info(`Film deleted: ${id} by user ${userId}`);
                     okResponse(res, { id: result });
                     return
                 }
+                logger.info(`Failed to delete film: ${id} by user ${userId}`);
                 tryCatchResponse(res, "something went wrong");
                 return
             })
