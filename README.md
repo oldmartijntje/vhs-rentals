@@ -67,3 +67,5 @@ The user `oldma@sakila.org` will be the easiest to use because it has both an st
 you must use the command `npm run start` to run the server.
 
 Every network request made to the api will be logged to logfiles and the console. You can find the logfiles in the folder `loggin/`. this folder contains a folder with the year number `2025/` for example. That folder will contain another folder with the month, `09/` for example. and that folder will contain all the logfiles for that month.
+
+This of coarse only happens when you do not disable file loggin in the setup.

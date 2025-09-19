@@ -12,7 +12,7 @@ const DEFAULTS = {
     DB_PASSWORD: 'root',
     DB_DATABASE: 'sakila',
     DB_PORT: '3306',
-    LOG_TO_FILE: false
+    LOG_TO_FILE: true
 };
 
 async function main() {
