@@ -32,6 +32,9 @@ viewRouter.get('/Account', (req, res) => {
 viewRouter.get('/Staff/Dashboard', (req, res) => {
     res.render('pages/staff/dashboard', { title: 'Dashboard' });
 });
+viewRouter.get('/Staff/Archive', (req, res) => {
+    res.render('pages/staff/archive', { title: 'Archive' });
+});
 
 // 404 handler
 viewRouter.use((req, res) => {

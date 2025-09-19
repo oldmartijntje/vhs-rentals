@@ -79,8 +79,8 @@
 
 **rental history**
 
-* [ ] 1. as an employee I want to be able to look at a specific copy of a movie so that I can see the specific copies separately
-* [ ] 2. as an employee I want to be able to look at the renting history of a specific movie copy so that we can look for fraud
+* [x] 1. as an employee I want to be able to look at a specific copy of a movie so that I can see the specific copies separately
+* [x] 2. as an employee I want to be able to look at the renting history of a specific movie copy so that we can look for fraud
 
 **inventory management**
 
@@ -119,7 +119,7 @@ Here I will list the pages that I need to work on that are already referenced:
 - [ ] http://localhost:3000/Customer/History?v=1000 for viewing your renting history of this item
 - [ ] http://localhost:3000/Customer/History for viewing your entire renting history
 - [ ] http://localhost:3000/Rented for viewing the items that you are currently renting.
-- [ ] http://localhost:3000/Staff/FilmHistory?v=1000 so that staff can see renting history
+- [x] http://localhost:3000/Staff/Archive?v=1000 so that staff can see renting history
 - [x] http://localhost:3000/Staff/Edit/Film?v=1000 so that staff can CRUD a film
 - [x] http://localhost:3000/Staff/Edit/Inventory?v=1000 so that staff can CRUD the inventory of a film
 
