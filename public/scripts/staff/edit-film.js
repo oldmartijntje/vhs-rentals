@@ -12,9 +12,6 @@ addQueryParamNavElements.forEach((item) => {
     item.href = item.href + `?v=${film}`
 });
 
-let userId;
-let token;
-
 if (true) {
     const filmForm = document.getElementById('film-form');
     const deleteBtn = document.getElementById('delete-film');
