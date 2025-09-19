@@ -12,7 +12,6 @@ addQueryParamNavElements.forEach((item) => {
     item.href = item.href + `?v=${film}`
 });
 
-let data = localStorage.getItem("vhs_rental_user");
 let userId;
 let token;
 
