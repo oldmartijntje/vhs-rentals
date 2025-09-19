@@ -129,7 +129,7 @@ Other things to do:
 - [x] authorisation in auth.js with enums
 - [ ] get info on staff, whether they are store owners
 - [x] limit form RATING field to max 5 characters
-- [ ] remove the CICD test for the login, forgot password button
+- [x] remove the CICD test for the login, forgot password button
 - [ ] add CICD tests for pages
     - [ ] [Archive](http://localhost:6969/Staff/Archive) and http://localhost:6969/Staff/Archive?page=1&v=34
     - [ ] http://localhost:6969/Staff/Edit/Inventory?v=1
