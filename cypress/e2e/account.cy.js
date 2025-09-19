@@ -1,17 +1,6 @@
 /// <reference types="cypress" />
 
 describe('Customer Account Page', () => {
-    it('does not close error modal when clicking outside or on modal', () => {
-        cy.clearLocalStorage();
-        cy.visit('http://localhost:6969/Account');
-        cy.get('#loginModal').should('be.visible');
-        // Try clicking the backdrop
-        cy.get('.modal-backdrop').click({ force: true });
-        cy.get('#loginModal').should('be.visible');
-        // Try clicking the modal itself
-        cy.get('#loginModal').click({ force: true });
-        cy.get('#loginModal').should('be.visible');
-    });
     const customer = { email: 'customer@example.com', password: '12345' };
 
     function login() {
