@@ -22,10 +22,53 @@ function fetchInventory() {
                         <td>${inv.store_address}</td>
                         <td>${inv.rented ? `Yes, user ${inv.last_customer_id}` : 'No'}</td>
                         <td>
+                            <button class="btn btn-secondary btn-sm edit-store-btn" data-id="${inv.inventory_id}" data-store="${inv.store_id}">Edit Store</button>
                             ${inv.rented ? `<button class="btn btn-warning btn-sm return-btn" data-id="${inv.inventory_id}">Return</button>` : ''}
                         </td>
                     `;
                     tbody.appendChild(tr);
+                });
+                // Edit Store Modal logic
+                const editStoreModal = new bootstrap.Modal(document.getElementById('editStoreModal'));
+                const editStoreForm = document.getElementById('edit-store-form');
+                const editInventoryIdInput = document.getElementById('edit-inventory-id');
+                const editStoreIdInput = document.getElementById('edit-store-id');
+
+                inventoryTable.addEventListener('click', e => {
+                    if (e.target.classList.contains('edit-store-btn')) {
+                        const inventory_id = e.target.getAttribute('data-id');
+                        const current_store_id = e.target.getAttribute('data-store');
+                        editInventoryIdInput.value = inventory_id;
+                        editStoreIdInput.value = current_store_id;
+                        editStoreModal.show();
+                    }
+                });
+
+                editStoreForm.addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    const inventory_id = editInventoryIdInput.value;
+                    const new_store_id = editStoreIdInput.value;
+                    const payload = {
+                        userId,
+                        inventory_id: parseInt(inventory_id),
+                        store_id: parseInt(new_store_id),
+                        sessionToken: token
+                    };
+                    fetch('/api/inventory', {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    })
+                        .then(res => res.json())
+                        .then(result => {
+                            if (result.success) {
+                                editStoreModal.hide();
+                                fetchInventory();
+                            } else {
+                                alert(`Failed to update store: ${result.message}`);
+                            }
+                        })
+                        .catch(err => console.error('Error updating store:', err));
                 });
             }
         });
