@@ -41,6 +41,11 @@ body,
     text-decoration: underline;
 }
 
+.login-links-row * {
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .customer-login-title {
     font-size: 2rem;
     font-weight: 700;

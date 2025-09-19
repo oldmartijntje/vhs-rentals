@@ -29,6 +29,11 @@ body,
     margin-top: 1rem;
 }
 
+.login-links-row * {
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .login-links-row a {
     color: #5ecbfa;
     text-decoration: none;
