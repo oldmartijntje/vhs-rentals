@@ -48,6 +48,7 @@ export function getDetailedInventoryStatusFromDatabase(film_id, callback) {
     i.store_id,
     i.film_id,
     f.title AS film_name,
+    f.rental_rate AS film_price,
     CONCAT(a.address, ', ', ci.city, ', ', co.country) AS store_address,
     -- rented boolean: true if rented and not yet returned
     CASE 
@@ -276,7 +277,7 @@ export function getAllCurrentlyRentedInventory(film_id, callback) {
 export function getCurrentRentalsForCustomer(customer_id, callback) {
     if (invalidNumber(customer_id, 0, Infinity)) throw new Error(`Number: "${customer_id}"\nDid you not sanitize your inputs??`);
     pool.query(
-        `SELECT r.rental_id, r.inventory_id, r.rental_date, r.return_date, i.film_id, f.title AS film_name
+        `SELECT r.rental_id, r.inventory_id, r.rental_date, r.return_date, i.film_id, f.title AS film_name, f.rental_rate AS film_price
          FROM rental r
          JOIN inventory i ON r.inventory_id = i.inventory_id
          JOIN film f ON i.film_id = f.film_id
@@ -343,6 +344,7 @@ export function getArchivedRentalsServiceForCustomer(customer_id, film_id, callb
             i.inventory_id,
             i.film_id,
             f.title AS film_name,
+            f.rental_rate AS film_price,
             CONCAT(a.address, ', ', ci.city, ', ', co.country) AS store_address,
             r.customer_id,
             r.rental_id,
