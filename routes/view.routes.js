@@ -38,6 +38,9 @@ viewRouter.get('/Staff/Archive', (req, res) => {
 viewRouter.get('/Rent', (req, res) => {
     res.render('pages/inventory', { title: 'Rent Film' });
 });
+viewRouter.get('/Rented', (req, res) => {
+    res.render('pages/rented', { title: 'Your Rentals' });
+});
 viewRouter.get('/Staff/Rented', (req, res) => {
     res.render('pages/staff/all-rented', { title: 'Rental' });
 });

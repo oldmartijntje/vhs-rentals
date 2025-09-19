@@ -46,14 +46,21 @@ function renderInventory(items) {
             <td>${item.store_id}</td>
             <td>${item.store_address}</td>
             <td>${item.rented === 0 ? '<span class="text-success">Available</span>' : (item.you ? '<span class="text-warning">Rented by you</span>' : '<span class="text-danger">Rented</span>')}</td>
-            <td>${item.rented === 0 ? `<button class="btn btn-primary rent-btn" data-id="${item.inventory_id}">Rent</button>` : ''}</td>
+            <td>${item.rented === 0 ? `<button class="btn btn-primary rent-btn" data-id="${item.inventory_id}">Rent</button>` : ''}
+${item.you ? `<button class="btn btn-danger btn-sm return-btn" data-id="${item.inventory_id}">Return</button>` : ''}</td>
         </tr>`;
     });
     html += '</tbody></table>';
+    html += '<div id="return-message" class="mt-3"></div>';
     inventoryList.innerHTML = html;
     document.querySelectorAll('.rent-btn').forEach(btn => {
         btn.addEventListener('click', function () {
             rentCopy(this.getAttribute('data-id'));
+        });
+    });
+    document.querySelectorAll('.return-btn').forEach(btn => {
+        btn.addEventListener('click', function () {
+            returnCopy(this.getAttribute('data-id'));
         });
     });
 }
@@ -72,6 +79,26 @@ function rentCopy(inventoryId) {
         } else {
             document.getElementById('rental-confirmation').style.display = '';
             document.getElementById('rental-confirmation').innerHTML = `<div class="alert alert-danger">Rental failed.</div>`;
+        }
+    });
+}
+
+function returnCopy(inventoryId) {
+    fetch('/api/inventory/return-user', {
+        method: 'PUT',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ userId, inventory_id: Number(inventoryId), sessionToken: token })
+    }).then(async res => {
+        const result = await res.json();
+        const msgDiv = document.getElementById('return-message');
+        if (res.ok && result.success) {
+            msgDiv.innerHTML = '<div class="alert alert-success">Returned successfully!</div>';
+            setTimeout(() => location.reload(), 1500);
+        } else {
+            msgDiv.innerHTML = `<div class="alert alert-danger">${result.message || 'Return failed.'}</div>`;
         }
     });
 }
