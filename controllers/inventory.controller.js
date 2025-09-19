@@ -33,12 +33,15 @@ export function getInventoryData(req, res) {
                 invalidAuthenticationAttemptResponse(res);
                 return;
             }
-            if (!auth.authorizationCheck([UserType.STAFF, UserType.STORE_OWNER])) {
-                forbiddenResponse(res);
-                return;
-            }
+
             getInventoryDataByFilm(film_id, (result) => {
                 if (result == null) return tryCatchResponse(res, "something went wrong");
+                if (!auth.authorizationCheck([UserType.STAFF, UserType.STORE_OWNER])) {
+                    result.forEach(element => {
+                        element.last_customer_id = undefined;
+                        element.last_rental_id = undefined;
+                    });
+                }
                 okResponse(res, result);
                 return;
             })
