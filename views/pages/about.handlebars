@@ -40,12 +40,12 @@
                         <li class="list-group-item"><input type="checkbox" checked disabled> MVC-architectuur</li>
                         <li class="list-group-item"><input type="checkbox" checked disabled> Sakila verhuurcasus via een MySql relationele database</li>
                         <li class="list-group-item"><input type="checkbox" disabled> De applicatie is stabiel, crasht niet, en werkt foutloos.</li>
-                        <li class="list-group-item"><input type="checkbox" disabled> Een foutsituatie leidt naar passende foutmelding.</li>
-                        <li class="list-group-item"><input type="checkbox" checked disabled> Online MySql database</li>
-                        <li class="list-group-item"><input type="checkbox" checked disabled> Functionaliteit getest met geautomatiseerde testcases</li>
-                        <li class="list-group-item"><input type="checkbox" disabled> Heldere beschrijving van server in README.md</li>
-                        <li class="list-group-item"><input type="checkbox" checked disabled> Authenticatie</li>
-                        <li class="list-group-item"><input type="checkbox" disabled> UX richtlijnen gevolgd</li>
+                        <li class="list-group-item"><input type="checkbox" disabled> Een foutsituatie leidt de gebruiker altijd naar een scherm met een passende, heldere foutmelding.</li>
+                        <li class="list-group-item"><input type="checkbox" checked disabled> De online applicatie maakt gebruik van een online MySql database.</li>
+                        <li class="list-group-item"><input type="checkbox" checked disabled> De functionaliteit die je gemaakt hebt is getest met correcte, passende, en goed uitgewerkte, geautomatiseerde testcases die slagen.</li>
+                        <li class="list-group-item"><input type="checkbox" disabled> Er is een heldere en correcte beschrijving van je server in de readme.md van je code in een online Git repository .</li>
+                        <li class="list-group-item"><input type="checkbox" checked disabled> Je applicatie bevat authenticatie</li>
+                        <li class="list-group-item"><input type="checkbox" disabled> Je applicatie volgt de UX richtlijnen zoals in de lessen is besproken, zodat deze gebruiksvriendelijk is en past bij het gebruikersperspectief dat je gekozen hebt.</li>
                     </ul>
                 </div>
             </div>
@@ -65,8 +65,8 @@
                 data-bs-parent="#epicsAccordion">
                 <div class="accordion-body">
                     <ul>
-                        <li><input type="checkbox" disabled> Als klant wil ik een film kunnen huren zodat ik deze kan bekijken.</li>
-                        <li><input type="checkbox" disabled> Als klant wil ik een gehuurde film kunnen retourneren zodat ik niet eindeloos betaal.</li>
+                        <li><input type="checkbox" disabled> as a customer I want to be able to rent a movie so that I am able to watch it</li>
+                        <li><input type="checkbox" disabled> as a customer I want to be able to return a rented movie so that I don't get indefinitely billed</li>
                     </ul>
                 </div>
             </div>
@@ -76,17 +76,17 @@
             <h2 class="accordion-header" id="headingMovieMgmt">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                     data-bs-target="#collapseMovieMgmt" aria-expanded="false" aria-controls="collapseMovieMgmt">
-                    Epic: Filmaanbod beheren (staff)
+                    Epic: Movie management (staff)
                 </button>
             </h2>
             <div id="collapseMovieMgmt" class="accordion-collapse collapse" aria-labelledby="headingMovieMgmt"
                 data-bs-parent="#epicsAccordion">
                 <div class="accordion-body">
                     <ul>
-                        <li><input type="checkbox" checked disabled> Als medewerker wil ik een film kunnen bekijken zodat ik klanten kan informeren.</li>
-                        <li><input type="checkbox" checked disabled> Als medewerker wil ik een film kunnen toevoegen zodat we onze collectie kunnen updaten.</li>
-                        <li><input type="checkbox" checked disabled> Als medewerker wil ik een film kunnen bewerken zodat ik fouten kan corrigeren.</li>
-                        <li><input type="checkbox" checked disabled> Als medewerker wil ik een film kunnen verwijderen zodat we onze collectie kunnen updaten.</li>
+                        <li><input type="checkbox" checked disabled> as an employee I want to be able to look at the movies we have in our stores so that I can give specific information to customers</li>
+                        <li><input type="checkbox" checked disabled> as an employee I want to be able to add a movie so that we can update our collection</li>
+                        <li><input type="checkbox" checked disabled> as an employee I want to be able to edit a movie so that I can correct mistakes</li>
+                        <li><input type="checkbox" checked disabled> as an employee I want to be able to remove a movie so that we can update our collection</li>
                     </ul>
                 </div>
             </div>
@@ -96,17 +96,17 @@
             <h2 class="accordion-header" id="headingSearchLib">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                     data-bs-target="#collapseSearchLib" aria-expanded="false" aria-controls="collapseSearchLib">
-                    Epic: Bibliotheek doorzoeken (customer & staff)
+                    Epic: Searching library (customer & staff)
                 </button>
             </h2>
             <div id="collapseSearchLib" class="accordion-collapse collapse" aria-labelledby="headingSearchLib"
                 data-bs-parent="#epicsAccordion">
                 <div class="accordion-body">
                     <ul>
-                        <li><input type="checkbox" checked disabled> Als klant wil ik door de volledige collectie kunnen bladeren zodat ik een film kan vinden die ik leuk vind.</li>
-                        <li><input type="checkbox" checked disabled> Als klant wil ik films kunnen filteren zodat ik niet naar de romantiek categorie hoef te kijken. <span class="text-muted">(filteren op naam, datum, prijs, rating, categorie)</span></li>
-                        <li><input type="checkbox" checked disabled> Als medewerker wil ik door de collectie kunnen bladeren en filteren zodat ik kan zien welke films uitgeleend zijn.</li>
-                        <li><input type="checkbox" checked disabled> Als gebruiker wil ik een film en zijn details kunnen bekijken.</li>
+                        <li><input type="checkbox" checked disabled> as an customer I want to be able to browse the entire movie collection so that I can find a movie that I like</li>
+                        <li><input type="checkbox" checked disabled> as an customer I want to be able to filter the movies so that I do not have to look at the romance category. <span class="text-muted">(being able to filter on name, date, price, rating, category)</span></li>
+                        <li><input type="checkbox" checked disabled> as an employee I want to be able to browse and filter the entire movie collection so that I can see movies that are out, and am able to give correct suggestions to customers</li>
+                        <li><input type="checkbox" checked disabled> as an user I want to be able to view any movie and it's details so that i can proceed from there correctly</li>
                     </ul>
                 </div>
             </div>
@@ -116,14 +116,14 @@
             <h2 class="accordion-header" id="headingRentHist">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                     data-bs-target="#collapseRentHist" aria-expanded="false" aria-controls="collapseRentHist">
-                    Epic: Verhuurgeschiedenis (customer)
+                    Epic: Renting history (customer)
                 </button>
             </h2>
             <div id="collapseRentHist" class="accordion-collapse collapse" aria-labelledby="headingRentHist"
                 data-bs-parent="#epicsAccordion">
                 <div class="accordion-body">
                     <ul>
-                        <li><input type="checkbox" disabled> Als klant wil ik mijn verhuurgeschiedenis kunnen bekijken.</li>
+                        <li><input type="checkbox" disabled> as an customer I want to be able to look at my renting history so that I can see which items I still need to return, and so that I am able to check for payment mistakes</li>
                     </ul>
                 </div>
             </div>
@@ -133,15 +133,15 @@
             <h2 class="accordion-header" id="headingRentalHist">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                     data-bs-target="#collapseRentalHist" aria-expanded="false" aria-controls="collapseRentalHist">
-                    Epic: Verhuurgeschiedenis (staff)
+                    Epic: Rental history (staff)
                 </button>
             </h2>
             <div id="collapseRentalHist" class="accordion-collapse collapse" aria-labelledby="headingRentalHist"
                 data-bs-parent="#epicsAccordion">
                 <div class="accordion-body">
                     <ul>
-                        <li><input type="checkbox" disabled> Als medewerker wil ik een specifiek exemplaar van een film kunnen bekijken.</li>
-                        <li><input type="checkbox" disabled> Als medewerker wil ik de verhuurgeschiedenis van een exemplaar kunnen bekijken.</li>
+                        <li><input type="checkbox" checked disabled> as an employee I want to be able to look at a specific copy of a movie so that I can see the specific copies separately</li>
+                        <li><input type="checkbox" checked disabled> as an employee I want to be able to look at the renting history of a specific movie copy so that we can look for fraud</li>
                     </ul>
                 </div>
             </div>
@@ -151,18 +151,17 @@
             <h2 class="accordion-header" id="headingInventory">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                     data-bs-target="#collapseInventory" aria-expanded="false" aria-controls="collapseInventory">
-                    Epic: Inventarisbeheer (staff)
+                    Epic: Inventory management (staff)
                 </button>
             </h2>
             <div id="collapseInventory" class="accordion-collapse collapse" aria-labelledby="headingInventory"
                 data-bs-parent="#epicsAccordion">
                 <div class="accordion-body">
                     <ul>
-                        <li><input type="checkbox" disabled> Als medewerker wil ik de inventaris van een film kunnen bekijken.</li>
-                        <li><input type="checkbox" disabled> Als medewerker wil ik kunnen zien wie een exemplaar huurt.</li>
-                        <li><input type="checkbox" disabled> Als medewerker wil ik een nieuw exemplaar kunnen toevoegen aan de inventaris.</li>
-                        <li><input type="checkbox" disabled> Als medewerker wil ik een exemplaar kunnen verplaatsen tussen winkels.</li>
-                        <li><input type="checkbox" disabled> Als medewerker wil ik een exemplaar kunnen verwijderen uit de inventaris.</li>
+                        <li><input type="checkbox" checked disabled> as an employee I want to be able to look at the inventry for a specific film so that i can see whether we still have it in storage</li>
+                        <li><input type="checkbox" checked disabled> as an employee I want to be able to add a new copy of a film to the inventory of 1 of our stores, so that we can actually keep the website up to date.</li>
+                        <li><input type="checkbox" checked disabled> as an employee I want to be able to be able to move a copy from 1 store to another so that i people can return copies to any store of their choice, no matter where they rented it from.</li>
+                        <li><input type="checkbox" checked disabled> as an employee I want to be able to remove a copy from our inventory so that we can remove stolen items from our website.</li>
                     </ul>
                 </div>
             </div>
@@ -179,27 +178,10 @@
                 data-bs-parent="#epicsAccordion">
                 <div class="accordion-body">
                     <ul>
-                        <li><input type="checkbox" checked disabled> Als gebruiker wil ik kunnen inloggen.</li>
-                        <li><input type="checkbox" checked disabled> Als medewerker wil ik kunnen inloggen.</li>
-                        <li><input type="checkbox" checked disabled> Als gebruiker wil ik ingelogd blijven met sessie- en refresh tokens.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!-- Sessions Epic -->
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="headingSessions">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapseSessions" aria-expanded="false" aria-controls="collapseSessions">
-                    Epic: Sessies (customer & staff)
-                </button>
-            </h2>
-            <div id="collapseSessions" class="accordion-collapse collapse" aria-labelledby="headingSessions"
-                data-bs-parent="#epicsAccordion">
-                <div class="accordion-body">
-                    <ul>
-                        <li><input type="checkbox" checked disabled> Als gebruiker wil ik ingelogd blijven met sessie- en refresh tokens.</li>
-                        <li><input type="checkbox" checked disabled> Als gebruiker wil ik de volgende dag terug kunnen komen zonder opnieuw in te loggen.</li>
+                        <li><input type="checkbox" checked disabled> as an user I want to be able to login so that I can see personal information</li>
+                        <li><input type="checkbox" checked disabled> as an employee I want to be able to login so that I can do my job correctly</li>
+                        <li><input type="checkbox" checked disabled> as an user I want to be able to stay logged in so that I don't need so send my login over the internet at every request</li>
+                        <li><input type="checkbox" checked disabled> as an user I want to bew able to return to the website the next day without having to login again, so that using the website is an easier process for me.</li>
                     </ul>
                 </div>
             </div>
@@ -212,25 +194,26 @@
                 <div class="card-body">
                     <h5 class="card-title">Concrete Pagina's</h5>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><input type="checkbox" checked disabled> /Film?v=1000</li>
-                        <li class="list-group-item"><input type="checkbox" checked disabled> /Catalogue</li>
-                        <li class="list-group-item"><input type="checkbox" checked disabled> /Account</li>
-                        <li class="list-group-item"><input type="checkbox" disabled> /Staff/Dashboard</li>
-                        <li class="list-group-item"><input type="checkbox" disabled> /Rent?v=1000</li>
-                        <li class="list-group-item"><input type="checkbox" disabled> /Customer/History?v=1000</li>
-                        <li class="list-group-item"><input type="checkbox" disabled> /Customer/History</li>
-                        <li class="list-group-item"><input type="checkbox" disabled> /Rented</li>
-                        <li class="list-group-item"><input type="checkbox" disabled> /Staff/FilmHistory?v=1000</li>
-                        <li class="list-group-item"><input type="checkbox" checked disabled> /Staff/Edit/Film?v=1000</li>
-                        <li class="list-group-item"><input type="checkbox" disabled> /Staff/Edit/Inventory?v=1000</li>
-                        <li class="list-group-item"><input type="checkbox" disabled> /Stores?v=1</li>
+                        <li class="list-group-item"><input type="checkbox" checked disabled> /Film?v=1000 for viewing a specific film</li>
+                        <li class="list-group-item"><input type="checkbox" checked disabled> /Catalogue for viewing the full catalog</li>
+                        <li class="list-group-item"><input type="checkbox" checked disabled> /Account the customer dashboard</li>
+                        <li class="list-group-item"><input type="checkbox" checked disabled> /Staff/Dashboard the staff dashboard</li>
+                        <li class="list-group-item"><input type="checkbox" disabled> /Rent?v=1000 the page to rent a film</li>
+                        <li class="list-group-item"><input type="checkbox" disabled> /Customer/History?v=1000 for viewing your renting history of this item</li>
+                        <li class="list-group-item"><input type="checkbox" disabled> /Customer/History for viewing your entire renting history</li>
+                        <li class="list-group-item"><input type="checkbox" disabled> /Rented for viewing the items that you are currently renting.</li>
+                        <li class="list-group-item"><input type="checkbox" checked disabled> /Staff/Archive?v=1000 so that staff can see renting history</li>
+                        <li class="list-group-item"><input type="checkbox" checked disabled> /Staff/Edit/Film?v=1000 so that staff can CRUD a film</li>
+                        <li class="list-group-item"><input type="checkbox" checked disabled> /Staff/Edit/Inventory?v=1000 so that staff can CRUD the inventory of a film</li>
                     </ul>
                     <h6 class="mt-3">Overige taken</h6>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item"><input type="checkbox" disabled> / (visit us modal fixen)</li>
-                        <li class="list-group-item"><input type="checkbox" checked disabled> authorisatie in auth.js met enums</li>
-                        <li class="list-group-item"><input type="checkbox" disabled> info opvragen over staff (store owners)</li>
-                        <li class="list-group-item"><input type="checkbox" checked disabled> rating veld max 5 karakters</li>
+                        <li class="list-group-item"><input type="checkbox" checked disabled> authorisation in auth.js with enums</li>
+                        <li class="list-group-item"><input type="checkbox" disabled> get info on staff, whether they are store owners</li>
+                        <li class="list-group-item"><input type="checkbox" checked disabled> limit form RATING field to max 5 characters</li>
+                        <li class="list-group-item"><input type="checkbox" disabled> remove the CICD test for the login, forgot password button</li>
+                        <li class="list-group-item"><input type="checkbox" disabled> add CICD tests for pages (Archive, Edit Inventory)</li>
                     </ul>
                 </div>
             </div>

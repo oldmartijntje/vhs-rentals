@@ -123,16 +123,16 @@ Here I will list the pages that I need to work on that are already referenced:
 - [x] http://localhost:3000/Staff/Edit/Film?v=1000 so that staff can CRUD a film
 - [x] http://localhost:3000/Staff/Edit/Inventory?v=1000 so that staff can CRUD the inventory of a film
 
-The ones that are not referenced yet, but I know I have to make them
-
-- [ ] http://localhost:3000/Stores?v=1 for the viewing of a specific location
-
 Other things to do:
 
 - [ ] http://localhost:3000/, fix the "visit us" modal
 - [x] authorisation in auth.js with enums
 - [ ] get info on staff, whether they are store owners
 - [x] limit form RATING field to max 5 characters
+- [ ] remove the CICD test for the login, forgot password button
+- [ ] add CICD tests for pages
+    - [ ] [Archive](http://localhost:6969/Staff/Archive) and http://localhost:6969/Staff/Archive?page=1&v=34
+    - [ ] http://localhost:6969/Staff/Edit/Inventory?v=1
 
 
 ## Upgrades possible
