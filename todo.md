@@ -84,11 +84,10 @@
 
 **inventory management**
 
-* [ ] 1. as an employee I want to be able to look at the inventry for a specific film so that i can see whether we still have it in storage
-* [ ] 2. as an employee I want to be able to look at who is renting a copy from our inventory, so that i can make sure it is returned in time.
-* [ ] 3. as an employee I want to be able to add a new copy of a film to the inventory of 1 of our stores, so that we can actually keep the website up to date.
-* [ ] 4. as an employee I want to be able to be able to move a copy from 1 store to another so that i people can return copies to any store of their choice, no matter where they rented it from.
-* [ ] 5. as an employee I want to be able to remove a copy from our inventory so that we can remove stolen items from our website.
+* [x] 1. as an employee I want to be able to look at the inventry for a specific film so that i can see whether we still have it in storage
+* [x] 2. as an employee I want to be able to add a new copy of a film to the inventory of 1 of our stores, so that we can actually keep the website up to date.
+* [ ] 3. as an employee I want to be able to be able to move a copy from 1 store to another so that i people can return copies to any store of their choice, no matter where they rented it from.
+* [ ] 4. as an employee I want to be able to remove a copy from our inventory so that we can remove stolen items from our website.
 
 **Login**
 
@@ -122,7 +121,7 @@ Here I will list the pages that I need to work on that are already referenced:
 - [ ] http://localhost:3000/Rented for viewing the items that you are currently renting.
 - [ ] http://localhost:3000/Staff/FilmHistory?v=1000 so that staff can see renting history
 - [x] http://localhost:3000/Staff/Edit/Film?v=1000 so that staff can CRUD a film
-- [ ] http://localhost:3000/Staff/Edit/Inventory?v=1000 so that staff can CRUD the inventory of a film
+- [x] http://localhost:3000/Staff/Edit/Inventory?v=1000 so that staff can CRUD the inventory of a film
 
 The ones that are not referenced yet, but I know I have to make them
 

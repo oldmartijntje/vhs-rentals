@@ -46,6 +46,8 @@ export function getDetailedInventoryStatusFromDatabase(film_id, callback) {
     pool.query(`SELECT 
     i.inventory_id,
     i.store_id,
+    i.film_id,
+    f.title AS film_name,
     CONCAT(a.address, ', ', ci.city, ', ', co.country) AS store_address,
     -- rented boolean: true if rented and not yet returned
     CASE 
@@ -62,6 +64,7 @@ JOIN store s ON i.store_id = s.store_id
 JOIN address a ON s.address_id = a.address_id
 JOIN city ci ON a.city_id = ci.city_id
 JOIN country co ON ci.country_id = co.country_id
+JOIN film f ON i.film_id = f.film_id
 LEFT JOIN (
     -- Get the latest rental for each inventory_id
     SELECT r1.*
