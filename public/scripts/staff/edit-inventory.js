@@ -12,8 +12,10 @@ function fetchInventory() {
             tbody.innerHTML = '';
             if (Array.isArray(data)) {
                 let title = document.getElementById("filmName");
-                title.innerHTML = data[0].film_name;
-                title.href = "/Film?v=" + data[0].film_id;
+                if (data.length > 0) {
+                    title.innerHTML = data[0].film_name;
+                }
+                title.href = "/Film?v=" + film_id;
                 data.forEach(inv => {
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
