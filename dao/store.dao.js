@@ -49,3 +49,35 @@ export function getStoreAddressesFromDatabase(store_ids, callback) {
         return callback(results);
     });
 }
+
+export function getAllStoreAddressesFromDatabase(callback) {
+    const sql = `
+        SELECT 
+            a.address,
+            a.address2,
+            a.district,
+            a.city_id,
+            a.postal_code,
+            s.manager_staff_id,
+            a.phone,
+            s.store_id,
+            c.city AS city_name,
+            c.country_id,
+            co.country AS country_name
+        FROM store s
+        JOIN address a ON s.address_id = a.address_id
+        JOIN city c ON a.city_id = c.city_id
+        JOIN country co ON c.country_id = co.country_id;
+    `;
+
+    pool.query(sql, (err, results) => {
+        if (err) {
+            logger.error(`error at 'getAllStoreAddressesFromDatabase' method: ${err}`);
+            return callback(null);
+        }
+        if (!results || results.length === 0) {
+            return callback(404);
+        }
+        return callback(results);
+    });
+}
