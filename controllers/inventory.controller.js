@@ -10,6 +10,7 @@ import { logger } from '../middleware/logger.js';
 import { customerReturnInventory, getAllRentedInventory, getArchivedRentalsService, getArchivedRentalsServiceForCustomers, getCustomerCurrentRentals, getInventoryDataByFilm, rentInventoryToCustomer } from '../services/inventory.service.js';
 import { addInventoryItem } from '../services/inventory.service.js';
 import { returnRentalNow, editInventoryStoreId } from '../services/inventory.service.js';
+import { deleteInventoryItem } from '../services/inventory.service.js';
 
 /**
  * 
@@ -337,6 +338,40 @@ export function getArchivedRentalsController(req, res) {
                 forbiddenResponse(res);
                 return;
             }
+        });
+    } catch (e) {
+        tryCatchResponse(res, e);
+        return;
+    }
+}
+
+/**
+ * Delete an inventory item (staff/store owner only)
+ */
+export function deleteInventoryItemController(req, res) {
+    try {
+        const { inventory_id, userId, sessionToken } = req.query;
+        if (!userId) return queryParamMissingResponse(res, 'userId');
+        if (!inventory_id) return queryParamMissingResponse(res, 'inventory_id');
+        if (!sessionToken) return queryParamMissingResponse(res, 'sessionToken');
+        if (invalidNumberResponse(res, userId, 'userId', 0, Infinity)) return;
+        if (invalidNumberResponse(res, inventory_id, 'inventory_id', 0, Infinity)) return;
+
+        const auth = new Auth(userId, sessionToken);
+        auth.validate((isValidated) => {
+            if (!isValidated) {
+                invalidAuthenticationAttemptResponse(res);
+                return;
+            }
+            if (!auth.authorizationCheck([UserType.STAFF, UserType.STORE_OWNER])) {
+                forbiddenResponse(res);
+                return;
+            }
+            deleteInventoryItem(inventory_id, (success) => {
+                if (!success) return tryCatchResponse(res, "something went wrong or inventory not found");
+                okResponse(res, { success: true });
+                return;
+            });
         });
     } catch (e) {
         tryCatchResponse(res, e);

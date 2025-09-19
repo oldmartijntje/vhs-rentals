@@ -110,6 +110,25 @@ export function addInventoryItemToDatabase(film_id, store_id, callback) {
         }
     );
 }
+/**
+ * Delete an inventory item by inventory_id
+ * @param {number} inventory_id
+ * @param {function} callback
+ */
+export function deleteInventoryItemFromDatabase(inventory_id, callback) {
+    if (invalidNumber(inventory_id, 0, Infinity)) throw new Error(`Number: "${inventory_id}"\nDid you not sanitize your inputs??`);
+    pool.query(
+        `DELETE FROM inventory WHERE inventory_id = ?`,
+        [inventory_id],
+        (err, result) => {
+            if (err) {
+                logger.error(`error at 'deleteInventoryItemFromDatabase' method: ${err}`);
+                return callback(null);
+            }
+            return callback(result.affectedRows > 0);
+        }
+    );
+}
 
 /**
  * Set return_date of the latest open rental for an inventory item to NOW()
@@ -352,3 +371,4 @@ export function getArchivedRentalsServiceForCustomer(customer_id, film_id, callb
         return callback(results);
     });
 }
+
