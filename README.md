@@ -8,7 +8,7 @@ it uses `nodejs` + `express` as backend. It uses `mariadb` as database, it also 
 1. run `npm run setup`, this will guide you through setting up your `settings.json` and your `.env`. That being said, of course you can edit those yourself aswell.
 2. import the `sakila_db_dump.sql` into your mariadb to get the same structure and data.
 
-### setup with docker
+### setup my version with docker
 
 Below you can see the docker-compose.
 
@@ -22,6 +22,20 @@ services:
     env_file:
       - .env
 ```
+
+And then place the following .env values (filled in of coarse):
+
+```
+DB_HOST=
+DB_USER=
+DB_PASSWORD=
+DB_DATABASE=
+DB_PORT=
+```
+
+TIP: copy this .env from your repo after you have ran the `npm run setup`, this will have the same fields filled in
+
+#### Autodeploy your forked repo
 
 For me it automatically deploys new versions to my docker, it does this by using ssh to connect to my vps. But i am not sharing these credentials.
 
