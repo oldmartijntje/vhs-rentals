@@ -125,12 +125,13 @@ Here I will list the pages that I need to work on that are already referenced:
 
 Other things to do:
 
-- [ ] http://localhost:3000/, fix the "visit us" modal
+- [x] http://localhost:3000/, fix the "visit us" modal
 - [x] show price on renting and rented pages
 - [x] authorisation in auth.js with enums
 - [ ] get info on staff, whether they are store owners
 - [x] limit form RATING field to max 5 characters
 - [x] remove the CICD test for the login, forgot password button
+- [ ] make catalogue use dropdowns
 - [ ] add CICD tests for pages
     - [ ] [Archive](http://localhost:6969/Staff/Archive) and http://localhost:6969/Staff/Archive?page=1&v=34
     - [ ] http://localhost:6969/Staff/Edit/Inventory?v=1

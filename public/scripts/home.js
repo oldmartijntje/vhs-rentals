@@ -35,4 +35,28 @@ document.addEventListener('DOMContentLoaded', function () {
                 newestArrivalsContainer.innerHTML = '<div class="text-danger">Failed to load newest arrivals.</div>';
             });
     }
+
+    // Store locations dropdown dynamic loading
+    const storeDropdown = document.getElementById('store-locations-dropdown');
+    if (storeDropdown) {
+        fetch('/api/store')
+            .then(res => res.json())
+            .then(stores => {
+                storeDropdown.innerHTML = '';
+                if (Array.isArray(stores) && stores.length > 0) {
+                    stores.forEach(store => {
+                        const address = [store.address, store.address2].filter(Boolean).join(', ');
+                        const locationText = `${store.city_name}, ${store.country_name}`;
+                        const li = document.createElement('li');
+                        li.innerHTML = `<span class="dropdown-item">${locationText}</span>`;
+                        storeDropdown.appendChild(li);
+                    });
+                } else {
+                    storeDropdown.innerHTML = '<li><span class="dropdown-item text-muted">No locations found.</span></li>';
+                }
+            })
+            .catch(() => {
+                storeDropdown.innerHTML = '<li><span class="dropdown-item text-danger">Failed to load locations.</span></li>';
+            });
+    }
 });
