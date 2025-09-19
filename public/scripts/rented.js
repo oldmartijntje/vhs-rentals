@@ -1,14 +1,3 @@
-const data = localStorage.getItem("vhs_rental_user");
-let userId, token;
-if (data != null) {
-    try {
-        let dataObject = JSON.parse(atob(data));
-        if (dataObject.userId && dataObject.token) {
-            userId = dataObject.userId;
-            token = dataObject.token;
-        }
-    } catch (e) { }
-}
 if (!userId || !token) {
     document.getElementById('rented-list').innerHTML = '<div class="alert alert-danger">Missing user info.</div>';
 } else {
