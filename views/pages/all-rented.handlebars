@@ -1,0 +1,38 @@
+{{!-- views/pages/all-rented.handlebars --}}
+{{!-- This page displays all currently rented items. --}}
+
+{{! Extend the main layout }}
+{{#> layouts/main}}
+    <h1>Currently Rented Items</h1>
+    <div class="container mt-4">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Inventory ID</th>
+                    <th>Film Name</th>
+                    <th>Store Address</th>
+                    <th>Customer ID</th>
+                    <th>Rental ID</th>
+                    <th>Rental Date</th>
+                    <th>Return Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each rentedItems}}
+                <tr>
+                    <td>{{inventory_id}}</td>
+                    <td>{{film_name}}</td>
+                    <td>{{store_address}}</td>
+                    <td>{{customer_id}}</td>
+                    <td>{{rental_id}}</td>
+                    <td>{{rental_date}}</td>
+                    <td>{{return_date}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        {{#unless rentedItems}}
+            <p>No items are currently rented out.</p>
+        {{/unless}}
+    </div>
+{{/layouts/main}}

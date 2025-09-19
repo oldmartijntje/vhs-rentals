@@ -74,7 +74,10 @@ function renderArchive(page) {
                     <strong>Rental ID:</strong> ${item.rental_id}<br>
                     <strong>Rental Date:</strong> ${new Date(item.rental_date).toLocaleString()}<br>
                     <strong>Return Date:</strong> ${new Date(item.return_date).toLocaleString()}<br>
-                    <strong>Film Id:</strong> ${item.film_id}<br>
+                    <strong>Film Id:</strong> ${item.film_id}, 
+                    <a class="btn btn-sm btn-secondary" href="/Staff/Archive?v=${item.film_id}">Filter</a>
+                    <a class="btn btn-sm btn-secondary" href="/Staff/Rented?v=${item.film_id}">View Current Rentals</a>
+                    <br>
                     <strong>Film Name:</strong> <a href="/Film?v=${item.film_id}">${item.film_name}</a><br>
                 </div>
             </div>

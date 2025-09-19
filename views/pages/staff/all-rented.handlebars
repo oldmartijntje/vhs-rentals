@@ -1,0 +1,20 @@
+<div class="container mt-5">
+    <h1 class="mb-4 text-center">Currently Rented Inventory</h1>
+    <div class="mb-3" style="max-width: 500px; margin: 0 auto;">
+        <label for="filmIdInput" class="form-label">Filter by Film ID</label>
+        <input type="number" id="filmIdInput" class="form-control" placeholder="Enter Film ID (optional)">
+        <button id="filterBtn" class="btn btn-primary mt-2 w-100">Filter</button>
+    </div>
+    <div id="filtered-movie-header" class="text-center mb-4"></div>
+    <nav aria-label="Currently rented pagination top" class="mb-3">
+        <ul class="pagination justify-content-center" id="rented-pagination-top"></ul>
+    </nav>
+    <div class="d-flex justify-content-center">
+        <div id="rented-accordion" class="accordion w-100" style="max-width: 700px;"></div>
+    </div>
+    <nav>
+        <ul class="pagination justify-content-center mt-4" id="rented-pagination"></ul>
+    </nav>
+</div>
+<script src="/static/scripts/helper/youAreNotStaff.js"></script>
+<script src="/static/scripts/staff/all-rented.js"></script>
